@@ -1,24 +1,30 @@
 import org.scalatest.FunSuite
-import Solution.{climbStairs, climbStairsRecursive}
+import Solution._
 
 
 class SolutionTest extends FunSuite {
   test("Climb stairs") {
-    assert(climbStairs(-1) == 0)
-    assert(climbStairs(0) == 0)
-    assert(climbStairs(1) == 1)
-    assert(climbStairs(2) == 2)
-    assert(climbStairs(3) == 3)
-    assert(climbStairs(4) == 5)
-    assert(climbStairs(5) == 8)
+    val conditions = Array((-1, 0), (0, 0), (1, 1), (2, 2), (3, 3), (4, 5), (5, 8))
+
+    for (cond <- conditions) {
+      assert(climbStairs(cond._1) == cond._2)
+      assert(climbStairsRecursive(cond._1) == cond._2)
+    }
   }
 
-  test("Climb stairs recursive") {
-    assert(climbStairsRecursive(1) == 1)
-    assert(climbStairsRecursive(2) == 2)
-    assert(climbStairsRecursive(3) == 3)
-    assert(climbStairsRecursive(4) == 5)
-    assert(climbStairsRecursive(5) == 8)
+  test("House Robber") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(1,2,3,1), 4),
+      (Array(2,7,9,3,1), 12),
+      (Array(114,117,207,117,235,82,90,67,143,146,53,108,200,91,80,223,58,170,110,236,81,90,222,160,165,195,187,199,114,235,197,187,69,129,64,214,228,78,188,67,205,94,205,169,241,202,144,240), 4173),
+      (Array(0), 0),
+      (Array(7), 7)
+    )
+
+      for (cond <- conditions) {
+        assert(rob(cond._1) == cond._2)
+        assert(robRecursive(cond._1) == cond._2)
+      }
   }
 
 }
