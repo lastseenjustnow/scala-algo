@@ -85,4 +85,46 @@ object Solution {
         rec(nums.length - 1, baseCase)._1
     }
   }
+
+  def minCostClimbingStairs(cost: Array[Int]): Int = {
+    /**
+     * Bottom up implementation
+     * Time:  O(n)
+     * Space: O(1)
+     */
+    cost.length match {
+      case x if x < 1 => 0
+      case x if x == 1 => cost(0)
+      case _ =>
+        var costs = (cost(0), cost(1))
+        for (i <- 2 until cost.length) {
+          costs = (costs._2, costs._1 + cost(i) min costs._2 + cost(i))
+        }
+        costs._1 min costs._2
+    }
+  }
+
+  def minCostClimbingStairsRecursive(cost: Array[Int]): Int = {
+
+    def rec(i: Int, memo: Map[Int, Int]): (Int, Map[Int, Int]) = {
+      (i, memo) match {
+        case (i, memo) if memo.contains(i) => (memo(i), memo)
+        case _ =>
+          val firstTerm = rec(i - 1, memo)
+          val secondTerm = rec(i - 2, firstTerm._2)
+          val maxValue = firstTerm._1 + cost(i) min secondTerm._1 + cost(i)
+          (maxValue, secondTerm._2 + (i -> maxValue))
+      }
+    }
+
+    cost.length match {
+      case x if x <= 0 => 0
+      case x if x == 1 => cost(0)
+      case _ =>
+        val baseCase: Map[Int, Int] = Map(0 -> cost(0), 1 -> cost(1))
+        val result = rec(cost.length - 1, baseCase)
+        result._1 min result._2(cost.length - 2)
+    }
+  }
+
 }
