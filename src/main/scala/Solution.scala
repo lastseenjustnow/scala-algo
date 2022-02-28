@@ -127,4 +127,42 @@ object Solution {
     }
   }
 
+  def tribonacci(n: Int): Int = {
+    /**
+     * Bottom up implementation
+     * Time:  O(n)
+     * Space: O(1)
+     */
+    n match {
+      case x if x == 0 => 0
+      case x if x < 3 => 1
+      case _ =>
+        var tri: (Int, Int, Int) = (0, 1, 1)
+        for (_ <- 3 to n) {
+          tri = (tri._2, tri._3, tri._1 + tri._2 + tri._3)
+        }
+        tri._3
+    }
+  }
+
+  def tribonacciRecursive(n: Int): Int = {
+    /**
+     * Bottom up implementation
+     * Time:  O(n)
+     * Space: O(n)
+     */
+    def rec(i: Int, memo: Map[Int, Int]): (Int, Map[Int, Int]) = {
+      (i, memo) match {
+        case _ if memo.contains(i) => (memo(i), memo)
+        case _ =>
+          val firstVal = rec(i - 3, memo)
+          val secondVal = rec(i - 2, firstVal._2)
+          val thirdVal = rec(i - 1, secondVal._2)
+          (firstVal._1 + secondVal._1 + thirdVal._1, thirdVal._2 + (i -> (firstVal._1 + secondVal._1 + thirdVal._1)))
+      }
+    }
+
+    rec(n, Map(0 -> 0, 1 -> 1, 2 -> 1))._1
+  }
+
 }

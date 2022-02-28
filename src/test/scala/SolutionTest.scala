@@ -39,4 +39,12 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("N-th Tribonacci Number") {
+    val conditions = Array((3, 2), (4, 4), (25, 1389537))
+
+    for (cond <- conditions) {
+      assert(tribonacci(cond._1) == cond._2)
+      assert(tribonacciRecursive(cond._1) == cond._2)
+    }
+  }
 }
