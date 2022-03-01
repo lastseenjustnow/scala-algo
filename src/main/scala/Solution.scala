@@ -147,7 +147,7 @@ object Solution {
 
   def tribonacciRecursive(n: Int): Int = {
     /**
-     * Bottom up implementation
+     * Top down implementation
      * Time:  O(n)
      * Space: O(n)
      */
@@ -163,6 +163,14 @@ object Solution {
     }
 
     rec(n, Map(0 -> 0, 1 -> 1, 2 -> 1))._1
+  }
+
+  def deleteAndEarn(nums: Array[Int]): Int = {
+    val sums = Array.fill(nums.max){0}
+    for (elem <- nums) {
+      sums(elem - 1) += elem
+    }
+    rob(sums)
   }
 
 }
