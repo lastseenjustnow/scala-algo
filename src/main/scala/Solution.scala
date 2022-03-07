@@ -1,3 +1,6 @@
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
+
 object Solution {
   /**
    * Bottom up implementation
@@ -166,7 +169,9 @@ object Solution {
   }
 
   def deleteAndEarn(nums: Array[Int]): Int = {
-    val sums = Array.fill(nums.max){0}
+    val sums = Array.fill(nums.max) {
+      0
+    }
     for (elem <- nums) {
       sums(elem - 1) += elem
     }
@@ -184,12 +189,39 @@ object Solution {
      * - Remove x from the array nums.
      *
      * Return the maximum score after performing m operations.
+     *
+     * Top down implementation
      * */
-    ???
+    val memo = new mutable.HashMap[(Int, Int), Int]()
+
+    def rec(i: Int, start_i: Int): Int = {
+      i match {
+        case i if i == multipliers.length => 0
+        case _ =>
+          val left = memo.getOrElseUpdate((i + 1, start_i + 1), rec(i + 1, start_i + 1))
+          val right = memo.getOrElseUpdate((i + 1, start_i), rec(i + 1, start_i))
+          (left + nums(start_i) * multipliers(i)) max (right + nums(nums.length - 1 - (i - start_i)) * multipliers(i))
+      }
+    }
+
+    rec(0, 0)
   }
 
   def maximumScore(nums: Array[Int], multipliers: Array[Int]): Int = {
-    ???
+    /**
+     * Bottom up implementation
+     * */
+    val m = multipliers.length
+    val memo: Array[Array[Int]] = Array.fill(m + 1, m + 1)(0)
+
+    for (i <- m - 1 to 0 by -1) {
+      for (left <- i to 0 by -1) {
+        val mult = multipliers(i)
+        val right = nums.length - 1 - (i - left)
+        memo(i)(left) = memo(i + 1)(left + 1) + mult * nums(left) max memo(i + 1)(left) + mult * nums(right)
+      }
+    }
+    memo(0)(0)
   }
 
 }
