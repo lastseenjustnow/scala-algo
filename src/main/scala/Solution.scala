@@ -1,5 +1,4 @@
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
 
 object Solution {
   /**
@@ -222,6 +221,48 @@ object Solution {
       }
     }
     memo(0)(0)
+  }
+
+  def longestCommonSubsequenceRecursive(text1: String, text2: String): Int = {
+    /**
+     * Given two strings text1 and text2, return the length of their longest common subsequence.
+     * If there is no common subsequence, return 0.
+     *
+     * A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+     *
+     * For example, "ace" is a subsequence of "abcde".
+     * A common subsequence of two strings is a subsequence that is common to both strings.
+     *
+     * Top-down implementation
+     * */
+    val memo = new mutable.HashMap[(Int, Int), Int]()
+
+    def rec(left_i: Int, right_i: Int): Int = {
+      (left_i, right_i) match {
+        case (left_i, right_i) if left_i == text1.length || right_i == text2.length => 0
+        case (left_i, right_i) if text1(left_i) == text2(right_i) => rec(left_i + 1, right_i + 1) + 1
+        case _ =>
+          val left = memo.getOrElseUpdate((left_i + 1, right_i), rec(left_i + 1, right_i))
+          val right = memo.getOrElseUpdate((left_i, right_i + 1), rec(left_i, right_i + 1))
+          if (text1(left_i) == text2(right_i)) 1 else 0 + left max right
+      }
+    }
+
+    rec(0, 0)
+  }
+
+  def longestCommonSubsequence(text1: String, text2: String): Int = {
+    /**
+     * Bottom-up implementation
+     * */
+    val memo: Array[Array[Int]] = Array.fill(text1.length + 1, text2.length + 1)(0)
+
+    for (i <- 1 to text1.length) {
+      for (j <- 1 to text2.length) {
+        memo(i)(j) = if (text1(i - 1) == text2(j - 1)) memo(i - 1)(j - 1) + 1 else memo(i - 1)(j) max memo(i)(j - 1)
+      }
+    }
+    memo(text1.length)(text2.length)
   }
 
 }
