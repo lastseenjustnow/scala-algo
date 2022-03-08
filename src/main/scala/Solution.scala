@@ -129,6 +129,16 @@ object Solution {
     }
   }
 
+  def fib(n: Int): Int = {
+    var i = 2
+    var m = (0, 1)
+    while (i <= n) {
+      m = (m._2, m._1 + m._2)
+      i += 1
+    }
+    if (n <= 0) m._1 else m._2
+  }
+
   def tribonacci(n: Int): Int = {
     /**
      * Bottom up implementation
@@ -265,4 +275,48 @@ object Solution {
     memo(text1.length)(text2.length)
   }
 
+  def maximalSquareRecursive(matrix: Array[Array[Char]]): Int = {
+
+    val memo = new mutable.HashMap[(Int, Int), (Int, Int)]()
+
+    def rec(i: Int, j: Int): (Int, Int) = {
+      (i, j) match {
+        case (i, j) if i == 0 || j == 0 => (matrix(j)(i).asDigit, matrix(j)(i).asDigit)
+        case _ =>
+          val upper = memo.getOrElseUpdate((i, j - 1), rec(i, j - 1))
+          val left = memo.getOrElseUpdate((i - 1, j), rec(i - 1, j))
+          val upleft = memo.getOrElseUpdate((i - 1, j - 1), rec(i - 1, j - 1))
+          val minVal = upper._1 min left._1 min upleft._1
+          val this_sq = if (minVal > 0 && matrix(j)(i).asDigit == 1) minVal + 1 else matrix(j)(i).asDigit
+          (this_sq, this_sq max upper._2 max left._2 max upleft._2)
+      }
+    }
+
+    if (matrix.length == 1) {
+      matrix(0).map(x => x.asDigit).max
+    } else if (matrix(0).length == 1) {
+      matrix.map(x => x.head.asDigit).max
+    } else
+      Math.pow(rec(matrix(0).length - 1, matrix.length - 1)._2, 2).toInt
+  }
+
+  def maximalSquare(matrix: Array[Array[Char]]): Int = {
+    val memo: Array[Array[Int]] = matrix.clone().map(x => x.map(y => y.asDigit))
+    val (m, n) = (matrix(0).length, matrix.length)
+    var max_sq = if (matrix.exists( row => row.contains('1'))) 1 else 0
+
+    for (j <- 1 until n) {
+      for (i <- 1 until m) {
+        val minVal = memo(j)(i - 1) min memo(j - 1)(i) min memo(j - 1)(i - 1)
+        memo(j)(i) = if (matrix(j)(i).asDigit == 1 && minVal > 0) minVal + 1 else matrix(j)(i).asDigit
+        max_sq = max_sq max memo(j)(i)
+      }
+    }
+    if (matrix.length == 1) {
+      matrix(0).map(x => x.asDigit).max
+    } else if (matrix(0).length == 1) {
+      matrix.map(x => x.head.asDigit).max
+    } else
+    Math.pow(max_sq, 2).toInt
+  }
 }
