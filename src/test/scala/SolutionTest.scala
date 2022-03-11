@@ -27,6 +27,29 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("House Robber II") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+            (Array(2, 3, 2), 3),
+            (Array(1, 2, 3, 1), 4),
+            (Array(2, 3, 3), 3),
+            (Array(5, 4, 3), 5),
+            (Array(3, 4, 3), 4),
+            (Array(3, 4, 3, 1), 6),
+            (Array(5, 4, 3, 1), 8),
+            (Array(5, 26, 3, 19, 1), 45),
+            (Array(5, 4, 3, 1, 8), 12),
+            (Array(5, 4, 3, 8), 12),
+            (Array(0), 0),
+            (Array(7), 7),
+            (Array(1, 2), 2),
+            (Array(1, 2, 1, 1), 3)
+    )
+
+    for (cond <- conditions) {
+      assert(rob2(cond._1) == cond._2)
+    }
+  }
+
   test("Min Cost Climbing Stairs") {
     val conditions: Array[(Array[Int], Int)] = Array(
       (Array(10, 15, 20), 15),

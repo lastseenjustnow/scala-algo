@@ -88,6 +88,39 @@ object Solution {
     }
   }
 
+  def rob2(nums: Array[Int]): Int = {
+    /**
+     * House robber II
+     *
+     * You are a professional robber planning to rob houses along a street.
+     * Each house has a certain amount of money stashed.
+     *
+     * ''All houses at this place are arranged in a circle.
+     * That means the first house is the neighbor of the last one.''
+     *
+     * Meanwhile, adjacent houses have a security system connected,
+     * and it will automatically contact the police if two adjacent houses were broken into on the same night.
+     *
+     * Given an integer array nums representing the amount of money of each house,
+     * return the maximum amount of money you  can rob tonight without alerting the police.
+     *
+     *
+     * Bottom up implementation
+     * Time:  O(n)
+     * Space: O(1)
+     *
+     * Idea: last and the first one can't be included together - so only the biggest one will be considered to be added to the final result
+     */
+    val n = nums.length
+    val no_first = nums.drop(1)
+    val no_last = nums.take(n - 1)
+    n match {
+      case n if n == 1 => nums(0)
+      case _ => rob(no_first) max rob(no_last)
+    }
+  }
+
+
   def minCostClimbingStairs(cost: Array[Int]): Int = {
     /**
      * Bottom up implementation
@@ -303,7 +336,7 @@ object Solution {
   def maximalSquare(matrix: Array[Array[Char]]): Int = {
     val memo: Array[Array[Int]] = matrix.clone().map(x => x.map(y => y.asDigit))
     val (m, n) = (matrix(0).length, matrix.length)
-    var max_sq = if (matrix.exists( row => row.contains('1'))) 1 else 0
+    var max_sq = if (matrix.exists(row => row.contains('1'))) 1 else 0
 
     for (j <- 1 until n) {
       for (i <- 1 until m) {
@@ -317,6 +350,6 @@ object Solution {
     } else if (matrix(0).length == 1) {
       matrix.map(x => x.head.asDigit).max
     } else
-    Math.pow(max_sq, 2).toInt
+      Math.pow(max_sq, 2).toInt
   }
 }
