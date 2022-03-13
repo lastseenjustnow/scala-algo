@@ -352,4 +352,55 @@ object Solution {
     } else
       Math.pow(max_sq, 2).toInt
   }
+
+  def canJumpRecursive(nums: Array[Int]): Boolean = {
+    /** You are given an integer array nums.
+     * You are initially positioned at the array's first index,
+     * and each element in the array represents your maximum jump length at that position.
+     *
+     * Return true if you can reach the last index, or false otherwise. */
+
+    val memo = new mutable.HashMap[Int, Boolean]()
+
+    def rec(i: Int): Boolean = {
+      i match {
+        case i if i >= nums.length - 1 => true
+        case i if nums(i) == 0 => false
+        case _ =>
+          var flag = false
+          var j = nums(i)
+          while (j != 0 && !flag) {
+            flag = memo.getOrElseUpdate(i + j, rec(i + j))
+            j -= 1
+          }
+          flag
+      }
+    }
+
+    rec(0)
+  }
+
+  def canJump(nums: Array[Int]): Boolean = {
+    /** You are given an integer array nums.
+     * You are initially positioned at the array's first index,
+     * and each element in the array represents your maximum jump length at that position.
+     *
+     * Return true if you can reach the last index, or false otherwise. */
+    val q: mutable.Queue[Int] = mutable.Queue(0)
+    var set: Set[Int] = Set(0)
+    var flag: Boolean = if (nums.length <= 1) true else false
+    while (q.nonEmpty && !flag) {
+      val currentIndex = q.dequeue()
+      var j = currentIndex + nums(currentIndex)
+      while (j >= currentIndex && !flag) {
+        flag = if (j >= nums.length - 1) true else false
+        if (!set.contains(j)) {
+          q.enqueue(j)
+          set = set + j
+        }
+        j -= 1
+      }
+    }
+    flag
+  }
 }

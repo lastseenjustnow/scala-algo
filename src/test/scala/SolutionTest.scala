@@ -29,20 +29,20 @@ class SolutionTest extends FunSuite {
 
   test("House Robber II") {
     val conditions: Array[(Array[Int], Int)] = Array(
-            (Array(2, 3, 2), 3),
-            (Array(1, 2, 3, 1), 4),
-            (Array(2, 3, 3), 3),
-            (Array(5, 4, 3), 5),
-            (Array(3, 4, 3), 4),
-            (Array(3, 4, 3, 1), 6),
-            (Array(5, 4, 3, 1), 8),
-            (Array(5, 26, 3, 19, 1), 45),
-            (Array(5, 4, 3, 1, 8), 12),
-            (Array(5, 4, 3, 8), 12),
-            (Array(0), 0),
-            (Array(7), 7),
-            (Array(1, 2), 2),
-            (Array(1, 2, 1, 1), 3)
+      (Array(2, 3, 2), 3),
+      (Array(1, 2, 3, 1), 4),
+      (Array(2, 3, 3), 3),
+      (Array(5, 4, 3), 5),
+      (Array(3, 4, 3), 4),
+      (Array(3, 4, 3, 1), 6),
+      (Array(5, 4, 3, 1), 8),
+      (Array(5, 26, 3, 19, 1), 45),
+      (Array(5, 4, 3, 1, 8), 12),
+      (Array(5, 4, 3, 8), 12),
+      (Array(0), 0),
+      (Array(7), 7),
+      (Array(1, 2), 2),
+      (Array(1, 2, 1, 1), 3)
     )
 
     for (cond <- conditions) {
@@ -188,5 +188,24 @@ class SolutionTest extends FunSuite {
       assert(maximalSquareRecursive(cond._1) == cond._2)
     }
   }
+
+  test("Jump Game") {
+    val conditions: Array[(Array[Int], Boolean)] = Array(
+      (Array(2, 3, 1, 1, 4), true),
+      (Array(3, 2, 1, 0, 4), false),
+      (Array(1), true),
+      (Array(0), true),
+      (Array(1, 0), true),
+      (Array(0, 1), false),
+      (Array(2, 0), true),
+      (Array(2, 0, 0), true)
+    )
+
+    for (cond <- conditions) {
+      assert(canJumpRecursive(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(canJump(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
 
 }
