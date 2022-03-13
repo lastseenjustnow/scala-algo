@@ -222,5 +222,20 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Maximum Subarray") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(-2, 1, -3, 4, -1, 2, 1, -5, 4), 6),
+      (Array(1), 1),
+      (Array(5, 4, -1, 7, 8), 23),
+      (Array(-7, 0, -1, 7, 8), 15),
+      (Array(-7, 0, -1, -2, -4), 0),
+      (Array(-5, -7, -1, -2, -4), -1)
+    )
+
+    for (cond <- conditions) {
+      assert(maxSubArray(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
 
 }

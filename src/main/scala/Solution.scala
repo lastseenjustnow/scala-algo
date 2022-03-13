@@ -424,4 +424,30 @@ object Solution {
     }
     seq(n - 1)
   }
+
+  def maxSubArray(nums: Array[Int]): Int = {
+    /**
+     * Given an integer array nums,
+     * find the contiguous subarray (containing at least one number) which has the largest sum
+     * and return its sum.
+     *
+     * A subarray is a contiguous part of an array.
+     *
+     * Time complexity: O(n)
+     */
+    var globalMax = nums(0)
+    var i = 1
+    while (globalMax <= 0 & i < nums.length) {
+      globalMax = if (nums(i) > globalMax) nums(i) else globalMax
+      i += 1
+    }
+    var localMax = globalMax
+    while (i < nums.length) {
+      localMax += nums(i)
+      localMax = if (localMax < 0) 0 else localMax
+      globalMax = if (localMax > globalMax) localMax else globalMax
+      i += 1
+    }
+    globalMax
+  }
 }
