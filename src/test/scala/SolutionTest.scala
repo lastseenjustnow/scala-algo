@@ -207,5 +207,20 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Jump Game II") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(2, 3, 1, 1, 4), 2),
+      (Array(2, 3, 0, 1, 4), 2),
+      (Array(0), 0),
+      (Array(1, 0), 1),
+      (Array(2, 0), 1),
+      (Array(2, 0, 0), 1)
+    )
+
+    for (cond <- conditions) {
+      assert(canJump2(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
 
 }

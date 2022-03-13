@@ -403,4 +403,25 @@ object Solution {
     }
     flag
   }
+
+  def canJump2(nums: Array[Int]): Int = {
+    /** Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
+     *
+     * Each element in the array represents your maximum jump length at that position.
+     *
+     * Your goal is to reach the last index in the minimum number of jumps.
+     *
+     * You can assume that you can always reach the last index. */
+
+    val n = nums.length
+    val seq = Array.fill(n)(0)
+    var i = 0
+    while (i != n - 1) {
+      for (j <- i + 1 to (i + nums(i)).min(n - 1)) {
+        seq(j) = if (seq(j) == 0) seq(i) + 1 else seq(j) min seq(i) + 1
+      }
+      i += 1
+    }
+    seq(n - 1)
+  }
 }
