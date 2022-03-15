@@ -296,6 +296,7 @@ class SolutionTest extends FunSuite {
     )
 
     for (cond <- conditions) {
+      assert(maxProductNaive(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
       assert(maxProduct(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
     }
   }

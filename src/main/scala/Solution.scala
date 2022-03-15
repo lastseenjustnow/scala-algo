@@ -518,7 +518,7 @@ object Solution {
     }
   }
 
-  def maxProduct(nums: Array[Int]): Int = {
+  def maxProductNaive(nums: Array[Int]): Int = {
     /** Given an integer array nums,
      * find a contiguous non-empty subarray within the array that has the largest product, and return the product.
      *
@@ -553,4 +553,16 @@ object Solution {
     }
     if (nums.length == 1) nums.head else maxProduct.get max 0
   }
+
+  def maxProduct(nums: Array[Int]): Int = {
+    var (max_so_far, min_so_far, result) = (nums(0), nums(0), nums(0))
+    for (i <- 1 until nums.length) {
+      val tempMax = nums(i) max (max_so_far * nums(i)) max (min_so_far * nums(i))
+      min_so_far = nums(i) min (max_so_far * nums(i)) min (min_so_far * nums(i))
+      max_so_far = tempMax
+      result = result max max_so_far
+    }
+    result
+  }
+
 }
