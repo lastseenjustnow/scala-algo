@@ -450,4 +450,38 @@ object Solution {
     }
     globalMax
   }
+
+  def maxSubArrayKadane(nums: Array[Int]): Int = {
+    /**
+     * Given an integer array nums,
+     * find the contiguous subarray (containing at least one number) which has the largest sum
+     * and return its sum.
+     *
+     * A subarray is a contiguous part of an array.
+     *
+     * Time complexity: O(n)
+     */
+    var (globalMax, localMax) = (nums(0), nums(0))
+    for (i <- 1 until nums.length) {
+      localMax = nums(i) max (nums(i) + localMax)
+      globalMax = globalMax max localMax
+    }
+    globalMax
+  }
+
+  def maxSubarraySumCircular(nums: Array[Int]): Int = {
+    /** Given a circular integer array nums of length n,
+     * return the maximum possible sum of a non-empty subarray of nums.
+     *
+     * A circular array means the end of the array connects to the beginning of the array.
+     * Formally, the next element of nums[i] is nums[(i + 1) % n] and the previous element of nums[i] is nums[(i - 1 + n) % n].
+     *
+     * A subarray may only include each element of the fixed buffer nums at most once.
+     * Formally, for a subarray nums[i], nums[i + 1], ..., nums[j], there does not exist i <= k1, k2 <= j with k1 % n == k2 % n.
+     *
+     * Naive solution: O(n^2)
+     */
+    val kadanes = for (i <- 0 until nums.length) yield maxSubArrayKadane(nums.drop(i) ++ nums.take(i))
+    kadanes.max
+  }
 }
