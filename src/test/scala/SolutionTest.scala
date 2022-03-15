@@ -231,6 +231,7 @@ class SolutionTest extends FunSuite {
       (Array(-7, 0, -1, -2, -4), 0),
       (Array(-5, -7, -1, -2, -4), -1),
       (Array(5, -3, 5, 5, -3, 5), 14),
+      (Array(-2, 4, -5, 4, -5, 9, 4), 13),
       (Array(5, 5, -3), 10)
     )
 
@@ -240,20 +241,42 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Minimum Subarray") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(-2, 1, -3, 4, -1, 2, 1, -5, 4), -5),
+      (Array(1), 1),
+      (Array(5, 4, -1, 7, 8), -1),
+      (Array(-7, 0, -1, 7, 8), -8),
+      (Array(-7, 0, -1, -2, -4), -14),
+      (Array(-5, -7, -1, -2, -4), -19),
+      (Array(5, -3, 5, 5, -3, 5), -3),
+      (Array(-2, 4, -5, 4, -5, 9, 4), -6),
+      (Array(5, 5, -3), -3)
+    )
+
+    for (cond <- conditions) {
+      assert(minSubArrayKadane(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
   test("Maximum Sum Circular Subarray") {
     val conditions: Array[(Array[Int], Int)] = Array(
       (Array(1, -2, 3, -2), 3),
+      (Array(1), 1),
       (Array(5, -3, 5), 10),
       (Array(-3, -2, -3), -2),
       (Array(5, 4, -1, 7, 8), 24),
       (Array(5, 4, -1, -1000, 7, 8), 24),
-      (Array(-2, 4, -5, 4, -5, 9, 4), 15)
+      (Array(-2, 4, -5, 4, -5, 9, 4), 15),
+      (Array(-5, -7, -1, -2, -4), -1)
     )
 
     val source = scala.io.Source.fromResource("testcase.txt")
     val testcase: Array[Int] = source.getLines().map(_.split(",").map(_.trim.toInt)).next()
 
     for (cond <- conditions) {
+      assert(maxSubarraySumCircularBruteForce(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(maxSubarraySumCircularBruteForce(testcase) == 2126311, f"wrong for array from testcase.txt")
       assert(maxSubarraySumCircular(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
       assert(maxSubarraySumCircular(testcase) == 2126311, f"wrong for array from testcase.txt")
     }

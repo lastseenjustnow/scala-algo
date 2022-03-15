@@ -469,7 +469,25 @@ object Solution {
     globalMax
   }
 
-  def maxSubarraySumCircular(nums: Array[Int]): Int = {
+  def minSubArrayKadane(nums: Array[Int]): Int = {
+    /**
+     * Given an integer array nums,
+     * find the contiguous subarray (containing at least one number) which has the largest sum
+     * and return its sum.
+     *
+     * A subarray is a contiguous part of an array.
+     *
+     * Time complexity: O(n)
+     */
+    var (globalMin, localMin) = (nums(0), nums(0))
+    for (i <- 1 until nums.length) {
+      localMin = nums(i) min (nums(i) + localMin)
+      globalMin = globalMin min localMin
+    }
+    globalMin
+  }
+
+  def maxSubarraySumCircularBruteForce(nums: Array[Int]): Int = {
     /** Given a circular integer array nums of length n,
      * return the maximum possible sum of a non-empty subarray of nums.
      *
@@ -479,9 +497,24 @@ object Solution {
      * A subarray may only include each element of the fixed buffer nums at most once.
      * Formally, for a subarray nums[i], nums[i + 1], ..., nums[j], there does not exist i <= k1, k2 <= j with k1 % n == k2 % n.
      *
-     * Naive solution: O(n^2)
+     * Naive solution: O(n ** 2)
      */
-    val kadanes = for (i <- 0 until nums.length) yield maxSubArrayKadane(nums.drop(i) ++ nums.take(i))
+    val kadanes = for (i <- nums.indices) yield maxSubArrayKadane(nums.drop(i) ++ nums.take(i))
     kadanes.max
+  }
+
+  def maxSubarraySumCircular(nums: Array[Int]): Int = {
+    /** Idea: compase regular max kadane with excluded minimum subarray sum.
+     * As the sum must contain at least one element added, to avoid extreme cases when minimum subset is the whole array,
+     * I have to exclude first and then last element of the array.
+     * */
+    if (nums.length == 1) {
+      nums.head
+    } else {
+      val maxKadane = maxSubArrayKadane(nums)
+      val noFirstMinKadane = nums.sum - minSubArrayKadane(nums.drop(1))
+      val noLastMinKadane = nums.sum - minSubArrayKadane(nums.take(nums.length - 1))
+      maxKadane max noFirstMinKadane max noLastMinKadane
+    }
   }
 }
