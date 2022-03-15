@@ -517,4 +517,40 @@ object Solution {
       maxKadane max noFirstMinKadane max noLastMinKadane
     }
   }
+
+  def maxProduct(nums: Array[Int]): Int = {
+    /** Given an integer array nums,
+     * find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+     *
+     * The test cases are generated so that the answer will fit in a 32-bit integer.
+     *
+     * A subarray is a contiguous subsequence of the array.
+     *
+     * First attempt solution, naive
+     */
+    def nonZeroSubarrayMaxProduct(arr: Array[Int]): Option[Int] = {
+      val isEvenNegatives = arr.count(_ < 0) % 2
+      val n = arr.length
+      (isEvenNegatives, n) match {
+        case (_, n) if n == 0 => None
+        case (_, n) if n == 1 => Some(arr.head)
+        case (x, _) if x == 0 => Some(arr.product)
+        case _ =>
+          val leftSubarray = arr.take(arr.lastIndexWhere(_ < 0)).product
+          val rightSubarray = arr.drop(arr.indexWhere(_ < 0) + 1).product
+          Some(leftSubarray max rightSubarray)
+      }
+    }
+
+    var (i, maxProduct): (Int, Option[Int]) = (0, None)
+    while (i <= nums.length) {
+      val arr = nums.drop(i).takeWhile(_ != 0)
+      val localMaxProduct = nonZeroSubarrayMaxProduct(arr)
+      if (maxProduct.isEmpty || maxProduct.get < localMaxProduct.getOrElse(maxProduct.get)) {
+        maxProduct = localMaxProduct
+      }
+      i += arr.length + 1
+    }
+    if (nums.length == 1) nums.head else maxProduct.get max 0
+  }
 }

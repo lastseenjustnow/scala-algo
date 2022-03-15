@@ -282,4 +282,22 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Maximum Product Subarray") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(2, 3, -2, 4), 6),
+      (Array(2, 3, -2, 4, -3), 144),
+      (Array(2, 3, -2, 4, -3, 1, 2, -6, 10), 1440),
+      (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, -6, 10), 10),
+      (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, -6, 0, -6, 10), 10),
+      (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, -6, -6, -6, 0, -6, 10), 36),
+      (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, 0, -6, 10), 10),
+      (Array(-10), -10),
+      (Array(-2, 0, -1), 0)
+    )
+
+    for (cond <- conditions) {
+      assert(maxProduct(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
 }
