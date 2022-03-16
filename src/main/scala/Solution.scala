@@ -591,4 +591,21 @@ object Solution {
     }
     maxLength
   }
+
+  def groupAnagrams(strs: Array[String]): List[List[String]] = {
+    val hm = new mutable.HashMap[Int, List[String]]()
+
+    for (str: String <- strs) {
+      val alphabet: Array[Int] = Array.fill(26)(0)
+      for (c: Char <- str) {
+        alphabet(c.asDigit - 10) += 1
+      }
+      val hash = alphabet.toSeq.hashCode
+      hm.get(hash) match {
+        case None => hm(hash) = List(str)
+        case _ => hm(hash) = hm(hash) :+ str
+      }
+    }
+    hm.values.toList
+  }
 }

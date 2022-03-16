@@ -325,4 +325,16 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Group Anagrams") {
+    val conditions: Array[(Array[String], List[List[String]])] = Array(
+      (Array("eat", "tea", "tan", "ate", "nat", "bat"), List(List("bat"), List("tan", "nat"), List("eat", "tea", "ate"))),
+      (Array("ab", "ba"), List(List("ab", "ba"))),
+      (Array("a", "abc"), List(List("a"), List("abc")))
+    )
+
+    for (cond <- conditions) {
+      assert(groupAnagrams(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
 }
