@@ -608,4 +608,58 @@ object Solution {
     }
     hm.values.toList
   }
+
+  def minDifficultyRecursive(jobDifficulty: Array[Int], d: Int): Int = {
+    /** You want to schedule a list of jobs in d days.
+     * Jobs are dependent (i.e To work on the ith job, you have to finish all the jobs j where 0 <= j < i).
+     *
+     * You have to finish at least one task every day.
+     * The difficulty of a job schedule is the sum of difficulties of each day of the d days.
+     * The difficulty of a day is the maximum difficulty of a job done on that day.
+     *
+     * You are given an integer array jobDifficulty and an integer d. The difficulty of the ith job is jobDifficulty[i].
+     *
+     * Return the minimum difficulty of a job schedule. If you cannot find a schedule for the jobs return -1.
+     *
+     * Top down implementation
+     * */
+
+    val n = jobDifficulty.length
+    val hardestJobRemaining: Array[Int] = jobDifficulty.scanRight(jobDifficulty(n - 1))(_ max _).take(n)
+    val memo = new mutable.HashMap[(Int, Int), Int]()
+
+    def dp(i: Int, day: Int): Int = {
+      (i, day) match {
+        case (i, day) if day == d => hardestJobRemaining(i)
+        case _ =>
+          val sub = jobDifficulty.slice(i, n - (d - day)).zipWithIndex
+          val results =
+            sub
+              .scan(sub(0))((a, b) => (a._1 max b._1, b._2 + i + 1))
+              .drop(1)
+              .map(x => x._1 + memo.getOrElseUpdate((x._2, day + 1), dp(x._2, day + 1)))
+          results.min
+      }
+    }
+
+    if (jobDifficulty.length >= d) dp(0, 1) else -1
+  }
+
+  def minDifficulty(jobDifficulty: Array[Int], d: Int): Int = {
+    val n = jobDifficulty.length
+    val memo: Array[Array[Double]] = Array.fill(d)(Array.fill(n)(Double.PositiveInfinity))
+    memo(d - 1) = jobDifficulty.scanRight(jobDifficulty(n - 1))(_ max _).take(n).map(_.toDouble)
+
+    for (day <- d - 2 to 0 by -1) {
+      for (i <- day until n) {
+        var hardest = jobDifficulty(i)
+        for (j <- i until n - 1) {
+          hardest = hardest max jobDifficulty(j)
+          val nextDp = memo(day + 1)(j + 1)
+          memo(day)(i) = memo(day)(i) min (hardest + nextDp)
+        }
+      }
+    }
+    if (jobDifficulty.length >= d) memo(0)(0).toInt else -1
+  }
 }

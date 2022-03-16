@@ -337,4 +337,21 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Minimum Difficulty of a Job Schedule") {
+    val conditions: Array[(Array[Int], Int, Int)] = Array(
+      (Array(6, 5, 4, 3, 2, 1), 2, 7),
+      (Array(6, 5, 10, 3, 2, 1), 2, 11),
+      (Array(6, 5, 10, 3, 2, 1), 3, 13),
+      (Array(6, 5, 10, 7, 2, 4, 2, 3, 2, 1), 4, 16),
+      (Array(9, 9, 9), 4, -1),
+      (Array(1, 1, 1), 3, 3)
+    )
+
+    for (cond <- conditions) {
+      assert(minDifficultyRecursive(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(minDifficulty(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+
+  }
+
 }
