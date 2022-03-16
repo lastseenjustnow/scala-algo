@@ -565,4 +565,30 @@ object Solution {
     result
   }
 
+  def getMaxLen(nums: Array[Int]): Int = {
+    def nonZeroSubarrayMaxLength(arr: Array[Int]): Int = {
+      val isEvenNegatives = arr.count(_ < 0) % 2
+      val n = arr.length
+      (isEvenNegatives, n) match {
+        case (_, n) if n == 1 => if (arr.head > 0) 1 else 0
+        case (_, n) if n == 0 => 0
+        case (x, _) if x == 0 => arr.length
+        case _ =>
+          val leftSubarray = arr.take(arr.lastIndexWhere(_ < 0)).length
+          val rightSubarray = arr.drop(arr.indexWhere(_ < 0) + 1).length
+          leftSubarray max rightSubarray
+      }
+    }
+
+    var (i, maxLength): (Int, Int) = (0, 0)
+    while (i <= nums.length) {
+      val arr = nums.drop(i).takeWhile(_ != 0)
+      val localLength = nonZeroSubarrayMaxLength(arr)
+      if (maxLength == 0 || maxLength < localLength) {
+        maxLength = localLength
+      }
+      i += arr.length + 1
+    }
+    maxLength
+  }
 }

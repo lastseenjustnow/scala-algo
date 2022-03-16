@@ -301,4 +301,28 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Maximum Length of Subarray With Positive Product") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(1, -2, -3, 4), 4),
+      (Array(0, 1, -2, -3, -4), 3),
+      (Array(-1, -2, -3, 0, 1), 2),
+      (Array(2), 1),
+      (Array(0), 0),
+      (Array(-1), 0),
+      (Array(2, 3, -2, 4), 2),
+      (Array(2, 3, -2, 4, -3), 5),
+      (Array(2, 3, -2, 4, -3, 1, 2, -6, 10), 7),
+      (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, -6, 10), 2),
+      (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, -6, 0, -6, 10), 2),
+      (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, -6, -6, -6, 0, -6, 10), 2),
+      (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, 0, -6, 10), 2),
+      (Array(-10), 0),
+      (Array(-2, 0, -1), 0)
+    )
+
+    for (cond <- conditions) {
+      assert(getMaxLen(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
 }
