@@ -351,7 +351,19 @@ class SolutionTest extends FunSuite {
       assert(minDifficultyRecursive(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._1.mkString(",")}")
       assert(minDifficulty(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._1.mkString(",")}")
     }
+  }
 
+  test("Best Sightseeing Pair") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(8, 1, 5, 2, 6), 11),
+      (Array(1, 2), 2),
+      (Array(8, 1, 5, 2, 6, -2, 4, 2, 14), 16),
+      (Array(3, 7, 2, 3), 9)
+    )
+
+    for (cond <- conditions) {
+      assert(maxScoreSightseeingPair(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
   }
 
 }
