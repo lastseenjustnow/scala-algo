@@ -380,4 +380,19 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Best Time to Buy and Sell Stock II") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(7, 1, 5, 3, 6, 4), 7),
+      (Array(7, 6, 4, 3, 1), 0),
+      (Array(1, 2, 3, 4, 5), 4),
+      (Array(7, 6, -2, 4, 1, 8, 3, 6, 4), 16),
+      (Array(7), 0),
+      (Array(0), 0),
+    )
+
+    for (cond <- conditions) {
+      assert(maxProfitII(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
 }
