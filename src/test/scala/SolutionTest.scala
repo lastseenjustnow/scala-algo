@@ -395,4 +395,19 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Coin Change") {
+    val conditions: Array[(Array[Int], Int, Int)] = Array(
+      (Array(1, 2, 5), 11, 3),
+      (Array(2), 3, -1),
+      (Array(1), 0, 0),
+      (Array(3, 7, 405, 436), 8839, 25),
+      (Array(389,46,222,352,4,250), 5343, 16)
+    )
+
+    for (cond <- conditions) {
+      assert(coinChange(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
+
 }

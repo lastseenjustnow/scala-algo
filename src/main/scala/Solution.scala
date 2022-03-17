@@ -726,4 +726,38 @@ object Solution {
     maxProfit + profit
   }
 
+  def coinChangeRecursive(coins: Array[Int], amount: Int): Int = {
+
+    val memo = new mutable.HashMap[(Int, Int), Double]()
+
+    def dp(i: Int, am: Int): Double = {
+      (i, am) match {
+        case (i, am) if i < 0 || am < 0 => Double.PositiveInfinity
+        case (_, am) if am == 0 => 0
+        case _ =>
+          val left = memo.getOrElseUpdate((i - 1, am), dp(i - 1, am))
+          val right = memo.getOrElseUpdate((i, am - coins(i)), dp(i, am - coins(i)))
+          left min right + 1
+      }
+    }
+
+    val res = dp(coins.length - 1, amount)
+    if (res == Double.PositiveInfinity) -1 else res.toInt
+  }
+
+  def coinChange(coins: Array[Int], amount: Int): Int = {
+    var memo: Array[Double] = 0.toDouble +: Array.fill(amount)(Double.PositiveInfinity)
+
+    for (i <- coins.indices) {
+      val newMemo = 0.toDouble +: Array.fill(amount)(Double.PositiveInfinity)
+      for (am <- 1 to amount) {
+        val x = if (am - coins(i) < 0) Double.PositiveInfinity else newMemo(am - coins(i)) + 1
+        newMemo(am) = memo(am) min x
+      }
+      memo = newMemo
+    }
+
+    val res = memo(amount)
+    if (res == Double.PositiveInfinity) -1 else res.toInt
+  }
 }
