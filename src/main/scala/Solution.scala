@@ -662,4 +662,43 @@ object Solution {
     }
     if (jobDifficulty.length >= d) memo(0)(0).toInt else -1
   }
+
+  def maxScoreSightseeingPair(values: Array[Int]): Int = {
+    /** You are given an integer array values where values[i] represents the value of the ith sightseeing spot.
+     * Two sightseeing spots i and j have a distance j - i between them.
+     *
+     * The score of a pair (i < j) of sightseeing spots is values[i] + values[j] + i - j:
+     * the sum of the values of the sightseeing spots, minus the distance between them.
+     *
+     * Return the maximum score of a pair of sightseeing spots.
+     *
+     * Naive solution
+     * Time complexity: O(n)
+     * Space complexity: O(n)
+     * */
+    var (maxVal, secondMaxVal, result) = (values(0) - 1 max values(1), values(0) - 1 min values(1), values(0) + values(1) - 1)
+    for (i <- 2 until values.length) {
+      val tempMax = (maxVal - 1) max values(i)
+      secondMaxVal = (secondMaxVal - 1) max ((maxVal - 1) min values(i))
+      maxVal = tempMax
+      result = result max (maxVal + secondMaxVal)
+    }
+    result
+  }
+
+  def maxProfitNaive(prices: Array[Int]): Int = {
+    /** You are given an array prices where prices[i] is the price of a given stock on the ith day.
+     *
+     * You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+     *
+     * Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0. */
+    var (trough, peak, profit) = (prices(0), prices(0), 0)
+    for (i <- 1 until prices.length) {
+      trough = prices(i) min trough
+      peak = prices(i) max trough
+      profit = profit max (peak - trough)
+    }
+    profit
+  }
+
 }
