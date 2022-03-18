@@ -401,7 +401,7 @@ class SolutionTest extends FunSuite {
       (Array(2), 3, -1),
       (Array(1), 0, 0),
       (Array(3, 7, 405, 436), 8839, 25),
-      (Array(389,46,222,352,4,250), 5343, 16)
+      (Array(389, 46, 222, 352, 4, 250), 5343, 16)
     )
 
     for (cond <- conditions) {
@@ -409,5 +409,17 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Word Break") {
+    val conditions: Array[(String, List[String], Boolean)] = Array(
+      ("leetcode", List("leet", "code"), true),
+      ("applepenapple", List("apple", "pen"), true),
+      ("catsandog", List("cats", "dog", "sand", "and", "cat"), false),
+      ("catsanddog", List("cats", "dog", "sand", "and", "cat"), true)
+    )
+
+    for (cond <- conditions) {
+      assert(wordBreakRecursive(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._1.mkString("")}")
+    }
+  }
 
 }

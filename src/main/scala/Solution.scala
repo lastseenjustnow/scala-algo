@@ -760,4 +760,28 @@ object Solution {
     val res = memo(amount)
     if (res == Double.PositiveInfinity) -1 else res.toInt
   }
+
+  def wordBreakRecursive(s: String, wordDict: List[String]): Boolean = {
+    val memo: Array[Array[Option[Boolean]]] = Array.fill(s.length)(Array.fill(s.length)(None))
+
+    def dp(start_i: Int, end_i: Int): Boolean = {
+      memo(end_i)(start_i) match {
+        case Some(_) => memo(end_i)(start_i).get
+        case None =>
+          var flag = false
+          var k = end_i
+          while (!flag & k >= 0) {
+            val word = s.slice(k, end_i + 1)
+            val is_word = wordDict.contains(word)
+            flag = is_word && (if (k != 0) dp(0, k - 1) else true)
+            memo(end_i)(k) = Some(flag)
+            k -= 1
+          }
+          flag
+      }
+    }
+
+    dp(0, s.length - 1)
+  }
+
 }
