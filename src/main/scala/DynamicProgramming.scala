@@ -1,6 +1,6 @@
 import scala.collection.mutable
 
-object Solution {
+object DynamicProgramming {
   /**
    * Bottom up implementation
    * Time:  O(n)

@@ -1,8 +1,8 @@
 import org.scalatest.FunSuite
-import Solution._
+import DynamicProgramming._
 
 
-class SolutionTest extends FunSuite {
+class DynamicProgrammingTest extends FunSuite {
   test("Climb stairs") {
     val conditions = Array((-1, 0), (0, 0), (1, 1), (2, 2), (3, 3), (4, 5), (5, 8))
 
