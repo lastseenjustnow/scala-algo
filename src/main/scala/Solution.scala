@@ -784,4 +784,26 @@ object Solution {
     dp(0, s.length - 1)
   }
 
+  def lengthOfLISBruteForce(nums: Array[Int]): Int = {
+    /** Given an integer array nums,
+     * return the length of the longest strictly increasing subsequence.
+     *
+     * A subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements.
+     * For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7]. */
+    var result = 1
+    val arrLIS = Array.fill(nums.length)(0)
+    arrLIS(0) = 1
+
+    for (i <- 1 until nums.length) {
+      arrLIS(i) = 1
+      for (j <- i - 1 to 0 by -1) {
+        if (nums(i) > nums(j)) {
+          arrLIS(i) = arrLIS(i) max (arrLIS(j) + 1)
+        }
+      }
+      result = result max arrLIS(i)
+    }
+    result
+  }
+
 }

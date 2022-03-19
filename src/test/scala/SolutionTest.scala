@@ -422,4 +422,17 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Longest Increasing Subsequence") {
+    val conditions: Array[(Array[Int], Int)]= Array(
+      (Array(10, 9, 2, 5, 3, 7, 101, 18), 4),
+      (Array(0, 1, 0, 3, 2, 3), 4),
+      (Array(7, 7, 7, 7, 7, 7, 7), 1),
+      (Array(0, 1, 0, 3, 2, 3, 4), 5),
+    )
+
+    for (cond <- conditions) {
+      assert(lengthOfLISBruteForce(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
 }
