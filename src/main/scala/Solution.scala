@@ -726,6 +726,18 @@ object Solution {
     maxProfit + profit
   }
 
+  def maxProfitCooldown(prices: Array[Int]): Int = {
+    var (sold, held, reset): (Double, Double, Double) = (Double.NegativeInfinity, Double.NegativeInfinity, 0)
+    for (price <- prices) {
+      val preSold = sold
+      sold = held + price
+      held = held max (reset - price)
+      reset = reset max preSold
+    }
+    (sold max reset).toInt
+  }
+
+
   def coinChangeRecursive(coins: Array[Int], amount: Int): Int = {
 
     val memo = new mutable.HashMap[(Int, Int), Double]()

@@ -395,6 +395,22 @@ class SolutionTest extends FunSuite {
     }
   }
 
+  test("Best Time to Buy and Sell Stock with Cooldown") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(1, 2, 3, 0, 2), 3),
+      (Array(3, 1, 2, 3, 0, 2), 3),
+      (Array(3, 1, 2, 6, 7, 8, 1, 4, 7), 12),
+      (Array(1), 0),
+      (Array(1, 2), 1),
+      (Array(1, 2, 3), 2),
+      (Array(1, 4, 2), 3)
+    )
+
+    for (cond <- conditions) {
+      assert(maxProfitCooldown(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
   test("Coin Change") {
     val conditions: Array[(Array[Int], Int, Int)] = Array(
       (Array(1, 2, 5), 11, 3),
@@ -423,7 +439,7 @@ class SolutionTest extends FunSuite {
   }
 
   test("Longest Increasing Subsequence") {
-    val conditions: Array[(Array[Int], Int)]= Array(
+    val conditions: Array[(Array[Int], Int)] = Array(
       (Array(10, 9, 2, 5, 3, 7, 101, 18), 4),
       (Array(0, 1, 0, 3, 2, 3), 4),
       (Array(7, 7, 7, 7, 7, 7, 7), 1),
