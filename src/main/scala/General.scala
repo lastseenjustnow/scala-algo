@@ -1,5 +1,5 @@
 import scala.collection.mutable
-import scala.math.{abs, max}
+import scala.math.abs
 
 object General {
   def assignBikes(workers: Array[Array[Int]], bikes: Array[Array[Int]]): Array[Int] = {
@@ -72,6 +72,24 @@ object General {
       iterNum += 1
     }
     iterNum
+  }
+
+  def twoSum(nums: Array[Int], target: Int): Array[Int] = {
+    val hash: mutable.HashMap[Int, Int] = mutable.HashMap()
+    val solution: Array[Int] = Array.fill(2)(0)
+    var flag: Boolean = false
+    var i: Int = 0
+
+    while (i < nums.length && !flag) {
+      if (hash.contains(target - nums(i))) {
+        flag = true
+        solution(0) = hash(target - nums(i))
+        solution(1) = i
+      }
+      hash(nums(i)) = i
+      i += 1
+    }
+    solution
   }
 
 }
