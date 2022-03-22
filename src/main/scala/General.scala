@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.collection.mutable
 import scala.math.abs
 
@@ -90,6 +91,43 @@ object General {
       i += 1
     }
     solution
+  }
+
+  def twoSumSortedRecursive(numbers: Array[Int], target: Int): Array[Int] = {
+    /** Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order,
+     * find two numbers such that they add up to a specific target number.
+     *
+     * Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+     *
+     * Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.
+     *
+     * The tests are generated such that there is exactly one solution. You may not use the same element twice.
+     *
+     * Your solution must use only constant extra space.
+     *
+     */
+    @tailrec
+    def rec(start_i: Int, end_i: Int): Array[Int] = {
+      (start_i, end_i) match {
+        case (start_i, end_i) if numbers(start_i) + numbers(end_i) == target => Array(start_i + 1, end_i + 1)
+        case (start_i, end_i) if numbers(end_i) > target - numbers(start_i) => rec(start_i, end_i - 1)
+        case _ => rec(start_i + 1, end_i)
+      }
+    }
+
+    rec(0, numbers.length - 1)
+  }
+
+  def twoSumSortedIterative(numbers: Array[Int], target: Int): Array[Int] = {
+    var (start_i, end_i, flag) = (0, numbers.length - 1, false)
+    while (!flag && start_i + 1 != end_i) {
+      if (numbers(start_i) + numbers(end_i) == target) {
+        flag = true
+      } else if (numbers(end_i) > target - numbers(start_i)) {
+        end_i -= 1
+      } else start_i += 1
+    }
+    Array(start_i + 1, end_i + 1)
   }
 
 }

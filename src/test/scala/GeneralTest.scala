@@ -111,7 +111,21 @@ class GeneralTest extends FunSuite with Matchers {
     for (cond <- conditions) {
       assert(twoSum(cond._1, cond._2) sameElements cond._3)
     }
+  }
 
+  test("Two Sum II - Input Array Is Sorted") {
+    val conditions: Array[(Array[Int], Int, Array[Int])] =
+      Array(
+        (Array(2, 7, 11, 15), 9, Array(1, 2)),
+        (Array(2, 7, 11, 15), 18, Array(2, 3)),
+        (Array(2, 3, 4), 6, Array(1, 3)),
+        (Array(-1, 0), -1, Array(1, 2)),
+      )
+
+    for (cond <- conditions) {
+      assert(twoSumSortedRecursive(cond._1, cond._2) sameElements cond._3, f"wrong for array: ${cond._1.mkString("")}")
+      assert(twoSumSortedIterative(cond._1, cond._2) sameElements cond._3, f"wrong for array: ${cond._1.mkString("")}")
+    }
   }
 
 }
