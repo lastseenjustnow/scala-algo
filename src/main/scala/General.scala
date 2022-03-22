@@ -130,4 +130,93 @@ object General {
     Array(start_i + 1, end_i + 1)
   }
 
+  def threeSumTwoPointers(nums: Array[Int]): List[List[Int]] = {
+
+    /**
+     * Given an integer array nums, return all the triplets nums[i], nums[j], nums[k]
+     * such that i != j, i != k, and j != k,
+     * and nums[i] + nums[j] + nums[k] == 0.
+     *
+     * Notice that the solution set must not contain duplicate triplets.
+     *
+     * Two-pointers approach
+     * Time complexity: O(n ** 2)
+     * */
+    val sortedNums = nums.sorted
+    val n = nums.length
+    val res: mutable.Set[List[Int]] = mutable.Set()
+    var i = 0
+
+    while (i < n - 1 && sortedNums(i) <= 0) {
+      var (leftPointer, rightPointer) = (i + 1, n - 1)
+      val target = 0 - sortedNums(i)
+      while (leftPointer < rightPointer) {
+        val twoNumsTarget = sortedNums(leftPointer) + sortedNums(rightPointer)
+        if (twoNumsTarget == target) {
+          res += List(sortedNums(i), sortedNums(leftPointer), sortedNums(rightPointer))
+          leftPointer += 1
+          rightPointer -= 1
+        } else if (twoNumsTarget < target) {
+          leftPointer += 1
+        } else {
+          rightPointer -= 1
+        }
+      }
+      i += 1
+    }
+    res.toList
+  }
+
+  def threeSumHashSet(nums: Array[Int]): List[List[Int]] = {
+    /**
+     * Hashset approach
+     * Time complexity: O(n ** 2)
+     * */
+    val sortedNums = nums.sorted
+    val n = nums.length
+    val res: mutable.Set[List[Int]] = mutable.Set()
+    var i = 0
+
+    while (i < n - 1 && sortedNums(i) <= 0) {
+      val hashset: mutable.Set[Int] = mutable.Set()
+      val target = 0 - sortedNums(i)
+      var j = i + 1
+      while (j < n && sortedNums(i) + sortedNums(j) <= target) {
+        if (hashset.contains(target - sortedNums(j))) {
+          res += List(sortedNums(i), target - sortedNums(j), sortedNums(j))
+        } else {
+          hashset += sortedNums(j)
+        }
+        j += 1
+      }
+      i += 1
+    }
+    res.toList
+  }
+
+  def threeSumNoSort(nums: Array[Int]): List[List[Int]] = {
+    /**
+     * Hashset approach
+     * Time complexity: O(n ** 2)
+     * */
+    val n = nums.length
+    val res: mutable.Set[List[Int]] = mutable.Set()
+    var i = 0
+
+    while (i < n - 1) {
+      val hashset: mutable.Set[Int] = mutable.Set()
+      val target = 0 - nums(i)
+      var j = i + 1
+      while (j < n) {
+        if (hashset.contains(target - nums(j))) {
+          res += List(nums(i), target - nums(j), nums(j)).sorted
+        } else {
+          hashset += nums(j)
+        }
+        j += 1
+      }
+      i += 1
+    }
+    res.toList
+  }
 }

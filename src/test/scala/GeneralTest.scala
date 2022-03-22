@@ -128,4 +128,30 @@ class GeneralTest extends FunSuite with Matchers {
     }
   }
 
+  test("Three Sum") {
+    val conditions: Array[(Array[Int], List[List[Int]])] =
+      Array(
+        (Array(-1, 0, 1, 2, -1, -4), List(List(-1, 0, 1), List(-1, -1, 2))),
+        (Array(-1, 0, 1, 2, -1, -1, -4), List(List(-1, 0, 1), List(-1, -1, 2))),
+        (Array(-1, 0, 1, 2, -1, -2, -2, -2, -1, -4), List(List(-2, 0, 2), List(-1, -1, 2), List(-1, 0, 1))),
+        (Array(), List()),
+        (Array(0), List()),
+        (Array(0, 0, 0), List(List(0, 0, 0))),
+      )
+
+    for (cond <- conditions) {
+      threeSumTwoPointers(cond._1) should contain theSameElementsAs cond._2
+      threeSumHashSet(cond._1) should contain theSameElementsAs cond._2
+      threeSumNoSort(cond._1) should contain theSameElementsAs cond._2
+    }
+
+    val source = scala.io.Source.fromResource("threeSum.txt")
+    val testcase: Array[Int] = source.getLines().map(_.split(",").map(_.trim.toInt)).next()
+
+    assert(threeSumTwoPointers(testcase).length == 16258)
+    assert(threeSumHashSet(testcase).length == 16258)
+    assert(threeSumNoSort(testcase).length == 16258)
+
+  }
+
 }
