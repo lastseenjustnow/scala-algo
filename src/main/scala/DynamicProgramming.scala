@@ -691,7 +691,9 @@ object DynamicProgramming {
      *
      * You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
      *
-     * Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0. */
+     * Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+     *
+     * */
     var (trough, peak, profit) = (prices(0), prices(0), 0)
     for (i <- 1 until prices.length) {
       trough = prices(i) min trough
@@ -737,6 +739,50 @@ object DynamicProgramming {
     (sold max reset).toInt
   }
 
+  def maxProfitKTransactionsRecursive(k: Int, prices: Array[Int]): Int = {
+    /**
+     * You are given an integer array prices where prices[i] is the price of a given stock on the ith day, and an integer k.
+     *
+     * Find the maximum profit you can achieve. You may complete at most k transactions.
+     *
+     * Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+     * */
+
+    val memo: mutable.HashMap[(Boolean, Int, Int), Int] = mutable.HashMap()
+
+    def dp(isBought: Boolean, remainingK: Int, i: Int): Int = {
+      (isBought, remainingK, i) match {
+        case (_, remainingK, i) if remainingK == 0 || i == prices.length => 0
+        case _ =>
+          val skip = dp(isBought, remainingK, i + 1)
+          val buyOrSell = if (isBought)
+            memo.getOrElseUpdate((false, remainingK - 1, i + 1), dp(isBought = false, remainingK - 1, i + 1) + prices(i))
+          else {
+            memo.getOrElseUpdate((true, remainingK, i + 1), dp(isBought = true, remainingK, i + 1) - prices(i))
+          }
+          buyOrSell max skip
+      }
+    }
+
+    dp(isBought = false, k, 0)
+  }
+
+  def maxProfitKTransactionsIterative(k: Int, prices: Array[Int]): Int = {
+
+    val n = prices.length
+    val memo: Array[Array[Array[Int]]] = Array.fill(n + 1)(Array.fill(k + 1)(Array.fill(2)(0)))
+
+    for (i <- n - 1 to 0 by -1) {
+      for (remainingK <- 1 to k) {
+        for (isBought <- 0 to 1) {
+          val skip = memo(i + 1)(remainingK)(isBought)
+          val buyOrSell = if (isBought == 1) memo(i + 1)(remainingK - 1)(0) + prices(i) else memo(i + 1)(remainingK)(1) - prices(i)
+          memo(i)(remainingK)(isBought) = skip max buyOrSell
+        }
+      }
+    }
+    memo(0)(k)(0)
+  }
 
   def coinChangeRecursive(coins: Array[Int], amount: Int): Int = {
 
