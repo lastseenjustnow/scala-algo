@@ -864,4 +864,28 @@ object DynamicProgramming {
     result
   }
 
+  def numWaysRecursive(n: Int, k: Int): Int = {
+    /**
+     * You are painting a fence of n posts with k different colors. You must paint the posts following these rules:
+     *
+     * Every post must be painted exactly one color.
+     * There cannot be three or more consecutive posts with the same color.
+     * Given the two integers n and k, return the number of ways you can paint the fence.
+     */
+
+    val memo: mutable.HashMap[(Int, Int, Int), Int] = mutable.HashMap()
+
+    def dp(thisWays: Int, i: Int, conseq: Int): Int = {
+      (thisWays, i, conseq) match {
+        case (_, _, conseq) if conseq == 3 => 0
+        case (thisWays, i, _) if i == n => thisWays
+        case _ => thisWays * (
+          memo.getOrElseUpdate((1, i + 1, conseq + 1), dp(1, i + 1, conseq + 1)) +
+            memo.getOrElseUpdate((k - 1, i + 1, 1), dp(k - 1, i + 1, 1)))
+      }
+    }
+
+    dp(k, 1, 1)
+  }
+
 }

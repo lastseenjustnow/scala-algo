@@ -470,4 +470,17 @@ class DynamicProgrammingTest extends FunSuite {
     }
   }
 
+  test("Paint Fence") {
+    val conditions: Array[(Int, Int, Int)] = Array(
+      (3, 2, 6),
+      (7, 2, 42),
+      (4, 3, 66),
+      (43, 2, 1402817466)
+    )
+
+    for (cond <- conditions) {
+      assert(numWaysRecursive(cond._1, cond._2) == cond._3, f"wrong for pair: ${cond._1}, ${cond._2}")
+    }
+  }
+
 }
