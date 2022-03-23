@@ -16,4 +16,29 @@ class ArraysAndStringsTest extends FunSuite {
       assert(twoSumReturn(cond._1, cond._2) sameElements cond._3)
     }
   }
+
+  test("String to Integer (atoi)") {
+    val conditions: Array[(String, Int)] =
+      Array(
+        ("42", 42),
+        ("   -42", -42),
+        ("4193 with words", 4193),
+        ("", 0),
+        ("4193 w26", 4193),
+        (".4193 w26", 0),
+        (". 4193 w26", 0),
+        ("words and 987", 0),
+        ("-432+", -432),
+        ("-91283472332", Int.MinValue),
+        ("91283472332", Int.MaxValue),
+        ("+-12", 0),
+        ("-0032", -32),
+        ("20000000000000000000", Int.MaxValue)
+      )
+
+    for (cond <- conditions) {
+      assert(myAtoi(cond._1) == cond._2)
+    }
+  }
+
 }

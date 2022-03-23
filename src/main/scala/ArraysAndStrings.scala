@@ -29,4 +29,13 @@ object ArraysAndStrings {
     }
     Array()
   }
+
+  def myAtoi(s: String): Int = {
+    val regexp = raw"^\s*([-|+]{0,1}\d+).*".r
+    s match {
+      case regexp(x) => ((BigInt(x) min Int.MaxValue) max Int.MinValue).toInt
+      case _ => 0
+    }
+  }
+
 }
