@@ -1,5 +1,6 @@
 import ArraysAndStrings._
 import org.scalatest.FunSuite
+import org.scalatest.Matchers._
 
 class ArraysAndStringsTest extends FunSuite {
 
@@ -38,6 +39,24 @@ class ArraysAndStringsTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(myAtoi(cond._1) == cond._2)
+    }
+  }
+
+  test("Insert Interval") {
+    val conditions: Array[(Array[Array[Int]], Array[Int], Array[Array[Int]])] =
+      Array(
+        (Array(Array(1, 3), Array(6, 9)), Array(2, 5), Array(Array(1, 5), Array(6, 9))),
+        (Array(Array(1, 2), Array(3, 5), Array(6, 7), Array(8, 10), Array(12, 16)), Array(4, 8), Array(Array(1, 2), Array(3, 10), Array(12, 16))),
+        (Array(Array(1, 3), Array(4, 6), Array(7, 9)), Array(2, 5), Array(Array(1, 6), Array(7, 9))),
+        (Array(Array(1, 3), Array(5, 5), Array(4, 6), Array(7, 9)), Array(2, 5), Array(Array(1, 6), Array(7, 9))),
+        (Array(), Array(2, 5), Array(Array(2, 5))),
+        (Array(Array(1, 2)), Array(2, 5), Array(Array(1, 5))),
+        (Array(Array(1, 2)), Array(3, 5), Array(Array(1, 2), Array(3, 5))),
+        (Array(Array(1, 3), Array(6, 9)), Array(4, 5), Array(Array(1, 3), Array(4, 5), Array(6, 9))),
+      )
+
+    for (cond <- conditions) {
+      insert(cond._1, cond._2) should equal(cond._3)
     }
   }
 
