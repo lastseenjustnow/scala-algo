@@ -60,4 +60,21 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+
+  test("K-diff Pairs in an Array") {
+    val conditions: Array[(Array[Int], Int, Int)] =
+      Array(
+        (Array(3, 1, 4, 1, 5), 2, 2),
+        (Array(1, 2, 3, 4, 5), 1, 4),
+        (Array(1, 3, 1, 5, 4), 0, 1),
+        (Array(1), 1, 0),
+        (Array(1, 3, 1, 0, 5, 4, -1, 2), 2, 5),
+        (Array(1, 2, 4, 4, 3, 3, 0, 9, 2, 3), 3, 2)
+      )
+
+    for (cond <- conditions) {
+      findPairs(cond._1, cond._2) should equal(cond._3)
+    }
+  }
+
 }

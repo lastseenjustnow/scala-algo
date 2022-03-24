@@ -1,5 +1,6 @@
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
+import scala.math.abs
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -74,6 +75,38 @@ object ArraysAndStrings {
     }
 
     res.toArray
+  }
+
+  def findPairs(nums: Array[Int], k: Int): Int = {
+    /**
+     * Given an array of integers nums and an integer k, return the number of unique k-diff pairs in the array.
+     *
+     * A k-diff pair is an integer pair (nums[i], nums[j]), where the following are true:
+     *
+     * 0 <= i, j < nums.length
+     * i != j
+     * nums[i] - nums[j] == k
+     * Notice that |val| denotes the absolute value of val.
+     * */
+    val res: mutable.Set[(Int, Int)] = mutable.Set()
+    val diffs: mutable.Set[Int] = mutable.Set()
+
+    for (i <- nums.indices) {
+      if (diffs.contains(nums(i) - k)) {
+        val minVal = nums(i) min (nums(i) - k)
+        val maxVal = nums(i) max (nums(i) - k)
+        val pair = (minVal, maxVal)
+        res += pair
+      }
+      if (diffs.contains(nums(i) + k)) {
+        val minVal = nums(i) min (nums(i) + k)
+        val maxVal = nums(i) max (nums(i) + k)
+        val pair = (minVal, maxVal)
+        res += pair
+      }
+      diffs += nums(i)
+    }
+    res.toSeq.length
   }
 
 }
