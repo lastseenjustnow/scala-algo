@@ -1,5 +1,5 @@
 import MathProblems._
-import org.scalatest.{FunSuite, color}
+import org.scalatest.FunSuite
 import org.scalatest.Matchers._
 
 
