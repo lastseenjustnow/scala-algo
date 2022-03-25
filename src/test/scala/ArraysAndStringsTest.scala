@@ -107,4 +107,30 @@ class ArraysAndStringsTest extends FunSuite {
       assert(lengthOfLongestSubstring(cond._1) == cond._2)
     }
   }
+
+  test("Container With Most Water") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(1, 8, 6, 2, 5, 4, 8, 3, 7), 49),
+        (Array(1, 1), 1)
+      )
+
+    for (cond <- conditions) {
+      assert(maxAreaBruteForce(cond._1) == cond._2)
+    }
+  }
+
+  test("Remove Element") {
+    val conditions: Array[(Array[Int], Int, Int)] =
+      Array(
+        (Array(3, 2, 2, 3), 3, 2),
+        (Array(0, 1, 2, 2, 3, 0, 4, 2), 2, 5),
+        (Array(), 3, 0),
+      )
+
+    for (cond <- conditions) {
+      assert(removeElement(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }

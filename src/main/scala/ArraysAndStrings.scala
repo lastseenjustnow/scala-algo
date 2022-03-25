@@ -1,5 +1,6 @@
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
+import scala.math.abs
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -153,4 +154,23 @@ object ArraysAndStrings {
     globalMax
   }
 
+  def maxAreaBruteForce(height: Array[Int]): Int = {
+
+    var maxVal = 0
+
+    for (i <- height.indices) {
+      for (j <- height.indices) {
+        maxVal = maxVal max ((height(i) min height(j)) * abs(i - j))
+      }
+    }
+    maxVal
+  }
+
+  def removeElement(nums: Array[Int], `val`: Int): Int = {
+    val res = nums.count(x => x != `val`)
+    for ((elem, i) <- nums.filter(x => x != `val`).zipWithIndex) {
+      nums(i) = elem
+    }
+    res
+  }
 }
