@@ -1,6 +1,5 @@
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
-import scala.math.abs
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -107,6 +106,32 @@ object ArraysAndStrings {
       diffs += nums(i)
     }
     res.toSeq.length
+  }
+
+  def minWastedSpace(packages: Array[Int], boxes: Array[Array[Int]]): Int = {
+    var res = Int.MaxValue
+    var i = 0
+    val packagesSorted = packages.sorted
+    val n = packages.length
+
+    while (i < boxes.length) {
+      if (!(packages.max >= boxes(i).max)) {
+        val boxesSorted = boxes(i).sorted
+        var (j, m, thisResidual) = (0, 0, 0)
+        while (j < n) {
+          if (packagesSorted(j) <= boxesSorted(m)) {
+            thisResidual += boxesSorted(m) - packagesSorted(j)
+            j += 1
+          } else {
+            m += 1
+          }
+        }
+        res = res min thisResidual
+      }
+      i += 1
+    }
+
+    if (res == Int.MaxValue) -1 else (res % (Math.pow(10, 9) + 7)).toInt
   }
 
 }

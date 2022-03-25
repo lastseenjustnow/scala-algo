@@ -77,4 +77,20 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Minimum Space Wasted From Packaging") {
+    val conditions: Array[(Array[Int], Array[Array[Int]], Int)] =
+      Array(
+        (Array(2, 3, 5), Array(Array(4, 8), Array(2, 8)), 6),
+        (Array(2, 3, 5), Array(Array(1, 4), Array(2, 3), Array(3, 4)), -1),
+        (Array(3, 5, 8, 10, 11, 12), Array(Array(12), Array(11, 9), Array(10, 5, 14)), 9),
+        (Array(1), Array(Array(12), Array(11, 9), Array(10, 5, 14)), 4),
+        (Array(1), Array(Array(2), Array(3)), 1),
+        ((for (i <- 0 to 100000) yield i).toArray, (for (i <- 50000 until 100000) yield Array(i, 100000)).toArray, -794967289)
+      )
+
+    for (cond <- conditions) {
+      minWastedSpace(cond._1, cond._2) should equal(cond._3)
+    }
+  }
+
 }
