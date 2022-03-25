@@ -134,4 +134,23 @@ object ArraysAndStrings {
     if (res == Int.MaxValue) -1 else (res % (Math.pow(10, 9) + 7)).toInt
   }
 
+  def lengthOfLongestSubstring(s: String): Int = {
+    val n = s.length
+    var (localMax, globalMax) = (0, 0)
+    var i = 0
+    val st: mutable.HashMap[Char, Int] = mutable.HashMap()
+
+    while (i < n) {
+      if (i - localMax > st.getOrElse(s(i), Int.MinValue)) {
+        localMax += 1
+        globalMax = globalMax max localMax
+      } else {
+        localMax = i - st(s(i))
+      }
+      st(s(i)) = i
+      i += 1
+    }
+    globalMax
+  }
+
 }

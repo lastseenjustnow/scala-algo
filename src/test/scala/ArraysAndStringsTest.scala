@@ -93,4 +93,18 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Longest Substring Without Repeating Characters") {
+    val conditions: Array[(String, Int)] =
+      Array(
+        ("abcabcbb", 3),
+        ("bbbbb", 1),
+        ("pwwkew", 3),
+        ("", 0),
+        ("sadfksksajkajgss", 5)
+      )
+
+    for (cond <- conditions) {
+      assert(lengthOfLongestSubstring(cond._1) == cond._2)
+    }
+  }
 }
