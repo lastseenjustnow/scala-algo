@@ -112,11 +112,24 @@ class ArraysAndStringsTest extends FunSuite {
     val conditions: Array[(Array[Int], Int)] =
       Array(
         (Array(1, 8, 6, 2, 5, 4, 8, 3, 7), 49),
-        (Array(1, 1), 1)
+        (Array(1, 1), 1),
+        (Array(1, 8, 6, 2, 1000, 1000, 8, 3, 7), 1000),
+        (Array(1, 8, 6, 2, 1000, 4, 8, 3, 7), 49),
+        (Array(1, 8, 6, 2, 1000, 2, 1000, 8, 3, 7, 15, 20, 25, 30, 40, 30), 2000),
+        (Array(1, 2, 3, 4), 4),
+        (Array(1, 5, 4, 1, 1, 1, 1, 1, 1, 1), 9),
+        (Array(1, 5, 4, 1, 1, 1, 1, 1, 2, 1), 14),
+        (Array(3, 9, 3, 4, 7, 2, 12, 6), 45),
+        ((for (i <- 0 to 1000) yield i).toArray, 250000),
       )
+
+    val source = scala.io.Source.fromResource("containerWithMostWater.txt")
+    val testcase: Array[Int] = source.getLines().map(_.split(",").map(_.trim.toInt)).next()
 
     for (cond <- conditions) {
       assert(maxAreaBruteForce(cond._1) == cond._2)
+      assert(maxArea(cond._1) == cond._2)
+      assert(maxArea(testcase) == 887155335)
     }
   }
 
