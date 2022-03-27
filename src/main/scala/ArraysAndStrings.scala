@@ -1,6 +1,8 @@
+import SortingAndSearching.tripletBinarySearch
+
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
-import scala.math.{abs, min}
+import scala.math.abs
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -109,14 +111,14 @@ object ArraysAndStrings {
     res.toSeq.length
   }
 
-  def minWastedSpace(packages: Array[Int], boxes: Array[Array[Int]]): Int = {
+  def minWastedSpaceBruteForce(packages: Array[Int], boxes: Array[Array[Int]]): Int = {
     var res = Int.MaxValue
     var i = 0
     val packagesSorted = packages.sorted
     val n = packages.length
 
     while (i < boxes.length) {
-      if (!(packages.max >= boxes(i).max)) {
+      if (!(packages.max > boxes(i).max)) {
         val boxesSorted = boxes(i).sorted
         var (j, m, thisResidual) = (0, 0, 0)
         while (j < n) {
@@ -131,7 +133,37 @@ object ArraysAndStrings {
       }
       i += 1
     }
+    if (res == Int.MaxValue) -1 else (res % (Math.pow(10, 9) + 7)).toInt
+  }
 
+  def minWastedSpace(packages: Array[Int], boxes: Array[Array[Int]]): Int = {
+
+    val firstBoxWaste = packages
+      .sorted
+      .scanLeft((0, 0))((t, pack) => (t._1 + pack, pack))
+      .zipWithIndex
+      .map(t => (t._2, t._1._2, t._1._2 * t._2 - t._1._1))
+
+    var res = Int.MaxValue
+
+    for (box <- boxes) {
+      if (!(packages.max > box.max)) {
+        val boxesSorted = box.sorted
+        var (j, prevBoxIndex, thisResidual) = (0, 0, 0)
+        while (j < box.length) {
+          val prevBox = firstBoxWaste(prevBoxIndex)
+
+          val currentBoxIndex = tripletBinarySearch(firstBoxWaste, boxesSorted(j))
+          val currentBox = firstBoxWaste(currentBoxIndex)
+
+          val thisWastedSpace = currentBox._3 - prevBox._3 - (currentBox._2 - prevBox._2) * prevBox._1 + (boxesSorted(j) - currentBox._2) * (currentBox._1 - prevBox._1)
+          thisResidual += thisWastedSpace
+          prevBoxIndex = currentBox._1
+          j += 1
+        }
+        res = res min thisResidual
+      }
+    }
     if (res == Int.MaxValue) -1 else (res % (Math.pow(10, 9) + 7)).toInt
   }
 

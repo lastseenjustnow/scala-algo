@@ -80,17 +80,27 @@ class ArraysAndStringsTest extends FunSuite {
   test("Minimum Space Wasted From Packaging") {
     val conditions: Array[(Array[Int], Array[Array[Int]], Int)] =
       Array(
+        (Array(1, 3, 4, 6, 8, 9, 10, 12), Array(Array(5, 8, 12)), 14),
+        (Array(1, 3, 4, 6, 6, 8, 9, 10, 12), Array(Array(5, 8, 12)), 16),
+        (Array(1, 3, 4, 6, 8, 6, 9, 8, 10, 12), Array(Array(5, 8, 13)), 19),
+        (Array(1, 3, 4, 6, 8, 6, 9, 10, 12), Array(Array(5, 8, 13)), 19),
+        (Array(1, 3, 4, 6, 8, 9, 10, 12), Array(Array(5, 8, 13), Array(12, 8, 8, 5), Array(5, 8, 8, 12), Array(5, 8, 12)), 14),
         (Array(2, 3, 5), Array(Array(4, 8), Array(2, 8)), 6),
         (Array(2, 3, 5), Array(Array(1, 4), Array(2, 3), Array(3, 4)), -1),
         (Array(3, 5, 8, 10, 11, 12), Array(Array(12), Array(11, 9), Array(10, 5, 14)), 9),
         (Array(1), Array(Array(12), Array(11, 9), Array(10, 5, 14)), 4),
         (Array(1), Array(Array(2), Array(3)), 1),
-        ((for (i <- 0 to 100000) yield i).toArray, (for (i <- 50000 until 100000) yield Array(i, 100000)).toArray, -794967289)
+        (Array(7, 6, 5, 3, 4), Array(Array(2, 7), Array(6), Array(10, 5)), 10)
       )
 
     for (cond <- conditions) {
+      minWastedSpaceBruteForce(cond._1, cond._2) should equal(cond._3)
       minWastedSpace(cond._1, cond._2) should equal(cond._3)
     }
+
+    val testcase = ((for (i <- 0 to 100000) yield i).toArray, (for (i <- 50000 until 100000) yield Array(i, 100000)).toArray, -794967289)
+    minWastedSpace(testcase._1, testcase._2) should equal(testcase._3)
+
   }
 
   test("Longest Substring Without Repeating Characters") {
