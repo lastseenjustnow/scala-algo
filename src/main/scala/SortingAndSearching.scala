@@ -46,12 +46,12 @@ object SortingAndSearching {
   }
 
 
-  def tripletBinarySearch(x: Array[(Int, Int, Int)], toFind: Int): Int = {
+  def tripletBinarySearch(x: Array[(Int, Long, Long)], toFind: Long, start: Int): Int = {
     if (toFind >= x.last._2) {
       return x.length - 1
     }
 
-    var (left, middle, right) = (0, (x.length - 1) / 2, x.length - 1)
+    var (left, middle, right) = (start, (x.length - 1) / 2, x.length - 1)
     var res = -1
     var flag = false
 

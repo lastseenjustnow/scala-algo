@@ -98,7 +98,7 @@ class ArraysAndStringsTest extends FunSuite {
       minWastedSpace(cond._1, cond._2) should equal(cond._3)
     }
 
-    val testcase = ((for (i <- 0 to 100000) yield i).toArray, (for (i <- 50000 until 100000) yield Array(i, 100000)).toArray, -794967289)
+    val testcase = ((for (i <- 1 to 100000) yield i).toArray, (for (i <- 50000 until 100000) yield Array(i, 100000)).toArray, 499949986)
     minWastedSpace(testcase._1, testcase._2) should equal(testcase._3)
 
   }

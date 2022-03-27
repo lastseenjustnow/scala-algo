@@ -1,5 +1,6 @@
 import SortingAndSearching.tripletBinarySearch
 
+import java.io.{File, PrintWriter}
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.math.abs
@@ -138,33 +139,34 @@ object ArraysAndStrings {
 
   def minWastedSpace(packages: Array[Int], boxes: Array[Array[Int]]): Int = {
 
-    val firstBoxWaste = packages
+    val packagesMax = packages.max
+    val firstBoxWaste: Array[(Int, Long, Long)] = packages
       .sorted
-      .scanLeft((0, 0))((t, pack) => (t._1 + pack, pack))
+      .scanLeft((0L, 0L))((t, pack) => (t._1 + pack, pack))
       .zipWithIndex
       .map(t => (t._2, t._1._2, t._1._2 * t._2 - t._1._1))
 
-    var res = Int.MaxValue
+    var res = Long.MaxValue
 
     for (box <- boxes) {
-      if (!(packages.max > box.max)) {
+      if (!(packagesMax > box.max)) {
         val boxesSorted = box.sorted
-        var (j, prevBoxIndex, thisResidual) = (0, 0, 0)
+        var (j, prevBoxIndex, thisResidual: Long) = (0, 0, 0L)
         while (j < box.length) {
           val prevBox = firstBoxWaste(prevBoxIndex)
 
-          val currentBoxIndex = tripletBinarySearch(firstBoxWaste, boxesSorted(j))
+          val currentBoxIndex = tripletBinarySearch(firstBoxWaste, boxesSorted(j), prevBoxIndex)
           val currentBox = firstBoxWaste(currentBoxIndex)
 
-          val thisWastedSpace = currentBox._3 - prevBox._3 - (currentBox._2 - prevBox._2) * prevBox._1 + (boxesSorted(j) - currentBox._2) * (currentBox._1 - prevBox._1)
+          val thisWastedSpace: Long = currentBox._3 - prevBox._3 - (currentBox._2 - prevBox._2) * prevBox._1.toLong + (boxesSorted(j).toLong - currentBox._2) * (currentBox._1.toLong - prevBox._1.toLong)
           thisResidual += thisWastedSpace
-          prevBoxIndex = currentBox._1
+          prevBoxIndex = currentBoxIndex
           j += 1
         }
         res = res min thisResidual
       }
     }
-    if (res == Int.MaxValue) -1 else (res % (Math.pow(10, 9) + 7)).toInt
+    if (res == Long.MaxValue) -1 else (res % (Math.pow(10, 9).toLong + 7)).toInt
   }
 
   def lengthOfLongestSubstring(s: String): Int = {
