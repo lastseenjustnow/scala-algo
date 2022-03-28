@@ -144,7 +144,9 @@ object ArraysAndStrings {
       .sorted
       .scanLeft((0L, 0L))((t, pack) => (t._1 + pack, pack))
       .zipWithIndex
-      .map(t => (t._2, t._1._2, t._1._2 * t._2 - t._1._1))
+      .map {
+        case ((cumsum: Long, pack: Long), index: Int) => (index, pack, pack * index - cumsum)
+      }
 
     var res = Long.MaxValue
 
