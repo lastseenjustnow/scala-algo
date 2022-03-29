@@ -252,21 +252,27 @@ object ArraysAndStrings {
     }
     res
   }
-  //
-  //  def intToRoman(num: Int): String = {
-  //    val arabToRom = Map(1 -> 'I', 5 -> 'V', 10 -> 'X', 50 -> 'L', 100 -> 'C', 500 -> 'D', 1000 -> 'M')
-  //    var iterateNum = num
-  //    var result = ""
-  //
-  //    for (i <- 4 to 0 by -2) {
-  //      val count10 = iterateNum / arabToRom(i + 2)._1
-  //      result += arabToRom(2)._2 * count10
-  //      iterateNum -= iterateNum / arabToRom(i + 2)._1 * arabToRom(i + 2)._1
-  //
-  //
-  //    }
-  //
-  //
-  //  }
+
+  def intToRoman(num: Int): String = {
+    val arabToRom = Map(1 -> "I", 5 -> "V", 10 -> "X", 50 -> "L", 100 -> "C", 500 -> "D", 1000 -> "M")
+    var result: String = arabToRom(1000) * (num / 1000)
+    val numString = num.toString
+    val n = numString.length
+    var power = (num - (num / 1000) * 1000).toString.length - 1
+
+    while (power >= 0) {
+      val digitInt = numString(n - power - 1).asDigit
+      val multiplier = Math.pow(10, power).toInt
+      if (digitInt == 4 || digitInt == 9) {
+        result = result.concat(arabToRom(multiplier))
+        result = result.concat(arabToRom((digitInt + 1) * multiplier))
+      } else {
+        result = result.concat(arabToRom(5 * multiplier) * (digitInt / 5))
+        result = result.concat(arabToRom(multiplier) * (digitInt % 5))
+      }
+      power -= 1
+    }
+    result
+  }
 
 }

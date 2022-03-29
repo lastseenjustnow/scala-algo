@@ -160,4 +160,19 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Integer to Roman") {
+    val conditions: Array[(Int, String)] =
+      Array(
+        (3, "III"),
+        (58, "LVIII"),
+        (1994, "MCMXCIV"),
+        (1494, "MCDXCIV"),
+        (3999, "MMMCMXCIX"),
+      )
+
+    for (cond <- conditions) {
+      assert(intToRoman(cond._1) == cond._2)
+    }
+  }
+
 }
