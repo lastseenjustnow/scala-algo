@@ -253,6 +253,18 @@ object ArraysAndStrings {
     res
   }
 
+  def removeDuplicates(nums: Array[Int]): Int = {
+    var (start, end) = (0, 0)
+    while (end < nums.length) {
+      if (nums(start) != nums(end)) {
+        start += 1
+      }
+      nums(start) = nums(end)
+      end += 1
+    }
+    start + 1
+  }
+
   def intToRoman(num: Int): String = {
     val arabToRom = Map(1 -> "I", 5 -> "V", 10 -> "X", 50 -> "L", 100 -> "C", 500 -> "D", 1000 -> "M")
     var result: String = arabToRom(1000) * (num / 1000)

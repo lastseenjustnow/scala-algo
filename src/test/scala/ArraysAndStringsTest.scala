@@ -160,6 +160,20 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Remove Duplicates from Sorted Array") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(1, 2, 3, 4), 4),
+        (Array(0, 0, 1, 1, 1, 2, 2, 3, 4), 5),
+        (Array(1, 1, 2), 2),
+        (Array(0, 0, 1, 1, 1, 2, 2, 3, 3, 4), 5)
+      )
+
+    for (cond <- conditions) {
+      assert(removeDuplicates(cond._1) == cond._2)
+    }
+  }
+
   test("Integer to Roman") {
     val conditions: Array[(Int, String)] =
       Array(
