@@ -265,6 +265,38 @@ object ArraysAndStrings {
     start + 1
   }
 
+  def checkIfExist(arr: Array[Int]): Boolean = {
+    val st: mutable.Set[Int] = mutable.Set[Int]()
+    var flag = false
+    var i = 0
+
+    while (!flag & i < arr.length) {
+      if (st.contains(arr(i) * 2) || ((arr(i) % 2 == 0) && st.contains(arr(i) / 2))) {
+        flag = true
+      }
+      st += arr(i)
+      i += 1
+    }
+    flag
+  }
+
+  def validMountainArray(arr: Array[Int]): Boolean = {
+    val n = arr.length
+    var i = 1
+    if (n < 3 || arr(i) < arr(i - 1)) {
+      return false
+    }
+
+    while (i < n - 1 && arr(i) > arr(i - 1)) {
+      i += 1
+    }
+
+    while (i < n && arr(i) < arr(i - 1)) {
+      i += 1
+    }
+    if (i == n) true else false
+  }
+
   def intToRoman(num: Int): String = {
     val arabToRom = Map(1 -> "I", 5 -> "V", 10 -> "X", 50 -> "L", 100 -> "C", 500 -> "D", 1000 -> "M")
     var result: String = arabToRom(1000) * (num / 1000)

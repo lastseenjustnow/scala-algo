@@ -174,6 +174,38 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Check If N and Its Double Exist") {
+    val conditions: Array[(Array[Int], Boolean)] = Array(
+      (Array(10, 2, 5, 3), true),
+      (Array(7, 1, 14, 11), true),
+      (Array(3, 1, 7, 11), false),
+      (Array(-2, 0, 10, -19, 4, 6, -8), false),
+      (Array(-2, 0, 10, -19, 0, 4, 6, -8), true)
+    )
+
+    for (cond <- conditions) {
+      assert(checkIfExist(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
+  test("Valid Mountain Array") {
+    val conditions: Array[(Array[Int], Boolean)] = Array(
+      (Array(2, 1), false),
+      (Array(3, 5, 5), false),
+      (Array(0, 3, 2, 1), true),
+      (Array(-1, 0, 3, 2, 1), true),
+      (Array(-4, -3, -2, -1, 0, 3, 7, 1), true),
+      (Array(-4, -3, -3, -1, 0, 3, 7, 1), false),
+      (Array(-4, -3, -2, -1, 0, 3, 7, 7), false),
+      (Array(9, 8, 7, 6, 5, 4, 3, 2, 1, 0), false)
+    )
+
+    for (cond <- conditions) {
+      assert(validMountainArray(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
+
   test("Integer to Roman") {
     val conditions: Array[(Int, String)] =
       Array(
