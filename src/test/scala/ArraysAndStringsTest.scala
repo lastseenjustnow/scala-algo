@@ -16,6 +16,10 @@ class ArraysAndStringsTest extends FunSuite {
       assert(twoSum(cond._1, cond._2) sameElements cond._3)
       assert(twoSumReturn(cond._1, cond._2) sameElements cond._3)
     }
+
+    val testcase = (Array(2, 5, 3, 4, 6, 11), 7, Array((2, 5), (3, 4)))
+    assert(twoSumBuffer(testcase._1, testcase._2) sameElements testcase._3)
+
   }
 
   test("String to Integer (atoi)") {

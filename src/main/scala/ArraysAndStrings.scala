@@ -1,6 +1,5 @@
 import SortingAndSearching.tripletBinarySearch
 
-import java.io.{File, PrintWriter}
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.math.abs
@@ -33,6 +32,22 @@ object ArraysAndStrings {
       st += (nums(i) -> i)
     }
     Array()
+  }
+
+  def twoSumBuffer(nums: Array[Int], target: Int): Array[(Int, Int)] = {
+    val st: mutable.Set[Int] = mutable.Set()
+    val res: ArrayBuffer[(Int, Int)] = ArrayBuffer[(Int, Int)]()
+
+    for (i <- nums.indices) {
+      val thisNum: Int = nums(i)
+      val thatNum: Int = target - thisNum
+      if (st.contains(thatNum)) {
+        val tup = (thatNum, thisNum)
+        res += tup
+      }
+      st += thisNum
+    }
+    res.toArray
   }
 
   def myAtoi(s: String): Int = {
@@ -237,4 +252,21 @@ object ArraysAndStrings {
     }
     res
   }
+  //
+  //  def intToRoman(num: Int): String = {
+  //    val arabToRom = Map(1 -> 'I', 5 -> 'V', 10 -> 'X', 50 -> 'L', 100 -> 'C', 500 -> 'D', 1000 -> 'M')
+  //    var iterateNum = num
+  //    var result = ""
+  //
+  //    for (i <- 4 to 0 by -2) {
+  //      val count10 = iterateNum / arabToRom(i + 2)._1
+  //      result += arabToRom(2)._2 * count10
+  //      iterateNum -= iterateNum / arabToRom(i + 2)._1 * arabToRom(i + 2)._1
+  //
+  //
+  //    }
+  //
+  //
+  //  }
+
 }
