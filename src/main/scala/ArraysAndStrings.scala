@@ -355,4 +355,17 @@ object ArraysAndStrings {
     arr
   }
 
+  def moveZeroes(nums: Array[Int]): Unit = {
+    var (zeroPointer, nonZeroPointer) = (0, 0)
+
+    while (nonZeroPointer < nums.length) {
+      if (nums(nonZeroPointer) != 0) {
+        val tempVal = nums(zeroPointer)
+        nums(zeroPointer) = nums(nonZeroPointer)
+        nums(nonZeroPointer) = tempVal
+      }
+      nonZeroPointer += 1
+      if (!(nums(zeroPointer) == 0)) zeroPointer += 1
+    }
+  }
 }

@@ -250,4 +250,20 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Move Zeroes") {
+    val conditions: Array[(Array[Int], Array[Int])] =
+      Array(
+        (Array(0, 1, 0, 3, 12), Array(1, 3, 12, 0, 0)),
+        (Array(0), Array(0)),
+        (Array(1, 2, 3, 4, 5), Array(1, 2, 3, 4, 5)),
+        (Array(1, 2, 3, 4, 5, 0), Array(1, 2, 3, 4, 5, 0)),
+        (Array(1, 2, 3, 0, 4, 5, 0), Array(1, 2, 3, 4, 5, 0, 0)),
+      )
+
+    for (cond <- conditions) {
+      moveZeroes(cond._1)
+      assert(cond._1 sameElements cond._2)
+    }
+  }
+
 }
