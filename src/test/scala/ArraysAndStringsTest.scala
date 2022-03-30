@@ -238,4 +238,16 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Replace Elements with Greatest Element on Right Side") {
+    val conditions: Array[(Array[Int], Array[Int])] =
+      Array(
+        (Array(17, 18, 5, 4, 6, 1), Array(18, 6, 6, 6, 1, -1)),
+        (Array(400), Array(-1))
+      )
+
+    for (cond <- conditions) {
+      assert(replaceElements(cond._1) sameElements cond._2)
+    }
+  }
+
 }

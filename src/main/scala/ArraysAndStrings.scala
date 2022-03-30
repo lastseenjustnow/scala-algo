@@ -345,4 +345,14 @@ object ArraysAndStrings {
     if (stack.nonEmpty) false else flag
   }
 
+  def replaceElements(arr: Array[Int]): Array[Int] = {
+    var globalMax = -1
+    for (i <- arr.length - 1 to 0 by -1) {
+      val localMax = globalMax max arr(i)
+      arr(i) = globalMax
+      globalMax = localMax
+    }
+    arr
+  }
+
 }
