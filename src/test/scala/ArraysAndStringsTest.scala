@@ -266,4 +266,17 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Sort Array By Parity") {
+    val conditions: Array[(Array[Int], Array[Int])] =
+      Array(
+        (Array(3, 1, 2, 4), Array(2, 4, 3, 1)),
+        (Array(3, 1, 2, 5, 4), Array(2, 4, 3, 5, 1)),
+        (Array(0), Array(0))
+      )
+
+    for (cond <- conditions) {
+      assert(sortArrayByParity(cond._1) sameElements cond._2)
+    }
+  }
+
 }

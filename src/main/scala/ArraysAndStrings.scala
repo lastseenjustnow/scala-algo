@@ -368,4 +368,22 @@ object ArraysAndStrings {
       if (!(nums(zeroPointer) == 0)) zeroPointer += 1
     }
   }
+
+  def sortArrayByParity(nums: Array[Int]): Array[Int] = {
+    var (start, end) = (0, 0)
+
+    while (end < nums.length) {
+      if (nums(end) % 2 == 0) {
+        val tempVal = nums(start)
+        nums(start) = nums(end)
+        nums(end) = tempVal
+      }
+      end += 1
+      if (nums(start) % 2 == 0) {
+        start += 1
+      }
+    }
+    nums
+  }
+
 }
