@@ -221,4 +221,21 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Valid Parentheses") {
+    val conditions: Array[(String, Boolean)] =
+      Array(
+        ("()", true),
+        ("()[]{}", true),
+        ("(]", false),
+        ("[{(]})", false),
+        ("(", false),
+        ("]", false),
+        ("(" * Math.pow(10, 4).toInt, false)
+      )
+
+    for (cond <- conditions) {
+      assert(isValid(cond._1) == cond._2)
+    }
+  }
+
 }

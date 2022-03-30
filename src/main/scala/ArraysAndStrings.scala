@@ -1,7 +1,7 @@
 import SortingAndSearching.tripletBinarySearch
 
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.math.abs
 
 object ArraysAndStrings {
@@ -317,6 +317,32 @@ object ArraysAndStrings {
       power -= 1
     }
     result
+  }
+
+  def isValid(s: String): Boolean = {
+    var stack: ListBuffer[Char] = ListBuffer()
+    var (stackLength, leftLength) = (0, s.length)
+    val map: Map[Char, Char] = Map(')' -> '(', ']' -> '[', '}' -> '{')
+    var i = 0
+    var flag = true
+
+    while (flag && i < s.length) {
+      if (!map.contains(s(i))) {
+        stack += s(i)
+        stackLength += 1
+      } else if (stack.isEmpty || stack.last != map(s(i))) {
+        flag = false
+      } else {
+        stack = stack.dropRight(1)
+        stackLength -= 1
+      }
+      leftLength -= 1
+      if (stackLength > leftLength) {
+        flag = false
+      }
+      i += 1
+    }
+    if (stack.nonEmpty) false else flag
   }
 
 }
