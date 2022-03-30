@@ -279,4 +279,17 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Height Checker") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(1, 1, 4, 2, 1, 3), 3),
+        (Array(5, 1, 2, 3, 4), 5),
+        (Array(1, 2, 3, 4, 5), 0),
+      )
+
+    for (cond <- conditions) {
+      assert(heightChecker(cond._1) == cond._2)
+    }
+  }
+
 }

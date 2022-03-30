@@ -386,4 +386,8 @@ object ArraysAndStrings {
     nums
   }
 
+  def heightChecker(heights: Array[Int]): Int = {
+    heights.sorted.zip(heights).count(t => t._1 != t._2)
+  }
+
 }
