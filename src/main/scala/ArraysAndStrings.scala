@@ -444,4 +444,28 @@ object ArraysAndStrings {
     res.toList
   }
 
+  def sortedSquares(nums: Array[Int]): Array[Int] = {
+    val n = nums.length
+    var i = 0
+    while (i < n && nums(i) < 0) {
+      i += 1
+    }
+
+    var (left, right) = (i - 1, i)
+    val res: ListBuffer[Int] = ListBuffer()
+
+    while (right - left < n + 1) {
+      val leftSq = if (left >= 0) Math.pow(nums(left), 2).toInt else Int.MaxValue
+      val rightSq = if (right < n) Math.pow(nums(right), 2).toInt else Int.MaxValue
+      if (leftSq < rightSq) {
+        res += leftSq
+        left -= 1
+      } else {
+        res += rightSq
+        right += 1
+      }
+    }
+    res.toArray
+  }
+
 }

@@ -347,5 +347,20 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Squares of a Sorted Array") {
+    val conditions: Array[(Array[Int], Array[Int])] =
+      Array(
+        (Array(-4, -1, 0, 3, 10), Array(0, 1, 9, 16, 100)),
+        (Array(-7, -3, 2, 3, 11), Array(4, 9, 9, 49, 121)),
+        (Array(1, 2, 3, 4, 6), Array(1, 4, 9, 16, 36)),
+        (Array(0), Array(0)),
+        (Array(-1, 0), Array(0, 1)),
+      )
+
+    for (cond <- conditions) {
+      assert(sortedSquares(cond._1) sameElements cond._2)
+    }
+
+  }
 
 }
