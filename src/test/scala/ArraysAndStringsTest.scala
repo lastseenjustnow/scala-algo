@@ -292,4 +292,23 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Max Consecutive Ones II") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(1, 1, 0, 1, 1, 0), 5),
+        (Array(1, 0, 1, 1, 0), 4),
+        (Array(1, 0, 1, 1, 0, 1), 4),
+        (Array(1, 1), 2),
+        (Array(0), 1),
+        (Array(1), 1),
+        (Array(1, 1, 0, 1), 4),
+        ((for (i <- 0 until Math.pow(10, 5).toInt) yield i % 2).toArray, 3)
+      )
+
+    for (cond <- conditions) {
+      assert(findMaxConsecutiveOnes(cond._1) == cond._2)
+    }
+  }
+
+
 }

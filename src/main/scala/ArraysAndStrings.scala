@@ -2,7 +2,7 @@ import SortingAndSearching.tripletBinarySearch
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
-import scala.math.abs
+import scala.math.{Pi, abs}
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -388,6 +388,22 @@ object ArraysAndStrings {
 
   def heightChecker(heights: Array[Int]): Int = {
     heights.sorted.zip(heights).count(t => t._1 != t._2)
+  }
+
+  def findMaxConsecutiveOnes(nums: Array[Int]): Int = {
+    var (globalMax, left, right, i) = (0, 0, 0, 0)
+
+    while (i < nums.length) {
+      if (nums(i) == 0) {
+        left = right
+        right = 0
+      } else {
+        right += 1
+      }
+      globalMax = globalMax max (left + right + 1)
+      i += 1
+    }
+    globalMax min nums.length
   }
 
 }
