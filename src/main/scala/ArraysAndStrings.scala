@@ -2,7 +2,7 @@ import SortingAndSearching.tripletBinarySearch
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
-import scala.math.{Pi, abs}
+import scala.math.abs
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -422,6 +422,26 @@ object ArraysAndStrings {
       }
     }
     if (trie(2) != Long.MinValue) trie(2).toInt else trie(0).toInt
+  }
+
+  def findDisappearedNumbers(nums: Array[Int]): List[Int] = {
+    var i = 0
+    val res: ListBuffer[Int] = ListBuffer()
+
+    while (i < nums.length) {
+      (nums(i), nums(nums(i) - 1)) match {
+        case (a, b) if a == i + 1 || a == b => i += 1
+        case _ => val temp = nums(i); nums(i) = nums(nums(i) - 1); nums(temp - 1) = temp
+      }
+    }
+
+    for (i <- nums.indices) {
+      if (nums(i) != i + 1) {
+        res += i + 1
+      }
+    }
+
+    res.toList
   }
 
 }

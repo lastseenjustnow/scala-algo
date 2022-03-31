@@ -334,5 +334,18 @@ class ArraysAndStringsTest extends FunSuite {
     assert(thirdMax(rands) == randsSorted(2))
   }
 
+  test("Find All Numbers Disappeared in an Array") {
+    val conditions: Array[(Array[Int], List[Int])] =
+      Array(
+        (Array(4, 3, 2, 7, 8, 2, 3, 1), List(5, 6)),
+        (Array(1, 1), List(2)),
+        (Array(1), List())
+      )
+
+    for (cond <- conditions) {
+      assert(findDisappearedNumbers(cond._1) == cond._2)
+    }
+  }
+
 
 }
