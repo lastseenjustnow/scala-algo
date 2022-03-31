@@ -2,6 +2,8 @@ import ArraysAndStrings._
 import org.scalatest.FunSuite
 import org.scalatest.Matchers._
 
+import scala.util.Random
+
 class ArraysAndStringsTest extends FunSuite {
 
   test("Two Sum") {
@@ -308,6 +310,28 @@ class ArraysAndStringsTest extends FunSuite {
     for (cond <- conditions) {
       assert(findMaxConsecutiveOnes(cond._1) == cond._2)
     }
+  }
+
+  test("Third Maximum Number") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(3, 2, 1), 1),
+        (Array(1, 2), 2),
+        (Array(2, 2, 3, 1), 1),
+        (Array(1, 2, -2147483648), -2147483648)
+      )
+
+    for (cond <- conditions) {
+      assert(thirdMax(cond._1) == cond._2)
+    }
+
+    for (cond <- conditions) {
+      assert(thirdMax(cond._1) == cond._2)
+    }
+
+    val rands = Seq.fill(Math.pow(10, 4).toInt)(Random.nextInt).toArray
+    val randsSorted = rands.sorted.reverse
+    assert(thirdMax(rands) == randsSorted(2))
   }
 
 

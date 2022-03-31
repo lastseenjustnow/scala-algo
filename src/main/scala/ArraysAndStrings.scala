@@ -406,4 +406,22 @@ object ArraysAndStrings {
     globalMax min nums.length
   }
 
+  def thirdMax(nums: Array[Int]): Int = {
+    val trie: Array[Long] = Array.fill(3)(Long.MinValue)
+
+    for (elem <- nums) {
+      var keep: Long = elem
+      for (i <- 0 to 2) {
+        if (keep > trie(i)) {
+          val newKeep = trie(i)
+          trie(i) = keep
+          keep = newKeep
+        } else if (keep == trie(i)) {
+          keep = Long.MinValue
+        }
+      }
+    }
+    if (trie(2) != Long.MinValue) trie(2).toInt else trie(0).toInt
+  }
+
 }
