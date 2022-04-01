@@ -2,6 +2,8 @@ import ArraysAndStrings._
 import org.scalatest.FunSuite
 import org.scalatest.Matchers._
 
+import scala.util.Random
+
 class ArraysAndStringsTest extends FunSuite {
 
   test("Two Sum") {
@@ -292,18 +294,73 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
-  test("Reverse String") {
-    val conditions: Array[(Array[Char], Array[Char])] =
+  test("Max Consecutive Ones II") {
+    val conditions: Array[(Array[Int], Int)] =
       Array(
-        (Array('h', 'e', 'l', 'l', 'o'), Array('o', 'l', 'l', 'e', 'h')),
-        (Array('H', 'a', 'n', 'n', 'a', 'h'), Array('h', 'a', 'n', 'n', 'a', 'H')),
-        (Array('H'), Array('H')),
+        (Array(1, 1, 0, 1, 1, 0), 5),
+        (Array(1, 0, 1, 1, 0), 4),
+        (Array(1, 0, 1, 1, 0, 1), 4),
+        (Array(1, 1), 2),
+        (Array(0), 1),
+        (Array(1), 1),
+        (Array(1, 1, 0, 1), 4),
+        ((for (i <- 0 until Math.pow(10, 5).toInt) yield i % 2).toArray, 3)
       )
 
     for (cond <- conditions) {
-      reverseString(cond._1)
-      assert(cond._1 sameElements cond._2)
+      assert(findMaxConsecutiveOnes(cond._1) == cond._2)
+    }
+  }
+
+  test("Third Maximum Number") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(3, 2, 1), 1),
+        (Array(1, 2), 2),
+        (Array(2, 2, 3, 1), 1),
+        (Array(1, 2, -2147483648), -2147483648)
+      )
+
+    for (cond <- conditions) {
+      assert(thirdMax(cond._1) == cond._2)
+    }
+
+    for (cond <- conditions) {
+      assert(thirdMax(cond._1) == cond._2)
+    }
+
+    val rands = Seq.fill(Math.pow(10, 4).toInt)(Random.nextInt).toArray
+    val randsSorted = rands.sorted.reverse
+    assert(thirdMax(rands) == randsSorted(2))
+  }
+
+  test("Find All Numbers Disappeared in an Array") {
+    val conditions: Array[(Array[Int], List[Int])] =
+      Array(
+        (Array(4, 3, 2, 7, 8, 2, 3, 1), List(5, 6)),
+        (Array(1, 1), List(2)),
+        (Array(1), List())
+      )
+
+    for (cond <- conditions) {
+      assert(findDisappearedNumbers(cond._1) == cond._2)
+    }
+  }
+
+  test("Squares of a Sorted Array") {
+    val conditions: Array[(Array[Int], Array[Int])] =
+      Array(
+        (Array(-4, -1, 0, 3, 10), Array(0, 1, 9, 16, 100)),
+        (Array(-7, -3, 2, 3, 11), Array(4, 9, 9, 49, 121)),
+        (Array(1, 2, 3, 4, 6), Array(1, 4, 9, 16, 36)),
+        (Array(0), Array(0)),
+        (Array(-1, 0), Array(0, 1)),
+      )
+
+    for (cond <- conditions) {
+      assert(sortedSquares(cond._1) sameElements cond._2)
     }
 
   }
+
 }

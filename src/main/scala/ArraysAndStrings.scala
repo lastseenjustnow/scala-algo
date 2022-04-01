@@ -390,14 +390,82 @@ object ArraysAndStrings {
     heights.sorted.zip(heights).count(t => t._1 != t._2)
   }
 
-  def reverseString(s: Array[Char]): Unit = {
-    val n = s.length
-    var i = 0
+  def findMaxConsecutiveOnes(nums: Array[Int]): Int = {
+    var (globalMax, left, right, i) = (0, 0, 0, 0)
 
-    while (i < n / 2) {
-      val tempVal = s(i); s(i) = s(n - i - 1); s(n - i - 1) = tempVal
-      i+=1
+    while (i < nums.length) {
+      if (nums(i) == 0) {
+        left = right
+        right = 0
+      } else {
+        right += 1
+      }
+      globalMax = globalMax max (left + right + 1)
+      i += 1
     }
+    globalMax min nums.length
+  }
+
+  def thirdMax(nums: Array[Int]): Int = {
+    val trie: Array[Long] = Array.fill(3)(Long.MinValue)
+
+    for (elem <- nums) {
+      var keep: Long = elem
+      for (i <- 0 to 2) {
+        if (keep > trie(i)) {
+          val newKeep = trie(i)
+          trie(i) = keep
+          keep = newKeep
+        } else if (keep == trie(i)) {
+          keep = Long.MinValue
+        }
+      }
+    }
+    if (trie(2) != Long.MinValue) trie(2).toInt else trie(0).toInt
+  }
+
+  def findDisappearedNumbers(nums: Array[Int]): List[Int] = {
+    var i = 0
+    val res: ListBuffer[Int] = ListBuffer()
+
+    while (i < nums.length) {
+      (nums(i), nums(nums(i) - 1)) match {
+        case (a, b) if a == i + 1 || a == b => i += 1
+        case _ => val temp = nums(i); nums(i) = nums(nums(i) - 1); nums(temp - 1) = temp
+      }
+    }
+
+    for (i <- nums.indices) {
+      if (nums(i) != i + 1) {
+        res += i + 1
+      }
+    }
+
+    res.toList
+  }
+
+  def sortedSquares(nums: Array[Int]): Array[Int] = {
+    val n = nums.length
+    var i = 0
+    while (i < n && nums(i) < 0) {
+      i += 1
+    }
+
+    var (left, right) = (i - 1, i)
+    val res: ListBuffer[Int] = ListBuffer()
+
+    while (right - left < n + 1) {
+      val leftSq = if (left >= 0) Math.pow(nums(left), 2).toInt else Int.MaxValue
+      val rightSq = if (right < n) Math.pow(nums(right), 2).toInt else Int.MaxValue
+      if (leftSq < rightSq) {
+        res += leftSq
+        left -= 1
+      } else {
+        res += rightSq
+        right += 1
+      }
+    }
+    res.toArray
   }
 
 }
