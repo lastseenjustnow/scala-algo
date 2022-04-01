@@ -390,4 +390,14 @@ object ArraysAndStrings {
     heights.sorted.zip(heights).count(t => t._1 != t._2)
   }
 
+  def reverseString(s: Array[Char]): Unit = {
+    val n = s.length
+    var i = 0
+
+    while (i < n / 2) {
+      val tempVal = s(i); s(i) = s(n - i - 1); s(n - i - 1) = tempVal
+      i+=1
+    }
+  }
+
 }
