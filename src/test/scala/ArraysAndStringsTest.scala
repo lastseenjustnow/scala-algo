@@ -363,4 +363,19 @@ class ArraysAndStringsTest extends FunSuite {
 
   }
 
+  test("Reverse String") {
+    val conditions: Array[(Array[Char], Array[Char])] =
+      Array(
+        (Array('h', 'e', 'l', 'l', 'o'), Array('o', 'l', 'l', 'e', 'h')),
+        (Array('H', 'a', 'n', 'n', 'a', 'h'), Array('h', 'a', 'n', 'n', 'a', 'H')),
+        (Array('H'), Array('H')),
+      )
+
+    for (cond <- conditions) {
+      reverseString(cond._1)
+      assert(cond._1 sameElements cond._2)
+    }
+
+  }
+
 }
