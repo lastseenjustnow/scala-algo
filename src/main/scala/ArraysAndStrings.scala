@@ -477,4 +477,32 @@ object ArraysAndStrings {
       i += 1
     }
   }
+
+  def validPalindromeTwo(s: String): Boolean = {
+    var (start, end) = (0, s.length - 1)
+
+    while (start < end && s(start) == s(end)) {
+      start += 1
+      end -= 1
+    }
+
+    var leftShift = start + 1
+    var rightShift = end - 1
+
+    var firstBool = true
+    while (leftShift < end & firstBool) {
+      firstBool = if (s(leftShift) != s(end)) false else true
+      leftShift += 1
+      end -= 1
+    }
+
+    var secondBool = true
+    while (start < rightShift & secondBool) {
+      secondBool = if (s(start) != s(rightShift)) false else true
+      start += 1
+      rightShift -= 1
+    }
+
+    firstBool || secondBool
+  }
 }

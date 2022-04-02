@@ -378,4 +378,26 @@ class ArraysAndStringsTest extends FunSuite {
 
   }
 
+  test("Valid Palindrome II") {
+    val conditions: Array[(String, Boolean)] =
+      Array(
+        ("aba", true),
+        ("abca", true),
+        ("abc", false),
+        ("acbdba", true),
+        ("abacadadarcaba", true),
+        ("rabacadadacaba", true),
+        ("rabacadadacababr", true),
+        ("rabacadadacabbabr", false),
+        ("abacadadarcabra", false),
+        ("ebcbbececabbacecbbcbe", true),
+        ("macccc", false)
+      )
+
+    for (cond <- conditions) {
+      assert(validPalindromeTwo(cond._1) == cond._2)
+    }
+
+  }
+
 }
