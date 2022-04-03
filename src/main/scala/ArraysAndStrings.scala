@@ -1,8 +1,8 @@
-import SortingAndSearching.{searchInsert, tripletBinarySearch}
+import SortingAndSearching.tripletBinarySearch
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
-import scala.math.{abs, rint}
+import scala.math.abs
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -317,6 +317,30 @@ object ArraysAndStrings {
       power -= 1
     }
     result
+  }
+
+  def romanToInt(s: String): Int = {
+    val map: Map[Char, Int] = Map(
+      'I' -> 1,
+      'V' -> 5,
+      'X' -> 10,
+      'L' -> 50,
+      'C' -> 100,
+      'D' -> 500,
+      'M' -> 1000)
+
+    var (i, res) = (0, 0)
+
+    while (i < s.length) {
+      if (i == s.length - 1 || map(s(i + 1)) <= map(s(i))) {
+        res += map(s(i))
+      } else {
+        res += map(s(i + 1)) - map(s(i))
+        i += 1
+      }
+      i += 1
+    }
+    res
   }
 
   def isValid(s: String): Boolean = {
