@@ -71,5 +71,16 @@ object SortingAndSearching {
     res
   }
 
+  def insertionSort(nums: Array[Int], startFrom: Int): Unit = {
+    var i = startFrom
+    while (i < nums.length) {
+      var thisI = i
+      while (thisI != startFrom && nums(thisI) < nums(thisI - 1)) {
+        val tempVal = nums(thisI); nums(thisI) = nums(thisI - 1); nums(thisI - 1) = tempVal
+        thisI -= 1
+      }
+      i += 1
+    }
+  }
 }
 

@@ -1,8 +1,8 @@
-import SortingAndSearching.tripletBinarySearch
+import SortingAndSearching.{searchInsert, tripletBinarySearch}
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
-import scala.math.abs
+import scala.math.{abs, rint}
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -473,7 +473,9 @@ object ArraysAndStrings {
     var i = 0
 
     while (i < n / 2) {
-      val tempVal = s(i); s(i) = s(n - i - 1); s(n - i - 1) = tempVal
+      val tempVal = s(i)
+      s(i) = s(n - i - 1)
+      s(n - i - 1) = tempVal
       i += 1
     }
   }
@@ -505,4 +507,43 @@ object ArraysAndStrings {
 
     firstBool || secondBool
   }
+
+  def nextPermutation(nums: Array[Int]): Unit = {
+
+    if (nums.length == 1) return
+
+    def swap(leftIndex: Int, rightIndex: Int): Unit = {
+      val tempVal = nums(leftIndex)
+      nums(leftIndex) = nums(rightIndex)
+      nums(rightIndex) = tempVal
+    }
+
+    def insertionSort(startFrom: Int): Unit = {
+      var i = startFrom
+      while (i < nums.length) {
+        var thisI = i
+        while (thisI != startFrom && nums(thisI) < nums(thisI - 1)) {
+          swap(thisI, thisI - 1)
+          thisI -= 1
+        }
+        i += 1
+      }
+    }
+
+    var (leftPointer, rightPointer) = (nums.length - 2, nums.length - 1)
+
+    while (leftPointer != 0 && nums(leftPointer) >= nums(leftPointer + 1)) {
+      leftPointer -= 1
+    }
+
+    while (rightPointer != 0 && nums(leftPointer) >= nums(rightPointer)) {
+      rightPointer -= 1
+    }
+
+    swap(leftPointer, rightPointer)
+
+    insertionSort(leftPointer + (if (leftPointer == rightPointer) 0 else 1))
+
+  }
+
 }

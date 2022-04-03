@@ -76,4 +76,17 @@ class SortingAndSearchingTest extends FunSuite {
     }
   }
 
+  test("Insertion sort of a part of an array") {
+    val conditions: Array[(Array[Int], Int, Array[Int])] =
+      Array(
+        (Array(1,2,4,3,5,6,1,3,2), 3, Array(1,2,4,1,2,3,3,5,6)),
+        (Array(1,2,4,3,5,6,1,3,2), 4, Array(1,2,4,3,1,2,3,5,6))
+      )
+
+    for (cond <- conditions) {
+      insertionSort(cond._1, cond._2)
+      assert(cond._1 sameElements cond._3)
+    }
+  }
+
 }
