@@ -426,7 +426,20 @@ class ArraysAndStringsTest extends FunSuite {
       nextPermutation(cond._1)
       assert(cond._1 sameElements cond._2)
     }
+  }
 
+  test("Merge Sorted Array") {
+    val conditions: Array[(Array[Int], Array[Int], Array[Int])] =
+      Array(
+        (Array(1, 2, 3, 0, 0, 0), Array(2, 5, 6), Array(1, 2, 2, 3, 5, 6)),
+        (Array(1), Array(), Array(1)),
+        (Array(0), Array(1), Array(1)),
+      )
+
+    for (cond <- conditions) {
+      merge(cond._1, cond._1.length - cond._2.length, cond._2, cond._2.length)
+      assert(cond._1 sameElements cond._3)
+    }
   }
 
 }

@@ -570,4 +570,21 @@ object ArraysAndStrings {
 
   }
 
+  def merge(nums1: Array[Int], m: Int, nums2: Array[Int], n: Int): Unit = {
+    val nums1Copy: Array[Int] = nums1.clone()
+    var (writePointer, readPointer1, readPointer2) = (n + m - 1, m - 1, n - 1)
+
+    while (writePointer >= 0) {
+      if (readPointer1 >= 0 && (readPointer2 < 0 || nums1Copy(readPointer1) >= nums2(readPointer2)) ) {
+        nums1(writePointer) = nums1Copy(readPointer1)
+        readPointer1 -= 1
+      } else {
+        nums1(writePointer) = nums2(readPointer2)
+        readPointer2 -= 1
+      }
+      writePointer -= 1
+    }
+  }
+
+
 }
