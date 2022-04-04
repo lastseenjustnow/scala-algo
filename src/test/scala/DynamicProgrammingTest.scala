@@ -444,6 +444,19 @@ class DynamicProgrammingTest extends FunSuite {
     }
   }
 
+  test("Coin Change 2") {
+    val conditions: Array[(Array[Int], Int, Int)] = Array(
+      (Array(1, 2, 5), 5, 4),
+      (Array(3), 2, 0),
+      (Array(10), 10, 1),
+      (Array(1, 2, 5, 10, 15, 25), 100, 7572),
+    )
+
+    for (cond <- conditions) {
+      assert(change(cond._2, cond._1) == cond._3, f"wrong for array: ${cond._1.mkString(",")}")
+    }
+  }
+
   test("Word Break") {
     val conditions: Array[(String, List[String], Boolean)] = Array(
       ("leetcode", List("leet", "code"), true),
@@ -496,7 +509,6 @@ class DynamicProgrammingTest extends FunSuite {
       assert(uniqueLetterStringFP(cond._1) == cond._2, f"wrong for pair: ${cond._1}, ${cond._2}")
     }
   }
-
 
 
 }

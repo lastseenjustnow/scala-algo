@@ -819,6 +819,20 @@ object DynamicProgramming {
     if (res == Double.PositiveInfinity) -1 else res.toInt
   }
 
+  def change(amount: Int, coins: Array[Int]): Int = {
+    var arr: Array[Int] = Array.fill(amount + 1)(0)
+
+    for (coin <- coins) {
+      val newArr = arr
+      newArr(0) = 1
+      for (i <- coin until arr.length) {
+        arr(i) = arr(i) + arr(i - coin)
+      }
+      arr = newArr
+    }
+    arr.last
+  }
+
   def wordBreakRecursive(s: String, wordDict: List[String]): Boolean = {
     val memo: Array[Array[Option[Boolean]]] = Array.fill(s.length)(Array.fill(s.length)(None))
 
