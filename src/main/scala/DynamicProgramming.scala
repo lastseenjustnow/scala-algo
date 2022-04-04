@@ -820,15 +820,13 @@ object DynamicProgramming {
   }
 
   def change(amount: Int, coins: Array[Int]): Int = {
-    var arr: Array[Int] = Array.fill(amount + 1)(0)
+    val arr: Array[Int] = Array.fill(amount + 1)(0)
+    arr(0) = 1
 
     for (coin <- coins) {
-      val newArr = arr
-      newArr(0) = 1
       for (i <- coin until arr.length) {
-        newArr(i) = arr(i) + newArr(i - coin)
+        arr(i) = arr(i) + arr(i - coin)
       }
-      arr = newArr
     }
     arr.last
   }
