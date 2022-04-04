@@ -23,4 +23,21 @@ class MathProblemsTest extends FunSuite {
     }
   }
 
+  test("Count Primes") {
+    val conditions: Array[(Int, Int)] =
+      Array(
+        (10, 4),
+        (0, 0),
+        (1, 0),
+        (2, 0),
+        (30, 10),
+        (120, 30),
+        (5000000, 348513)
+      )
+
+    for (cond <- conditions) {
+      assert(countPrimes(cond._1) == cond._2)
+    }
+  }
+
 }

@@ -36,4 +36,25 @@ object MathProblems {
     }
     start * residual
   }
+
+  def countPrimes(n: Int): Int = {
+    /** Sieve of Eratosthenes */
+    val arr = (for (i <- 0 until n) yield i).toArray
+
+    var cur = 2
+
+    while (cur * cur < n) {
+      var thisCur = Math.pow(cur, 2).toInt
+      while (thisCur < n) {
+        arr(thisCur) = -1
+        thisCur += cur
+      }
+      cur += 1
+      while (arr(cur) == -1) {
+        cur += 1
+      }
+    }
+    arr.count(x => x > 1)
+  }
+
 }
