@@ -826,7 +826,7 @@ object DynamicProgramming {
       val newArr = arr
       newArr(0) = 1
       for (i <- coin until arr.length) {
-        arr(i) = arr(i) + arr(i - coin)
+        newArr(i) = arr(i) + newArr(i - coin)
       }
       arr = newArr
     }
