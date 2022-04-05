@@ -454,6 +454,7 @@ class DynamicProgrammingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(change(cond._2, cond._1) == cond._3, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(changeFP(cond._2, cond._1) == cond._3, f"wrong for array: ${cond._1.mkString(",")}")
     }
   }
 

@@ -820,13 +820,19 @@ object DynamicProgramming {
   }
 
   def change(amount: Int, coins: Array[Int]): Int = {
-    val arr: Array[Int] = Array.fill(amount + 1)(0)
-    arr(0) = 1
+    val arr: Array[Int] = 1 +: Array.fill(amount)(0)
+    for (coin <- coins; i <- coin to amount) arr(i) += arr(i - coin)
+    arr.last
+  }
 
-    for (coin <- coins) {
-      for (i <- coin until arr.length) {
-        arr(i) = arr(i) + arr(i - coin)
-      }
+  def changeFP(amount: Int, coins: Array[Int]): Int = {
+    val arr = 1 +: Array.fill(amount)(0)
+    coins.foreach {
+      coin =>
+        arr.zipWithIndex.foreach {
+          case (elem, i) =>
+            arr(i) = elem + arr.applyOrElse(i - coin, (_: Int) => 0)
+        }
     }
     arr.last
   }
