@@ -1,5 +1,6 @@
 import SortingAndSearching.tripletBinarySearch
 
+import scala.annotation.tailrec
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.math.abs
@@ -243,6 +244,27 @@ object ArraysAndStrings {
       res = res max squareF(start, end)
     }
     res
+  }
+
+  def maxAreaRecursive(height: Array[Int]): Int = {
+    /** *
+     * Time complexity: O(n)
+     * */
+
+    def squareF(left: Int, right: Int): Int = {
+      (height(left) min height(right)) * (right - left)
+    }
+
+    @tailrec
+    def rec(left: Int, right: Int, maxarea: Int): Int = {
+      (left, right) match {
+        case (l, r) if r == l => maxarea
+        case (l, r) if height(l) >= height(r) => rec(l, r - 1, maxarea max squareF(l, r))
+        case _ => rec(left + 1, right, maxarea max squareF(left, right))
+      }
+    }
+
+    rec(0, height.length - 1, squareF(0, height.length - 1))
   }
 
   def removeElement(nums: Array[Int], `val`: Int): Int = {
@@ -575,7 +597,7 @@ object ArraysAndStrings {
     var (writePointer, readPointer1, readPointer2) = (n + m - 1, m - 1, n - 1)
 
     while (writePointer >= 0) {
-      if (readPointer1 >= 0 && (readPointer2 < 0 || nums1Copy(readPointer1) >= nums2(readPointer2)) ) {
+      if (readPointer1 >= 0 && (readPointer2 < 0 || nums1Copy(readPointer1) >= nums2(readPointer2))) {
         nums1(writePointer) = nums1Copy(readPointer1)
         readPointer1 -= 1
       } else {

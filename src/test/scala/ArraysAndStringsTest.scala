@@ -146,6 +146,8 @@ class ArraysAndStringsTest extends FunSuite {
       assert(maxAreaBruteForce(cond._1) == cond._2)
       assert(maxArea(cond._1) == cond._2)
       assert(maxArea(testcase) == 887155335)
+      assert(maxAreaRecursive(cond._1) == cond._2)
+      assert(maxAreaRecursive(testcase) == 887155335)
     }
   }
 
