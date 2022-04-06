@@ -444,4 +444,20 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Brace Expansion") {
+    val conditions: Array[(String, Array[String])] =
+      Array(
+        ("{a,b}c{d,e}f", Array("acdf", "acef", "bcdf", "bcef")),
+        ("abcd", Array("abcd")),
+        ("a{b,c}cd", Array("abcd", "accd")),
+        ("ac{d,e}f", Array("acdf", "acef")),
+        ("a", Array("a")),
+        ("{a,b}{d,e,z}{r,d,e}f", Array("addf", "adef", "adrf", "aedf", "aeef", "aerf", "azdf", "azef", "azrf", "bddf", "bdef", "bdrf", "bedf", "beef", "berf", "bzdf", "bzef", "bzrf"))
+      )
+
+    for (cond <- conditions) {
+      assert(expand(cond._1) sameElements cond._2, f"wrong for array: ${cond._1}")
+    }
+  }
+
 }

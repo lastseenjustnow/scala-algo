@@ -609,4 +609,30 @@ object ArraysAndStrings {
   }
 
 
+  def expand(s: String): Array[String] = {
+
+    @tailrec
+    def splitter(i: Int, output: Array[String], isBraceOpen: Boolean): Array[String] = {
+      if (i == s.length) output
+      else if (s(i) == '{') splitter(i + 1, output :+ "", isBraceOpen = true)
+      else if (s(i) == '}') splitter(i + 1, output, isBraceOpen = false)
+      else if (s(i) == ',') splitter(i + 1, output, isBraceOpen)
+      else if (isBraceOpen && s(i) != ',') splitter(i + 1, output.dropRight(1) :+ output.last + s(i), isBraceOpen)
+      else splitter(i + 1, output :+ s(i).toString, isBraceOpen)
+    }
+
+    val splitted = splitter(0, Array(), isBraceOpen = false)
+    val res: ListBuffer[String] = ListBuffer()
+
+    def rec(i: Int, substr: String): Unit = {
+      if (i == splitted.length) res += substr
+      else for (letter <- splitted(i).sorted if letter != ',') rec(i + 1, substr + letter)
+    }
+
+    rec(0, "")
+    res.toArray
+
+  }
+
+
 }
