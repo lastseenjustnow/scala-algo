@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.collection.mutable
 
 object DynamicProgramming {
@@ -925,6 +926,10 @@ object DynamicProgramming {
     (for (x <- 0 until s.length; y <- x until s.length) yield (x, y))
       .foldLeft(0) { (x, indices) => x + countUniqueChars(s.slice(indices._1, indices._2 + 1)) }
 
+  }
+
+  def numDecodings(s: String): Int = {
+    ???
   }
 
 }

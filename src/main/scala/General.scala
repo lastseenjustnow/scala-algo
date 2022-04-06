@@ -202,4 +202,44 @@ object General {
     }
     res.toList
   }
+
+  def threeSumMulti(arr: Array[Int], target: Int): Int = {
+
+    val mapCounts = arr.groupBy(identity).mapValues(_.length)
+    val sortedDistincts = mapCounts.keys.toArray.sorted
+
+    def choose(n: Int, k: Int): BigInt = {
+      def fact(n: Int): BigInt = (for (i <- 1 to n) yield BigInt(i)).product
+
+      fact(n) / (fact(n - k) * fact(k))
+    }
+
+    var res: BigInt = 0
+
+    // add triplets
+    if (target % 3 == 0) {
+      res = res + choose(mapCounts.getOrElse(target / 3, 0), 3)
+    }
+
+    var i = 0
+
+    while (i < sortedDistincts.length && sortedDistincts(i) < target) {
+
+      // add doublets
+      val diff = target - sortedDistincts(i) * 2
+      if (diff != sortedDistincts(i)) res = res + choose(mapCounts(sortedDistincts(i)), 2) * BigInt(mapCounts.getOrElse(diff, 0))
+
+      var (j, k) = (i + 1, sortedDistincts.length - 1)
+      while (j < k) {
+        if (sortedDistincts(i) + sortedDistincts(j) + sortedDistincts(k) == target) {
+          res = res + Array(i, j, k).map(x => mapCounts(sortedDistincts(x))).product
+          k -= 1
+        }
+        else if (sortedDistincts(i) + sortedDistincts(j) + sortedDistincts(k) > target) k -= 1
+        else j += 1
+      }
+      i += 1
+    }
+    (res % (Math.pow(10, 9) + 7).toInt).toInt
+  }
 }

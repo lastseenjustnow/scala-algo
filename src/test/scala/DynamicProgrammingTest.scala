@@ -511,5 +511,31 @@ class DynamicProgrammingTest extends FunSuite {
     }
   }
 
+//  test("Decode Ways") {
+//    val conditions: Array[(String, Int)] = Array(
+//      ("11106", 2),
+//      ("13106", 2),
+//      ("111", 3),
+//      ("131", 2),
+//      ("12", 2),
+//      ("226", 3),
+//      ("2026", 2),
+//      ("1103", 1),
+//      ("20026", 0),
+//      ("06", 0),
+//      ("001", 0),
+//      ("1123", 5),
+//      //("11232", 5),
+//      //("11222", 5),
+//      ("109106", 1),
+//      ("1092106", 2),
+//      ("1026106", 2),
+//    )
+//
+//    for (cond <- conditions) {
+//      assert(numDecodings(cond._1) == cond._2, f"wrong for pair: ${cond._1}, ${cond._2}")
+//    }
+//  }
+
 
 }
