@@ -1,4 +1,3 @@
-import scala.annotation.tailrec
 import scala.collection.mutable
 
 object DynamicProgramming {
@@ -212,9 +211,8 @@ object DynamicProgramming {
   }
 
   def deleteAndEarn(nums: Array[Int]): Int = {
-    val sums = Array.fill(nums.max) {
-      0
-    }
+    val sums = Array.fill(nums.max)(0)
+
     for (elem <- nums) {
       sums(elem - 1) += elem
     }
@@ -929,7 +927,25 @@ object DynamicProgramming {
   }
 
   def numDecodings(s: String): Int = {
-    ???
+
+    val hm = new mutable.HashMap[Int, Int]()
+
+    def rec(i: Int): Int = {
+      val oneDigit = s(i).asDigit
+      if (i == 0) oneDigit.signum
+      else {
+        val twoDigit = s"${s(i - 1)}${s(i)}".toInt
+        (oneDigit, twoDigit) match {
+          case (_, t) if i == 1 => (if (t >= 10 && t < 27) 1 else 0) + ((t % 10).signum min (t / 10).signum)
+          case (_, t) if t % 10 == 0 && t != 20 && t != 10 => 0
+          case (_, t) if t % 10 == 0 => hm.getOrElseUpdate(i - 2, rec(i - 2))
+          case (_, t) if t > 26 || t < 10 => hm.getOrElseUpdate(i - 1, rec(i - 1))
+          case _ => hm.getOrElseUpdate(i - 1, rec(i - 1)) + hm.getOrElseUpdate(i - 2, rec(i - 2))
+        }
+      }
+    }
+
+    rec(s.length - 1)
   }
 
 }
