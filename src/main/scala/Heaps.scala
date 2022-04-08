@@ -15,4 +15,22 @@ object Heaps {
 
     if (maxHeap.nonEmpty) maxHeap.dequeue() else 0
   }
+
+  class KthLargest(_k: Int, _nums: Array[Int]) {
+
+    val minHeap = new mutable.PriorityQueue[Int]()(Ordering.Int.reverse)
+    minHeap ++= _nums
+    while (minHeap.size > _k) {
+      minHeap.dequeue()
+    }
+
+    def add(`val`: Int): Int = {
+      minHeap.enqueue(`val`)
+      while (minHeap.size > _k) {
+        minHeap.dequeue()
+      }
+      minHeap.head
+    }
+  }
+
 }
