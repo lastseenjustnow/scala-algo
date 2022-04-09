@@ -217,6 +217,14 @@ object DynamicProgramming {
     rec(n, Map(0 -> 0, 1 -> 1, 2 -> 1))._1
   }
 
+  def tribonacciFP(n: Int): Int = {
+    n match {
+      case x if x <= 0 => 0
+      case x if x == 1 => 1
+      case _ => (3 to n).foldLeft((0, 1, 1))((x, _) => (x._2, x._3, x._1 + x._2 + x._3))._3
+    }
+  }
+
   def deleteAndEarn(nums: Array[Int]): Int = {
     val sums = Array.fill(nums.max)(0)
 

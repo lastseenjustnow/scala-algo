@@ -72,11 +72,12 @@ class DynamicProgrammingTest extends FunSuite {
   }
 
   test("N-th Tribonacci Number") {
-    val conditions = Array((3, 2), (4, 4), (25, 1389537))
+    val conditions = Array((0, 0), (1, 1), (2, 1), (3, 2), (4, 4), (25, 1389537))
 
     for (cond <- conditions) {
       assert(tribonacci(cond._1) == cond._2)
       assert(tribonacciRecursive(cond._1) == cond._2)
+      assert(tribonacciFP(cond._1) == cond._2)
     }
   }
 
