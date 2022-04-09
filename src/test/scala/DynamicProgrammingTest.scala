@@ -67,6 +67,7 @@ class DynamicProgrammingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(fib(cond._1) == cond._2)
+      assert(fibFP(cond._1) == cond._2)
     }
   }
 

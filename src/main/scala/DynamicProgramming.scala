@@ -172,6 +172,13 @@ object DynamicProgramming {
     if (n <= 0) m._1 else m._2
   }
 
+  def fibFP(n: Int): Int = {
+    n match {
+      case x if x <= 0 => 0
+      case _ => (1 until n).foldLeft((0, 1))((x, _) => (x._2, x._1 + x._2))._2
+    }
+  }
+
   def tribonacci(n: Int): Int = {
     /**
      * Bottom up implementation
