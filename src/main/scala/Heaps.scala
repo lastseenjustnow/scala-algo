@@ -33,4 +33,13 @@ object Heaps {
     }
   }
 
+  def topKFrequent(nums: Array[Int], k: Int): Array[Int] = {
+    val freqs = nums.groupBy(identity).mapValues(_.length).toSet
+    val pq = mutable.PriorityQueue[(Int, Int)]()(Ordering.by((_: (Int, Int))._2).reverse)
+    for (elem <- freqs) pq.enqueue(elem)
+    while (pq.size > k) pq.dequeue()
+    pq.map(_._1).toArray
+
+  }
+
 }

@@ -1,4 +1,5 @@
 import org.scalatest.FunSuite
+import org.scalatest.Matchers._
 import Heaps.{KthLargest, _}
 
 class HeapsTest extends FunSuite {
@@ -26,6 +27,20 @@ class HeapsTest extends FunSuite {
       for (i <- cond._2.indices) {
         assert(cond._1.add(cond._2(i)) == cond._3(i))
       }
+    }
+  }
+
+  test("Top K Frequent Elements") {
+    val conditions: Array[(Array[Int], Int, Array[Int])] = Array(
+      (Array(1, 1, 1, 2, 2, 3), 2, Array(1, 2)),
+      (Array(1), 1, Array(1)),
+      (Array(1, 0), 2, Array(0, 1)),
+      (Array(1, 5, 3, 5, 3, 2, 1, 2, 2, 1, 2, 3, 4, 5, 5, 3, 3, 3, 0), 3, Array(2, 5, 3))
+    )
+
+
+    for (cond <- conditions) {
+      topKFrequent(cond._1, cond._2) should contain allElementsOf cond._3
     }
   }
 
