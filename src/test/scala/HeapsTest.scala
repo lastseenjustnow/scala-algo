@@ -44,4 +44,19 @@ class HeapsTest extends FunSuite {
     }
   }
 
+
+  test("Minimize Product Sum of Two Arrays") {
+    val conditions: Array[(Array[Int], Array[Int], Int)] = Array(
+      (Array(5, 3, 4, 2), Array(4, 2, 2, 5), 40),
+      (Array(2, 1, 4, 5, 7), Array(3, 2, 4, 8, 6), 65)
+
+    )
+
+
+    for (cond <- conditions) {
+      assert(minProductSum(cond._1, cond._2) == cond._3)
+    }
+  }
+
+
 }

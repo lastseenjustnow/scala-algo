@@ -42,4 +42,22 @@ object Heaps {
 
   }
 
+  def minProductSum(nums1: Array[Int], nums2: Array[Int]): Int = {
+    val maxHeap = new mutable.PriorityQueue[Int]()
+    val minHeap = new mutable.PriorityQueue[Int]()(Ordering.Int.reverse)
+
+    for (i <- nums1.indices) {
+      maxHeap.enqueue(nums1(i))
+      minHeap.enqueue(nums2(i))
+    }
+
+    var res = 0
+    for (_ <- nums1.indices) {
+      res += minHeap.dequeue() * maxHeap.dequeue()
+    }
+
+    res
+
+  }
+
 }
