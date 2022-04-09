@@ -60,4 +60,14 @@ object Heaps {
 
   }
 
+  def kWeakestRows(mat: Array[Array[Int]], k: Int): Array[Int] = {
+    val freqs = mat.zipWithIndex.map(x => (x._1.lastIndexOf(1) + 1, x._2))
+    val order: Ordering[(Int, Int)] = Ordering.Tuple2(Ordering.Int.reverse, Ordering.Int.reverse)
+    val maxHeap = new mutable.PriorityQueue[(Int, Int)]()(order)
+    for (freq <- freqs) maxHeap.enqueue(freq)
+    val res = Array.fill(k)(0)
+    for (i <- res.indices) res(i) = maxHeap.dequeue()._2
+    res
+  }
+
 }

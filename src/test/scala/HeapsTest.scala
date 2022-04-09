@@ -58,5 +58,26 @@ class HeapsTest extends FunSuite {
     }
   }
 
+  test("The K Weakest Rows in a Matrix") {
+    val conditions: Array[(Array[Array[Int]], Int, Array[Int])] = Array(
+      (
+        Array(Array(1, 1, 0, 0, 0),
+          Array(1, 1, 1, 1, 0),
+          Array(1, 0, 0, 0, 0),
+          Array(1, 1, 0, 0, 0),
+          Array(1, 1, 1, 1, 1)), 3, Array(2, 0, 3)),
+
+      (Array(Array(1, 0, 0, 0),
+        Array(1, 1, 1, 1),
+        Array(1, 0, 0, 0),
+        Array(1, 0, 0, 0)), 2, Array(0, 2))
+    )
+
+
+    for (cond <- conditions) {
+      assert(kWeakestRows(cond._1, cond._2) sameElements cond._3)
+    }
+  }
+
 
 }
