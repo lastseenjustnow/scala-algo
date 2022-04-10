@@ -4,11 +4,12 @@ import DynamicProgramming._
 
 class DynamicProgrammingTest extends FunSuite {
   test("Climb stairs") {
-    val conditions = Array((-1, 0), (0, 0), (1, 1), (2, 2), (3, 3), (4, 5), (5, 8))
+    val conditions = Array((1, 1), (2, 2), (3, 3), (4, 5), (5, 8), (45, 1836311903))
 
     for (cond <- conditions) {
       assert(climbStairs(cond._1) == cond._2)
       assert(climbStairsRecursive(cond._1) == cond._2)
+      assert(climbStairsFP(cond._1) == cond._2)
     }
   }
 
@@ -59,6 +60,7 @@ class DynamicProgrammingTest extends FunSuite {
     for (cond <- conditions) {
       assert(minCostClimbingStairs(cond._1) == cond._2)
       assert(minCostClimbingStairsRecursive(cond._1) == cond._2)
+      assert(minCostClimbingStairsFP(cond._1) == cond._2)
     }
   }
 

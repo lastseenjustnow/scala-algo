@@ -44,6 +44,14 @@ object DynamicProgramming {
     }
   }
 
+  def climbStairsFP(n: Int): Int = {
+    n match {
+      case x if x == 1 => 1
+      case _ => (1 to n - 2).foldLeft((1, 2))((x, _) => (x._2, x._1 + x._2))._2
+    }
+  }
+
+
   def rob(nums: Array[Int]): Int = {
     /**
      * Bottom up implementation
@@ -161,6 +169,11 @@ object DynamicProgramming {
         result._1 min result._2(cost.length - 2)
     }
   }
+
+  def minCostClimbingStairsFP(cost: Array[Int]): Int = {
+    (cost.drop(2) :+ 0).foldLeft(cost(0), cost(1))((x, costValue) => (x._2, (x._1 min x._2) + costValue))._2
+  }
+
 
   def fib(n: Int): Int = {
     var i = 2
