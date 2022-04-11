@@ -85,11 +85,13 @@ class HeapsTest extends FunSuite {
         Array(Array(1, 5, 9),
           Array(10, 11, 13),
           Array(12, 13, 15)), 8, 13),
-      (Array(Array(-5)), 1, -5)
+      (Array(Array(-5)), 1, -5),
+      (Array(Array(1, 2), Array(3, 4)), 2, 2)
     )
 
     for (cond <- conditions) {
-      assert(kthSmallest(cond._1, cond._2) == cond._3)
+      assert(kthSmallestNaive(cond._1, cond._2) == cond._3)
+      assert(kthSmallestHeap(cond._1, cond._2) == cond._3)
     }
   }
 

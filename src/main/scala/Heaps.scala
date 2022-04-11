@@ -70,11 +70,23 @@ object Heaps {
     res
   }
 
-  def kthSmallest(matrix: Array[Array[Int]], k: Int): Int = {
+  def kthSmallestNaive(matrix: Array[Array[Int]], k: Int): Int = {
+    /** Time complexity: O(n ** 2 log n) */
     val maxHeap = new mutable.PriorityQueue[Int]()
     matrix.flatten.foreach(x => maxHeap.enqueue(x))
     while (maxHeap.size > k) maxHeap.dequeue()
     maxHeap.head
   }
 
+  def kthSmallestHeap(matrix: Array[Array[Int]], k: Int): Int = {
+    val n = matrix.length
+    val minHeap = new mutable.PriorityQueue[(Int, Int, Int)]()(Ordering.Tuple3(Ordering.Int.reverse, Ordering.Int.reverse, Ordering.Int.reverse))
+    for (i <- 0 until (n min k)) minHeap.enqueue((matrix(i)(0), i, 0))
+
+    for (_ <- 1 until k) {
+      val minVal = minHeap.dequeue()
+      if (minVal._3 != n - 1) minHeap.enqueue((matrix(minVal._2)(minVal._3 + 1), minVal._2, minVal._3 + 1))
+    }
+    minHeap.head._1
+  }
 }
