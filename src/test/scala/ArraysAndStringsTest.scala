@@ -460,4 +460,19 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Shift 2D Grid") {
+    val conditions: Array[(Array[Array[Int]], Int, List[List[Int]])] =
+      Array(
+        (Array(Array(1, 2, 3), Array(4, 5, 6), Array(7, 8, 9)), 1, List(List(9, 1, 2), List(3, 4, 5), List(6, 7, 8))),
+        (Array(Array(1, 2, 3), Array(4, 5, 6), Array(7, 8, 9)), 2, List(List(8, 9, 1), List(2, 3, 4), List(5, 6, 7))),
+        (Array(Array(3, 8, 1, 9), Array(19, 7, 2, 5), Array(4, 6, 11, 10), Array(12, 0, 21, 13)), 4, List(List(12, 0, 21, 13), List(3, 8, 1, 9), List(19, 7, 2, 5), List(4, 6, 11, 10))),
+        (Array(Array(1, 2, 3), Array(4, 5, 6), Array(7, 8, 9), Array(-1, -2, -3)), 4, List(List(9, -1, -2), List(-3, 1, 2), List(3, 4, 5), List(6, 7, 8))),
+        (Array(Array(1), Array(2), Array(3), Array(4), Array(7), Array(6), Array(5)), 23, List(List(6), List(5), List(1), List(2), List(3), List(4), List(7)))
+    )
+
+    for (cond <- conditions) {
+      assert(shiftGrid(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._1.mkString}")
+    }
+  }
+
 }

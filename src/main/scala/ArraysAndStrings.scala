@@ -634,5 +634,11 @@ object ArraysAndStrings {
 
   }
 
+  def shiftGrid(grid: Array[Array[Int]], k: Int): List[List[Int]] = {
+    val (m, n) = (grid.length, grid(0).length)
+    val matrixDim = m * n
+    val divK = k - (k / matrixDim) * matrixDim
+    (grid.flatten.takeRight(divK) ++ grid.flatten.take(matrixDim - divK)).grouped(n).map(_.toList).toList
+  }
 
 }
