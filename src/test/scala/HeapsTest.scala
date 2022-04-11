@@ -79,5 +79,19 @@ class HeapsTest extends FunSuite {
     }
   }
 
+  test("Kth Smallest Element in a Sorted Matrix") {
+    val conditions: Array[(Array[Array[Int]], Int, Int)] = Array(
+      (
+        Array(Array(1, 5, 9),
+          Array(10, 11, 13),
+          Array(12, 13, 15)), 8, 13),
+      (Array(Array(-5)), 1, -5)
+    )
+
+    for (cond <- conditions) {
+      assert(kthSmallest(cond._1, cond._2) == cond._3)
+    }
+  }
+
 
 }

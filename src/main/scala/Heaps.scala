@@ -70,4 +70,11 @@ object Heaps {
     res
   }
 
+  def kthSmallest(matrix: Array[Array[Int]], k: Int): Int = {
+    val maxHeap = new mutable.PriorityQueue[Int]()
+    matrix.flatten.foreach(x => maxHeap.enqueue(x))
+    while (maxHeap.size > k) maxHeap.dequeue()
+    maxHeap.head
+  }
+
 }
