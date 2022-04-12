@@ -25,6 +25,7 @@ class DynamicProgrammingTest extends FunSuite {
     for (cond <- conditions) {
       assert(rob(cond._1) == cond._2)
       assert(robRecursive(cond._1) == cond._2)
+      assert(robFP(cond._1) == cond._2)
     }
   }
 
@@ -48,6 +49,7 @@ class DynamicProgrammingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(rob2(cond._1) == cond._2)
+      assert(rob2FP(cond._1) == cond._2)
     }
   }
 

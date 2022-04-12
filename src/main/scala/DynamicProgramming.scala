@@ -96,6 +96,17 @@ object DynamicProgramming {
     }
   }
 
+  def robFP(nums: Array[Int]): Int = {
+    nums.length match {
+      case x if x == 1 => nums(0)
+      case _ =>
+        nums
+          .drop(2)
+          .foldLeft((nums(0), nums(0) max nums(1)))((maxTup, value) => (maxTup._2, maxTup._2 max (maxTup._1 + value)))._2
+    }
+  }
+
+
   def rob2(nums: Array[Int]): Int = {
     /**
      * House robber II
@@ -125,6 +136,19 @@ object DynamicProgramming {
     n match {
       case n if n == 1 => nums(0)
       case _ => rob(no_first) max rob(no_last)
+    }
+  }
+
+  def rob2FP(nums: Array[Int]): Int = {
+
+    def calcMoney(subarr: Array[Int]): Int = {
+      subarr.drop(2).foldLeft((subarr(0), subarr(0) max subarr(1)))((tup, value) => (tup._2, (tup._1 + value) max tup._2))._2
+    }
+
+    nums.length match {
+      case l if l == 1 => nums(0)
+      case l if l == 2 => nums(0) max nums(1)
+      case _ => calcMoney(nums.drop(1)) max calcMoney(nums.dropRight(1))
     }
   }
 
