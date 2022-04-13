@@ -70,4 +70,28 @@ object Matrices {
     }
   }
 
+
+  def generateMatrix(n: Int): Array[Array[Int]] = {
+    val it: Iterator[Int] = Iterator.from(1)
+    val matrix = Array.fill(n)(Array.fill(n)(0))
+
+    def iterateSquare(left: Int, right: Int): Unit = {
+      right - left match {
+        case x if x == 0 => matrix(left)(left) = it.next()
+        case _ =>
+          for (abscissa <- left until right) matrix(left)(abscissa) = it.next()
+          for (ordinate <- left until right) matrix(ordinate)(right) = it.next()
+          for (abscissa <- left until right) matrix(right)(right + left - abscissa) = it.next()
+          for (ordinate <- left until right) matrix(right + left - ordinate)(left) = it.next()
+      }
+    }
+
+    var (left, right) = (0, n - 1)
+    while (left <= right) {
+      iterateSquare(left, right)
+      left += 1
+      right -= 1
+    }
+    matrix
+  }
 }
