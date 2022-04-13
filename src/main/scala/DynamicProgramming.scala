@@ -431,12 +431,7 @@ object DynamicProgramming {
     rec(0)
   }
 
-  def canJump(nums: Array[Int]): Boolean = {
-    /** You are given an integer array nums.
-     * You are initially positioned at the array's first index,
-     * and each element in the array represents your maximum jump length at that position.
-     *
-     * Return true if you can reach the last index, or false otherwise. */
+  def canJumpQueue(nums: Array[Int]): Boolean = {
     val q: mutable.Queue[Int] = mutable.Queue(0)
     var set: Set[Int] = Set(0)
     var flag: Boolean = if (nums.length <= 1) true else false
@@ -453,6 +448,26 @@ object DynamicProgramming {
       }
     }
     flag
+  }
+
+  def canJump(nums: Array[Int]): Boolean = {
+    var leftMostGoodIndex = nums.length - 1
+
+    for (i <- nums.length - 2 to 0 by -1) {
+      if (nums(i) + i >= leftMostGoodIndex) {
+        leftMostGoodIndex = i
+      }
+    }
+    if (leftMostGoodIndex == 0) true else false
+  }
+
+  def canJumpFP(nums: Array[Int]): Boolean = {
+    nums
+      .zipWithIndex
+      .foldRight(nums.length - 1) {
+        case (current, leftMostGood) => if (current._1 + current._2 >= leftMostGood) current._2 else leftMostGood
+      }
+      .==(0)
   }
 
   def canJump2(nums: Array[Int]): Int = {

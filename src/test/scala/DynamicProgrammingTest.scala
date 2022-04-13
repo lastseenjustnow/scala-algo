@@ -209,7 +209,9 @@ class DynamicProgrammingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(canJumpRecursive(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(canJumpQueue(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
       assert(canJump(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(canJumpFP(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
     }
   }
 
