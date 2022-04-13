@@ -226,7 +226,9 @@ class DynamicProgrammingTest extends FunSuite {
     )
 
     for (cond <- conditions) {
+      assert(canJump2Naive(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
       assert(canJump2(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(canJump2FP(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
     }
   }
 

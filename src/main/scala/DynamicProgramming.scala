@@ -470,7 +470,7 @@ object DynamicProgramming {
       .==(0)
   }
 
-  def canJump2(nums: Array[Int]): Int = {
+  def canJump2Naive(nums: Array[Int]): Int = {
     /** Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
      *
      * Each element in the array represents your maximum jump length at that position.
@@ -489,6 +489,35 @@ object DynamicProgramming {
       i += 1
     }
     seq(n - 1)
+  }
+
+  def canJump2(nums: Array[Int]): Int = {
+
+    var (jumps, currentJumpEnd, farthest) = (0, 0, 0)
+    var i = 0
+    while (i < nums.length - 1) {
+      farthest = Math.max(farthest, i + nums(i))
+      if (i == currentJumpEnd) {
+        jumps += 1
+        currentJumpEnd = farthest
+      }
+
+      i += 1
+    }
+    jumps
+  }
+
+  def canJump2FP(nums: Array[Int]): Int = {
+
+    nums
+      .zipWithIndex
+      .dropRight(1)
+      .foldLeft((0, 0, 0)) {
+        case ((jumps: Int, currentJumpEnd: Int, farthest: Int), (value: Int, i: Int)) if currentJumpEnd == i =>
+          (jumps + 1, farthest max (i + value), farthest max (i + value))
+        case ((jumps: Int, currentJumpEnd: Int, farthest: Int), (value: Int, i: Int)) =>
+          (jumps, currentJumpEnd, farthest max (i + value))
+      }._1
   }
 
   def maxSubArray(nums: Array[Int]): Int = {
