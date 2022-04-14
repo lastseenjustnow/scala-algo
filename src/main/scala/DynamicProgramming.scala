@@ -687,6 +687,27 @@ object DynamicProgramming {
     maxLength
   }
 
+  def getMaxLenKadane(nums: Array[Int]): Int = {
+    var (negProductLen, posProductLen, globalMaxLen) = (0, 0, 0)
+
+    for (elem <- nums) {
+      if (elem > 0) {
+        posProductLen += 1
+        negProductLen = if (negProductLen > 0) negProductLen + 1 else 0
+      } else if (elem < 0) {
+        val tempNeg = negProductLen
+        negProductLen = posProductLen + 1
+        posProductLen = if (tempNeg > 0) tempNeg + 1 else 0
+      }
+      else {
+        negProductLen = 0
+        posProductLen = 0
+      }
+      globalMaxLen = globalMaxLen max posProductLen
+    }
+    globalMaxLen
+  }
+
   def groupAnagrams(strs: Array[String]): List[List[String]] = {
     val hm = new mutable.HashMap[Int, List[String]]()
 

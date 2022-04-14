@@ -327,11 +327,17 @@ class DynamicProgrammingTest extends FunSuite {
       (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, -6, -6, -6, 0, -6, 10), 2),
       (Array(2, 3, -2, 4, 0, -3, 1, 2, 0, 0, -6, 10), 2),
       (Array(-10), 0),
-      (Array(-2, 0, -1), 0)
+      (Array(-2, 0, -1), 0),
+      (Array(-1, 2), 1),
+      (Array(-1, 2, 2, 2, 2), 4),
+      (Array(2, 2, -1, 2, 2, 3), 3),
+      (Array(-2, 2, -1, 2, 2, 3), 6),
+      (Array(-1, 2, -1, 4), 4)
     )
 
     for (cond <- conditions) {
       assert(getMaxLen(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(getMaxLenKadane(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
     }
   }
 
