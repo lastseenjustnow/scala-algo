@@ -1,6 +1,36 @@
 import datastructure.TreeNode
 
 object Trees {
+
+  def preorderTraversalRecursive(root: TreeNode): List[Int] = {
+    def rec(node: TreeNode, lst: List[Int]): List[Int] = {
+      node match {
+        case null => lst
+        case _ =>
+          val leftList = rec(node.left, lst :+ node.value)
+          rec(node.right, leftList)
+      }
+    }
+
+    rec(root, List())
+  }
+
+  def preorderTraversalIterative(root: TreeNode): List[Int] = {
+    var stack: List[TreeNode] = List(root)
+    var res: List[Int] = List()
+
+    while (stack.nonEmpty) {
+      var pop = stack.last
+      stack = stack.drop(1)
+      while (pop != null) {
+        res = res :+ pop.value
+        if (pop.right != null) stack = stack :+ pop.right
+        pop = pop.left
+      }
+    }
+    res
+  }
+
   def searchBST(root: TreeNode, `val`: Int): TreeNode = {
     root match {
       case null => null
@@ -23,6 +53,7 @@ object Trees {
           currentNode
       }
     }
+
     rec(root)
   }
 }
