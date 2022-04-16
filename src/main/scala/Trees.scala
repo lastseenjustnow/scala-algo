@@ -1,5 +1,7 @@
 import datastructure.TreeNode
 
+import scala.collection.mutable
+
 object Trees {
 
   def preorderTraversalRecursive(root: TreeNode): List[Int] = {
@@ -55,5 +57,28 @@ object Trees {
     }
 
     rec(root)
+  }
+
+  def convertBST(root: TreeNode): TreeNode = {
+    val stack = mutable.Stack[TreeNode]()
+    var thisNode = root
+    var cumsum = 0
+
+    while (thisNode != null) {
+      stack.push(thisNode)
+      thisNode = thisNode.right
+    }
+
+    while (stack.nonEmpty) {
+      thisNode = stack.pop()
+      cumsum += thisNode.value
+      thisNode.value = cumsum
+      var leftSubNode = thisNode.left
+      while (leftSubNode != null) {
+        stack.push(leftSubNode)
+        leftSubNode = leftSubNode.right
+      }
+    }
+    root
   }
 }
