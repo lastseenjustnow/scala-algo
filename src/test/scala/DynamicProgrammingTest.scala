@@ -466,6 +466,7 @@ class DynamicProgrammingTest extends FunSuite {
       (Array(3), 2, 0),
       (Array(10), 10, 1),
       (Array(1, 2, 5, 10, 15, 25), 100, 7572),
+      (Array(10, 5), 20, 3),
     )
 
     for (cond <- conditions) {

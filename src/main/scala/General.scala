@@ -242,4 +242,13 @@ object General {
     }
     (res % (Math.pow(10, 9) + 7).toInt).toInt
   }
+
+  def findClosestNumber(nums: Array[Int]): Int = {
+    var res = Int.MaxValue
+    for (elem <- nums) {
+      if (abs(elem) < abs(res) || (abs(elem) == abs(res) && elem > res))
+        res = elem
+    }
+    res
+  }
 }

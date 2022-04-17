@@ -154,7 +154,19 @@ class GeneralTest extends FunSuite with Matchers {
     for (cond <- conditions) {
       assert(threeSumMulti(cond._1, cond._2) == cond._3)
     }
+  }
 
+  test("ATM Design") {
+    val atm1 = new ATM()
+    atm1.deposit(Array(0, 10, 0, 3, 0))
+    assert(atm1.withdraw(500) sameElements Array(0, 2, 0, 2, 0))
+
+    val atm2 = new ATM()
+    atm2.deposit(Array(0, 0, 1, 2, 1))
+    assert(atm2.withdraw(600) sameElements Array(0, 0, 1, 0, 1))
+    atm2.deposit(Array(0, 1, 0, 1, 1))
+    assert(atm2.withdraw(600) sameElements Array(-1))
+    assert(atm2.withdraw(550) sameElements Array(0,1,0,0,1))
 
   }
 

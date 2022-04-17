@@ -81,4 +81,26 @@ object Trees {
     }
     root
   }
+
+  def increasingBST(root: TreeNode): TreeNode = {
+    val stack = mutable.Stack[TreeNode]()
+    var newRoot = root
+    while (newRoot != null) {
+      stack.push(newRoot)
+      newRoot = newRoot.right
+    }
+
+    while (stack.nonEmpty) {
+      var pop = stack.pop()
+      pop.right = newRoot
+      newRoot = pop
+      pop = pop.left
+      while (pop != null) {
+        stack.push(pop)
+        pop = pop.right
+      }
+      newRoot.left = null
+    }
+    newRoot
+  }
 }
