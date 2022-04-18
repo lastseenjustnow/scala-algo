@@ -89,4 +89,37 @@ object Heaps {
     }
     minHeap.head._1
   }
+
+  def minMeetingRoomsFP(intervals: Array[Array[Int]]): Int = {
+    intervals
+      .flatMap(interval => Array((interval(0), 0), (interval(1), 1)))
+      .sorted(Ordering.Tuple2(Ordering.Int, Ordering.Int.reverse))
+      .foldLeft((0, 0)) {
+        case (res, elem) =>
+          val openedMeetings = res._1 + (if (elem._2 == 1) -1 else 1)
+          val maxMeetings = res._2 max openedMeetings
+          (openedMeetings, maxMeetings)
+      }._2
+  }
+
+  def minMeetingRooms(intervals: Array[Array[Int]]): Int = {
+    val sortedIntervals = intervals
+      .map(x => (x(0), x(1)))
+      .sorted(Ordering.Tuple2(Ordering.Int, Ordering.Int.reverse))
+
+    val minHeap = new mutable.PriorityQueue[Int]()(Ordering.Int.reverse)
+    var maxHeapSize = 0
+
+    for (elem <- sortedIntervals) {
+      if (minHeap.isEmpty || elem._1 < minHeap.head) {
+        minHeap.enqueue(elem._2)
+      } else {
+        minHeap.dequeue()
+        minHeap.enqueue(elem._2)
+      }
+      maxHeapSize = maxHeapSize max minHeap.size
+    }
+    maxHeapSize
+  }
+
 }

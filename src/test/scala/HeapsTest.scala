@@ -95,5 +95,22 @@ class HeapsTest extends FunSuite {
     }
   }
 
+  test("Meeting Rooms II") {
+    val conditions: Array[(Array[Array[Int]], Int)] = Array(
+      (Array(Array(0, 30), Array(5, 10), Array(15, 20)), 2),
+      (Array(Array(7, 10), Array(2, 4)), 1),
+      (Array(Array(0, 30), Array(5, 10), Array(15, 20), Array(25, 35), Array(7, 17)), 3),
+      (Array(Array(0, 30), Array(5, 10), Array(15, 20), Array(7, 17)), 3),
+      (Array(Array(13, 15), Array(1, 13)), 1),
+      (Array(Array(1, 5), Array(8, 9), Array(8, 9)), 2),
+      (Array(Array(1, 8), Array(6, 20), Array(9, 16), Array(13, 17)), 3),
+    )
+
+    for (cond <- conditions) {
+      assert(minMeetingRoomsFP(cond._1) == cond._2)
+      assert(minMeetingRooms(cond._1) == cond._2)
+    }
+  }
+
 
 }
