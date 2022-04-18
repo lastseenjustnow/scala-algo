@@ -103,4 +103,26 @@ object Trees {
     }
     newRoot
   }
+
+  def kthSmallest(root: TreeNode, k: Int): Int = {
+    val stack = mutable.Stack[TreeNode]()
+    var node = root
+    while (node != null) {
+      stack.push(node)
+      node = node.left
+    }
+    var (i, res) = (0, 0)
+
+    while (i < k) {
+      node = stack.pop()
+      res = node.value
+      node = node.right
+      while (node != null) {
+        stack.push(node)
+        node = node.left
+      }
+      i += 1
+    }
+    res
+  }
 }
