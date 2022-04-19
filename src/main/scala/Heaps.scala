@@ -131,4 +131,16 @@ object Heaps {
     (for (_ <- 1 to k) yield minHeap.dequeue()._2).toArray
   }
 
+  def connectSticks(sticks: Array[Int]): Int = {
+    val minHeap: mutable.PriorityQueue[Int] = mutable.PriorityQueue[Int]()(Ordering.Int.reverse)
+    for (stick <- sticks) minHeap.enqueue(stick)
+    var res = 0
+    while (minHeap.size != 1) {
+      val newStick = minHeap.dequeue() + minHeap.dequeue()
+      minHeap.enqueue(newStick)
+      res += newStick
+    }
+    res
+  }
+
 }

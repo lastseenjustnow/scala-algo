@@ -123,5 +123,15 @@ class HeapsTest extends FunSuite {
     }
   }
 
+  test("Minimum Cost to Connect Sticks") {
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(2, 4, 3), 14),
+      (Array(1, 8, 3, 5), 30),
+      (Array(5), 0),
+    )
 
+    for (cond <- conditions) {
+      assert(connectSticks(cond._1) == cond._2)
+    }
+  }
 }
