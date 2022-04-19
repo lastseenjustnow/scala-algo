@@ -134,4 +134,18 @@ class HeapsTest extends FunSuite {
       assert(connectSticks(cond._1) == cond._2)
     }
   }
+
+  test("Furthest Building You Can Reach") {
+    val conditions: Array[(Array[Int], Int, Int, Int)] = Array(
+      (Array(4, 2, 7, 6, 9, 14, 12), 5, 1, 4),
+      (Array(4, 12, 2, 7, 3, 18, 20, 3, 19), 10, 2, 7),
+      (Array(14, 3, 19, 3), 17, 0, 3),
+      (Array(7, 5, 13), 0, 0, 1),
+    )
+
+    for (cond <- conditions) {
+      assert(furthestBuilding(cond._1, cond._2, cond._3) == cond._4)
+    }
+  }
+
 }

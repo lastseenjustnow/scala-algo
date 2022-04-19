@@ -143,4 +143,25 @@ object Heaps {
     res
   }
 
+  def furthestBuilding(heights: Array[Int], bricks: Int, ladders: Int): Int = {
+    var (i, currentBricks, currentLadders) = (0, bricks, ladders)
+    val minHeap: mutable.PriorityQueue[Int] = mutable.PriorityQueue[Int]()(Ordering.Int.reverse)
+    while (i < heights.length - 1 && currentBricks >= 0) {
+      val gap = heights(i + 1) - heights(i)
+      if (currentLadders > 0 && gap > 0) {
+        minHeap.enqueue(gap)
+        currentLadders -= 1
+      } else if (gap > 0) {
+        currentBricks -= gap
+        if (minHeap.nonEmpty && gap > minHeap.head) {
+          val smallerGap = minHeap.dequeue()
+          minHeap.enqueue(gap)
+          currentBricks += gap - smallerGap
+        }
+      }
+      i += (if (currentBricks >= 0) 1 else 0)
+    }
+    i min (heights.length - 1)
+  }
+
 }
