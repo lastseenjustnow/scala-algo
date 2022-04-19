@@ -86,4 +86,18 @@ class TreesTest extends FunSuite {
 
   }
 
+  test("Recover Binary Search Tree") {
+
+    val root1 = new TreeNode(7,
+      new TreeNode(3,
+        null,
+        new TreeNode(4)),
+      new TreeNode(8,
+        new TreeNode(6))
+    )
+    recoverTree(root1)
+
+
+  }
+
 }

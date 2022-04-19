@@ -125,4 +125,57 @@ object Trees {
     }
     res
   }
+
+  def recoverTree(root: TreeNode): Unit = {
+    val stack = mutable.Stack[TreeNode]()
+
+    var (leftToSwap, rightToSwap) = (root, root)
+
+    var flag = false
+    var node = root
+    while (node != null) {
+      stack.push(node)
+      node = node.left
+    }
+
+    while (!flag) {
+      node = stack.pop()
+      val thisNode = node
+      node = node.right
+      while (node != null) {
+        stack.push(node)
+        node = node.left
+      }
+      if (thisNode.value > stack.head.value) {
+        flag = true
+        leftToSwap = thisNode
+      }
+    }
+
+    flag = false
+    node = root
+    while (node != null) {
+      stack.push(node)
+      node = node.right
+    }
+
+    while (!flag) {
+      node = stack.pop()
+      val thisNode = node
+      node = node.left
+      while (node != null) {
+        stack.push(node)
+        node = node.right
+      }
+      if (thisNode.value < stack.head.value) {
+        flag = true
+        rightToSwap = thisNode
+      }
+    }
+
+    val tempValue = leftToSwap.value
+    leftToSwap.value = rightToSwap.value
+    rightToSwap.value = tempValue
+  }
+
 }
