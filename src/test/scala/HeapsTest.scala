@@ -112,5 +112,16 @@ class HeapsTest extends FunSuite {
     }
   }
 
+  test("K Closest Points to Origin") {
+    val conditions: Array[(Array[Array[Int]], Int, Array[Array[Int]])] = Array(
+      (Array(Array(1, 3), Array(-2, 2)), 1, Array(Array(-2, 2))),
+      (Array(Array(3, 3), Array(5, -1), Array(-2, 4)), 2, Array(Array(3, 3), Array(-2, 4))),
+    )
+
+    for (cond <- conditions) {
+      assert(kClosest(cond._1, cond._2).map(_.toList) sameElements cond._3.map(_.toList))
+    }
+  }
+
 
 }

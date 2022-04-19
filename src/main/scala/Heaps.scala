@@ -122,4 +122,13 @@ object Heaps {
     maxHeapSize
   }
 
+  def kClosest(points: Array[Array[Int]], k: Int): Array[Array[Int]] = {
+    def euclidDistance(x: Int, y: Int): Double = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
+
+    val ordering = Ordering.by[(Double, Array[Int]), Double](_._1).reverse
+    val minHeap: mutable.PriorityQueue[(Double, Array[Int])] = mutable.PriorityQueue[(Double, Array[Int])]()(ordering)
+    for (point <- points) minHeap.enqueue((euclidDistance(point(0), point(1)), point))
+    (for (_ <- 1 to k) yield minHeap.dequeue()._2).toArray
+  }
+
 }
