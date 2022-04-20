@@ -1,6 +1,7 @@
 import org.scalatest.FunSuite
 import org.scalatest.Matchers._
 import Heaps.{KthLargest, _}
+import datastructure.MedianFinder
 
 class HeapsTest extends FunSuite {
 
@@ -146,6 +147,27 @@ class HeapsTest extends FunSuite {
     for (cond <- conditions) {
       assert(furthestBuilding(cond._1, cond._2, cond._3) == cond._4)
     }
+  }
+
+  test("Find Median from Data Stream") {
+
+    val medFinder = new MedianFinder()
+    medFinder.addNum(1)
+    medFinder.addNum(2)
+    assert(medFinder.findMedian() == 1.5)
+    medFinder.addNum(3)
+    assert(medFinder.findMedian() == 2)
+    medFinder.addNum(7)
+    medFinder.addNum(9)
+    medFinder.addNum(16)
+    medFinder.addNum(15)
+    assert(medFinder.findMedian() == 7)
+    medFinder.addNum(-100)
+    medFinder.addNum(-101)
+    medFinder.addNum(-102)
+    medFinder.addNum(-103)
+    assert(medFinder.findMedian() == 2)
+
   }
 
 }
