@@ -116,4 +116,36 @@ class TreesTest extends FunSuite {
     assert(!iterator.hasNext)
   }
 
+  test("Binary Search Tree Iterator II") {
+
+    val root1 = new TreeNode(7,
+      new TreeNode(3),
+      new TreeNode(15,
+        new TreeNode(9),
+        new TreeNode(20))
+    )
+
+    val iterator = new BSTIterator(root1)
+    assert(iterator.next() == 3)
+    assert(iterator.next() == 7)
+    assert(iterator.prev() == 3)
+    assert(iterator.next() == 7)
+    assert(iterator.hasNext)
+    assert(iterator.next() == 9)
+    assert(iterator.next() == 15)
+    assert(iterator.next() == 20)
+    assert(!iterator.hasNext)
+    assert(iterator.hasPrev)
+    assert(iterator.prev() == 15)
+    assert(iterator.prev() == 9)
+
+    val root2 = new TreeNode(1)
+    val iterator2 = new BSTIterator(root2)
+    assert(!iterator2.hasPrev)
+    assert(iterator2.hasNext)
+    assert(iterator2.next() == 1)
+    assert(!iterator2.hasPrev)
+    assert(!iterator2.hasNext)
+  }
+
 }
