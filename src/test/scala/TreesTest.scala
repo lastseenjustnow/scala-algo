@@ -1,6 +1,5 @@
 import org.scalatest.FunSuite
-
-import datastructure.TreeNode
+import datastructure.{BSTIterator, TreeNode}
 import Trees._
 
 class TreesTest extends FunSuite {
@@ -97,7 +96,24 @@ class TreesTest extends FunSuite {
     )
     recoverTree(root1)
 
+  }
 
+  test("Binary Search Tree Iterator") {
+
+    val root1 = new TreeNode(7,
+      new TreeNode(3),
+      new TreeNode(15,
+        new TreeNode(9),
+        new TreeNode(20))
+    )
+
+    val iterator = new BSTIterator(root1)
+    assert(iterator.next() == 3)
+    assert(iterator.next() == 7)
+    assert(iterator.next() == 9)
+    assert(iterator.next() == 15)
+    assert(iterator.next() == 20)
+    assert(!iterator.hasNext)
   }
 
 }
