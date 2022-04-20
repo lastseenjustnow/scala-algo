@@ -4,6 +4,11 @@ import Trees._
 
 class TreesTest extends FunSuite {
 
+  test("Create tree from Array") {
+    val arr1 = Array(5, 1, 4, null, null, 3, 6)
+    new TreeNode().fromArray(arr1)
+  }
+
   test("Binary Tree Preorder Traversal") {
     val root1 = new TreeNode(1, null, new TreeNode(2, new TreeNode(3)))
     val root2 = new TreeNode(3, new TreeNode(1), new TreeNode(2))
@@ -18,6 +23,24 @@ class TreesTest extends FunSuite {
     for (cond <- conditions) {
       assert(preorderTraversalRecursive(cond._1) == cond._2)
       assert(preorderTraversalIterative(cond._1) == cond._2)
+    }
+  }
+
+  test("Binary Tree Inorder Traversal") {
+    val root1 = new TreeNode().fromArray(Array(1, null, 2, 3))
+    val root2 = new TreeNode().fromArray(Array())
+    val root3 = new TreeNode().fromArray(Array(1))
+
+
+    val conditions: Array[(TreeNode, List[Int])] = Array(
+      (root1, List(1, 3, 2)),
+      (root2, List()),
+      (root3, List(1)),
+    )
+
+    for (cond <- conditions) {
+      assert(inorderTraversalRecursive(cond._1) == cond._2)
+      assert(inorderTraversalIterative(cond._1) == cond._2)
     }
   }
 

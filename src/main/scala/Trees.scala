@@ -33,6 +33,40 @@ object Trees {
     res
   }
 
+  def inorderTraversalRecursive(root: TreeNode): List[Int] = {
+    def rec(node: TreeNode, lst: List[Int]): List[Int] = {
+      node match {
+        case null => lst
+        case _ =>
+          val leftList = rec(node.left, lst)
+          rec(node.right, leftList :+ node.value)
+      }
+    }
+
+    rec(root, List())
+  }
+
+  def inorderTraversalIterative(root: TreeNode): List[Int] = {
+    var stack: List[TreeNode] = List()
+    var res: List[Int] = List()
+    var node = root
+    while (node != null) {
+      stack = node +: stack
+      node = node.left
+    }
+
+    while (stack.nonEmpty) {
+      res = res :+ stack.head.value
+      node = stack.head.right
+      stack = stack.tail
+      while (node != null) {
+        stack = node +: stack
+        node = node.left
+      }
+    }
+    res
+  }
+
   def searchBST(root: TreeNode, `val`: Int): TreeNode = {
     root match {
       case null => null

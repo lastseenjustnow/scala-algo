@@ -13,14 +13,15 @@ class TreeNode(_value: Int = 0,
       case someVal: Int => new TreeNode(someVal)
     }
 
-    for (i <- 1 until arr.length) {
-      val nodeIndex = (i - 1) / 2
-      val leftOrRight = (i - 1) % 2
-      leftOrRight match {
-        case x if x == 0 => arrNodes(nodeIndex).left = arrNodes(i)
-        case x if x == 1 => arrNodes(nodeIndex).right = arrNodes(i)
-      }
+    var parentalIndex = 0
+    for (i <- 1 until arr.length by 2) {
+      val leftNode = arrNodes(i)
+      val rightNode = if (i + 1 < arr.length) arrNodes(i + 1) else null
+      while (arr(parentalIndex) == null) parentalIndex += 1
+      arrNodes(parentalIndex).left = leftNode
+      arrNodes(parentalIndex).right = rightNode
+      parentalIndex += 1
     }
-    arrNodes(0)
+    if (arr.length > 0) arrNodes(0) else null
   }
 }
