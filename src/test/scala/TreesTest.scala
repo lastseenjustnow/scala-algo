@@ -61,6 +61,20 @@ class TreesTest extends FunSuite {
     }
   }
 
+  test("Binary Tree Level Order Traversal") {
+    val root1 = new TreeNode().fromArray(Array(3, 9, 20, null, null, 15, 7))
+    val root2 = new TreeNode().fromArray(Array())
+
+    val conditions: Array[(TreeNode, List[List[Int]])] = Array(
+      (root1, List(List(3), List(9, 20), List(15, 7))),
+      (root2, List())
+    )
+
+    for (cond <- conditions) {
+      assert(levelOrder(cond._1) == cond._2)
+    }
+  }
+
   test("Trim a Binary Search Tree") {
 
     val root1 = new TreeNode(1, new TreeNode(0), new TreeNode(2))

@@ -80,6 +80,27 @@ object Trees {
     rec(root, List())
   }
 
+  def levelOrder(root: TreeNode): List[List[Int]] = {
+    if (root == null) return List()
+    val q: mutable.Queue[TreeNode] = mutable.Queue(root, null)
+    var res: List[List[Int]] = List()
+    var level: List[Int] = List()
+
+    while (q.size > 1) {
+      val node = q.dequeue()
+      if (node == null) {
+        res = res :+ level
+        level = List()
+        q.enqueue(null)
+      } else {
+        level = level :+ node.value
+        if (node.left != null) q.enqueue(node.left)
+        if (node.right != null) q.enqueue(node.right)
+      }
+    }
+    res :+ level
+  }
+
 
   def searchBST(root: TreeNode, `val`: Int): TreeNode = {
     root match {
