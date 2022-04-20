@@ -44,6 +44,23 @@ class TreesTest extends FunSuite {
     }
   }
 
+  test("Binary Tree Postorder Traversal") {
+    val root1 = new TreeNode().fromArray(Array(1, null, 2, 3))
+    val root2 = new TreeNode().fromArray(Array())
+    val root3 = new TreeNode().fromArray(Array(1))
+
+
+    val conditions: Array[(TreeNode, List[Int])] = Array(
+      (root1, List(3, 2, 1)),
+      (root2, List()),
+      (root3, List(1)),
+    )
+
+    for (cond <- conditions) {
+      assert(postorderTraversalRecursive(cond._1) == cond._2)
+    }
+  }
+
   test("Trim a Binary Search Tree") {
 
     val root1 = new TreeNode(1, new TreeNode(0), new TreeNode(2))

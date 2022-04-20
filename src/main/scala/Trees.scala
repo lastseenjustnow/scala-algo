@@ -67,6 +67,20 @@ object Trees {
     res
   }
 
+  def postorderTraversalRecursive(root: TreeNode): List[Int] = {
+    def rec(node: TreeNode, lst: List[Int]): List[Int] = {
+      node match {
+        case null => lst
+        case _ =>
+          val leftList = rec(node.left, lst)
+          rec(node.right, leftList) :+ node.value
+      }
+    }
+
+    rec(root, List())
+  }
+
+
   def searchBST(root: TreeNode, `val`: Int): TreeNode = {
     root match {
       case null => null
