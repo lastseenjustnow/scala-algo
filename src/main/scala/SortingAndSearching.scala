@@ -66,6 +66,19 @@ object SortingAndSearching {
     if (nums(right) < target) right + 1 else right
   }
 
+  def peakIndexInMountainArray(arr: Array[Int]): Int = {
+    var (left, right) = (0, arr.length - 1)
+    while (true) {
+      val mid = (right - left) / 2 + left
+      if (arr(mid) > arr(mid - 1) && arr(mid) > arr(mid + 1)) {
+        return mid
+      }
+      if (arr(mid) > arr(mid + 1)) {
+        right = mid
+      } else left = mid + 1
+    }
+    -1
+  }
 
   def tripletBinarySearch(x: Array[(Int, Long, Long)], toFind: Long, start: Int): Int = {
     if (toFind >= x.last._2) {

@@ -202,4 +202,61 @@ class TreesTest extends FunSuite {
     assert(!iterator2.hasNext)
   }
 
+  test("Symmetric Tree") {
+    val root1 = new TreeNode().fromArray(Array(1, 2, 2, 3, 4, 4, 3))
+    val root2 = new TreeNode().fromArray(Array(1, 2, 2, null, 3, null, 3))
+
+
+    val conditions: Array[(TreeNode, Boolean)] = Array(
+      (root1, true),
+      (root2, false),
+    )
+
+    for (cond <- conditions) {
+      assert(isSymmetricRecursive(cond._1) == cond._2)
+      assert(isSymmetricIterative(cond._1) == cond._2)
+    }
+
+  }
+
+  test("Path Sum") {
+    val root1 = new TreeNode().fromArray(Array(5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1))
+    val root2 = new TreeNode().fromArray(Array(1, 2, 3))
+    val root3 = new TreeNode().fromArray(Array())
+    val root4 = new TreeNode().fromArray(Array(1, 2))
+    val root5 = new TreeNode().fromArray(Array(1))
+
+
+    val conditions: Array[(TreeNode, Int, Boolean)] = Array(
+      (root1, 22, true),
+      (root2, 5, false),
+      (root3, 0, false),
+      (root4, 1, false),
+      (root5, 1, true)
+    )
+
+    for (cond <- conditions) {
+      assert(hasPathSum(cond._1, cond._2) == cond._3)
+    }
+  }
+
+  test("Count Univalue Subtrees") {
+    val root1 = new TreeNode().fromArray(Array(5, 1, 5, 5, 5, null, 5))
+    val root2 = new TreeNode().fromArray(Array())
+    val root3 = new TreeNode().fromArray(Array(5, 5, 5, 5, 5, null, 5))
+    val root4 = new TreeNode().fromArray(Array(1, 1, 1, 5, 5, null, 5))
+
+
+    val conditions: Array[(TreeNode, Int)] = Array(
+      (root1, 4),
+      (root2, 0),
+      (root3, 6),
+      (root4, 3)
+    )
+
+    for (cond <- conditions) {
+      assert(countUnivalSubtrees(cond._1) == cond._2)
+    }
+  }
+
 }

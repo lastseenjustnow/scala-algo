@@ -247,4 +247,79 @@ object Trees {
     rightToSwap.value = tempValue
   }
 
+  def maxDepth(root: TreeNode): Int = {
+    def rec(node: TreeNode, res: Int): Int = {
+      node match {
+        case null => res - 1
+        case _ => rec(node.left, res + 1) max rec(node.right, res + 1)
+      }
+    }
+
+    rec(root, 1)
+  }
+
+  def isSymmetricRecursive(root: TreeNode): Boolean = {
+    def compareNodes(leftNode: TreeNode, rightNode: TreeNode): Boolean = {
+      if (leftNode == null || rightNode == null) leftNode == rightNode
+      else if (leftNode.value != rightNode.value) false
+      else compareNodes(leftNode.left, rightNode.right) && compareNodes(leftNode.right, rightNode.left)
+    }
+
+    compareNodes(root.left, root.right)
+  }
+
+  def isSymmetricIterative(root: TreeNode): Boolean = {
+    var stackOne: List[TreeNode] = List(root.left)
+    var stackTwo: List[TreeNode] = List(root.right)
+    var res: Boolean = true
+
+    while (res && stackOne.nonEmpty) {
+      val leftNode = stackOne.head
+      stackOne = stackOne.tail
+      val rightNode = stackTwo.head
+      stackTwo = stackTwo.tail
+      if (leftNode == null || rightNode == null) res = leftNode == rightNode
+      else {
+        res = leftNode.value == rightNode.value
+        stackOne = leftNode.left +: stackOne
+        stackTwo = rightNode.right +: stackTwo
+        stackOne = leftNode.right +: stackOne
+        stackTwo = rightNode.left +: stackTwo
+      }
+    }
+    res
+  }
+
+  def hasPathSum(root: TreeNode, targetSum: Int): Boolean = {
+    if (root == null) return false
+
+    def rec(node: TreeNode, curSum: Int): Boolean = {
+      (node.left, node.right) match {
+        case (null, null) => targetSum == curSum + node.value
+        case (_, null) => rec(node.left, node.value + curSum)
+        case (null, _) => rec(node.right, node.value + curSum)
+        case _ => rec(node.left, node.value + curSum) || rec(node.right, node.value + curSum)
+      }
+    }
+
+    rec(root, 0)
+  }
+
+  def countUnivalSubtrees(root: TreeNode): Int = {
+    if (root == null) return 0
+
+    def rec(node: TreeNode): (Int, Set[Int]) = {
+      node match {
+        case null => (0, Set[Int]())
+        case _ =>
+          val leftNode = rec(node.left)
+          val rightNode = rec(node.right)
+          val unioned = leftNode._2 union rightNode._2 union Set(node.value)
+          (leftNode._1 + rightNode._1 + (if (unioned.size == 1) 1 else 0), unioned)
+      }
+    }
+
+    rec(root)._1
+  }
+
 }

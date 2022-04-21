@@ -77,6 +77,21 @@ class SortingAndSearchingTest extends FunSuite {
     }
   }
 
+  test("Peak Index in a Mountain Array") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(0, 1, 0), 1),
+        (Array(0, 2, 1, 0), 1),
+        (Array(0, 10, 5, 0), 1),
+        (Array(3, 4, 5, 1), 2),
+        (Array(3, 5, 3, 2, 0), 1)
+      )
+
+    for (cond <- conditions) {
+      assert(peakIndexInMountainArray(cond._1) == cond._2)
+    }
+  }
+
   test("Binary Search Triplets") {
     val conditions: Array[(Array[(Int, Long, Long)], Int, Int)] =
       Array(
