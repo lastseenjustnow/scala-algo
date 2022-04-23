@@ -1,3 +1,5 @@
+import java.security.KeyStore.TrustedCertificateEntry
+
 object SortingAndSearching {
   def findKthLargest(nums: Array[Int], k: Int): Int = {
     nums.sorted.apply(nums.length - k)
@@ -117,6 +119,16 @@ object SortingAndSearching {
       }
       i += 1
     }
+  }
+
+  def isPerfectSquare(num: Int): Boolean = {
+    var (left, right): (Long, Long) = (0L, num)
+    while (left <= right) {
+      val mid: Long = (right - left) / 2 + left
+      if (mid * mid == num) return true
+      if (mid * mid < num) left = mid + 1 else right = mid - 1
+    }
+    false
   }
 }
 

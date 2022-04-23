@@ -124,4 +124,17 @@ class SortingAndSearchingTest extends FunSuite {
     }
   }
 
+  test("Valid Perfect Square") {
+    val conditions: Array[(Int, Boolean)] =
+      Array(
+        (16, true),
+        (14, false),
+        (30858025, true),
+      )
+
+    for (cond <- conditions) {
+      assert(isPerfectSquare(cond._1) == cond._2)
+    }
+  }
+
 }
