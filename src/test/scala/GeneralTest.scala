@@ -1,6 +1,7 @@
 import org.scalatest.FunSuite
 import org.scalatest._
 import General._
+import design.ATM
 
 
 class GeneralTest extends FunSuite with Matchers {
@@ -156,7 +157,7 @@ class GeneralTest extends FunSuite with Matchers {
     }
   }
 
-  test("ATM Design") {
+  test("design.ATM Design") {
     val atm1 = new ATM()
     atm1.deposit(Array(0, 10, 0, 3, 0))
     assert(atm1.withdraw(500) sameElements Array(0, 2, 0, 2, 0))

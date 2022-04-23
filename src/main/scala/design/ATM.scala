@@ -1,3 +1,5 @@
+package design
+
 class ATM() {
 
   val availBanknotes: Array[Long] = Array(0, 0, 0, 0, 0).map(_.toLong)
