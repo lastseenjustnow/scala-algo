@@ -137,4 +137,41 @@ class SortingAndSearchingTest extends FunSuite {
     }
   }
 
+  test("Find the Distance Value Between Two Arrays") {
+    val conditions: Array[(Array[Int], Array[Int], Int, Int)] =
+      Array(
+        (Array(4, 5, 8), Array(10, 9, 1, 8), 2, 2),
+        (Array(1, 4, 2, 3), Array(-4, -3, 6, 10, 20, 30), 3, 2),
+        (Array(2, 1, 100, 3), Array(-5, -2, 10, -3, 7), 6, 1)
+      )
+
+    for (cond <- conditions) {
+      assert(findTheDistanceValue(cond._1, cond._2, cond._3) == cond._4)
+    }
+  }
+
+  test("My Sqrt(x)") {
+    val conditions: Array[(Int, Int)] =
+      Array(
+        (0, 0), (1, 1), (2, 1), (3, 1), (4, 2), (5, 2), (8, 2), (9, 3), (25, 5), (26, 5)
+      )
+
+    for (cond <- conditions) {
+      assert(mySqrt(cond._1) == cond._2)
+    }
+  }
+
+  test("Find Smallest Letter Greater Than Target") {
+    val conditions: Array[(Array[Char], Char, Char)] =
+      Array(
+        (Array('c', 'f', 'j'), 'a', 'c'),
+        (Array('c', 'f', 'j'), 'c', 'f'),
+        (Array('c', 'f', 'j'), 'd', 'f'),
+        (Array('a', 'b'), 'z', 'a'),
+      )
+
+    for (cond <- conditions) {
+      assert(nextGreatestLetter(cond._1, cond._2) == cond._3)
+    }
+  }
 }

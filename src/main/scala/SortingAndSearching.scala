@@ -130,5 +130,39 @@ object SortingAndSearching {
     }
     false
   }
+
+  def findTheDistanceValue(arr1: Array[Int], arr2: Array[Int], d: Int): Int = {
+    arr1.map(x => arr2.exists(y => Math.abs(x - y) <= d)).count(x => !x)
+  }
+
+  def mySqrt(x: Int): Int = {
+    x match {
+      case number if number < 2 => number
+      case _ =>
+        var (left, right): (Long, Long) = (2, (x / 2).toLong)
+        while (left <= right) {
+          val mid: Long = (right - left) / 2 + left
+          val pivot: Long = mid * mid
+          if (pivot == x) return mid.toInt
+          if (pivot > x) right = mid - 1
+          else left = mid + 1
+        }
+        right.toInt
+    }
+  }
+
+  def nextGreatestLetter(letters: Array[Char], target: Char): Char = {
+    var (left, right) = (0, letters.length - 1)
+    while (left <= right) {
+      val mid = (right - left) / 2 + left
+      if (target.toInt >= letters(mid).toInt) {
+        left = mid + 1
+      } else {
+        right = mid - 1
+      }
+    }
+    letters(left % letters.length)
+  }
+
 }
 
