@@ -164,5 +164,41 @@ object SortingAndSearching {
     letters(left % letters.length)
   }
 
+  def searchRange(nums: Array[Int], target: Int): Array[Int] = {
+    var (left, right, mid) = (0, nums.length - 1, -1)
+
+    while (left <= right & mid == -1) {
+      val thisMid = (right - left) / 2 + left
+      if (nums(thisMid) == target) mid = thisMid
+      else if (nums(thisMid) < target) left = thisMid + 1
+      else right = thisMid - 1
+    }
+
+
+    if (mid == -1) return Array(-1, -1)
+    val res = Array(mid, mid)
+
+    var (leftMid, rightMid) = (mid, mid)
+    while (leftMid >= left) {
+      val thisMid = (leftMid - left) / 2 + left
+      if (nums(thisMid) == target) {
+        res(0) = thisMid
+        leftMid = thisMid - 1
+      }
+      else left = thisMid + 1
+    }
+
+    while (rightMid <= right) {
+      val thisMid = (right - rightMid) / 2 + rightMid
+      if (nums(thisMid) == target) {
+        res(1) = thisMid
+        rightMid = thisMid + 1
+      }
+      else right = thisMid - 1
+    }
+    res
+
+  }
+
 }
 

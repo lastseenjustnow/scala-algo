@@ -1,4 +1,6 @@
 import SortingAndSearching._
+import Trees.countUnivalSubtrees
+import datastructure.TreeNode
 import org.scalatest.FunSuite
 
 class SortingAndSearchingTest extends FunSuite {
@@ -172,6 +174,22 @@ class SortingAndSearchingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(nextGreatestLetter(cond._1, cond._2) == cond._3)
+    }
+  }
+
+  test("Find First and Last Position of Element in Sorted Array") {
+
+    val conditions: Array[(Array[Int], Int, Array[Int])] = Array(
+      (Array(5, 7, 7, 8, 8, 10), 8, Array(3, 4)),
+      (Array(5, 7, 7, 8, 8, 10), 6, Array(-1, -1)),
+      (Array(), 1, Array(-1, -1)),
+      (Array(5, 7, 7, 8, 8, 10, 10, 10, 10, 10), 10, Array(5, 9)),
+      (Array(5, 7, 7, 8, 8, 10, 10, 10, 10, 10), 5, Array(0, 0)),
+      (Array(5, 7, 7, 8, 8, 10, 10, 10, 10, 10), 7, Array(1, 2)),
+    )
+
+    for (cond <- conditions) {
+      assert(searchRange(cond._1, cond._2).toList == cond._3.toList)
     }
   }
 }
