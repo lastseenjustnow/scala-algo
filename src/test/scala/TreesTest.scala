@@ -259,4 +259,17 @@ class TreesTest extends FunSuite {
     }
   }
 
+  test("Construct Binary Tree from Inorder and Postorder Traversal") {
+
+    val conditions: Array[(Array[Int], Array[Int], TreeNode)] = Array(
+      (Array(16, 9, 3, 19, 4, 6), Array(16, 9, 19, 6, 4, 3), new TreeNode().fromArray(Array(3, 9, 4, 16, null, 19, 6))),
+      (Array(9, 3, 15, 20, 7), Array(9, 15, 7, 20, 3), new TreeNode().fromArray(Array(3, 9, 20, null, null, 15, 7))),
+      (Array(-1), Array(-1), new TreeNode().fromArray(Array(-1)))
+    )
+
+    for (cond <- conditions) {
+      assert(buildTree(cond._1, cond._2).toArray.toList == cond._3.toArray.toList)
+    }
+  }
+
 }

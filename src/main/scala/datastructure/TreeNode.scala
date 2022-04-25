@@ -24,4 +24,26 @@ class TreeNode(_value: Int = 0,
     }
     if (arr.length > 0) arrNodes(0) else null
   }
+
+  def toArray: Array[Any] = {
+    var stack: List[TreeNode] = List(this)
+    var counter: Int = 1
+    var res: Array[Any] = Array()
+
+    while (counter > 0) {
+      val node = stack.head
+      stack = stack.tail
+      if (node != null) {
+        res = res :+ node.value
+        counter -= 1
+        stack = stack :+ node.left
+        if (node.left != null) counter += 1
+        stack = stack :+ node.right
+        if (node.right != null) counter += 1
+      } else {
+        res = res :+ null
+      }
+    }
+    res
+  }
 }

@@ -322,4 +322,16 @@ object Trees {
     rec(root)._1
   }
 
+  def buildTree(inorder: Array[Int], postorder: Array[Int]): TreeNode = {
+    inorder.length match {
+      case x if x == 0 => null
+      case x if x == 1 => new TreeNode(inorder.head)
+      case _ =>
+        val rootVal = postorder.last
+        val i = inorder.indexWhere(_ == rootVal)
+        val leftNode = buildTree(inorder.take(i), postorder.take(i))
+        val rightNode = buildTree(inorder.drop(i + 1), postorder.drop(i).dropRight(1))
+        new TreeNode(rootVal, leftNode, rightNode)
+    }
+  }
 }
