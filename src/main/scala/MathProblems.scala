@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.collection.mutable
 import scala.math.abs
 
@@ -55,6 +56,15 @@ object MathProblems {
       }
     }
     arr.count(x => x > 1)
+  }
+
+  def arrangeCoinsNaive(n: Int): Int = {
+    @tailrec
+    def rec(leftCoins: Int, step: Int): Int = {
+      if (leftCoins < step) step - 1
+      else rec(leftCoins - step, step + 1)
+    }
+    rec(n, 0)
   }
 
 }
