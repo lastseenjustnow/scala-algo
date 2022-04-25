@@ -192,4 +192,21 @@ class SortingAndSearchingTest extends FunSuite {
       assert(searchRange(cond._1, cond._2).toList == cond._3.toList)
     }
   }
+
+  test("Kth Missing Positive Number") {
+
+    val conditions: Array[(Array[Int], Int, Int)] = Array(
+      (Array(2, 3, 4, 7, 11), 5, 9),
+      (Array(2, 3, 4, 7, 11), 6, 10),
+      (Array(2, 3, 4, 7, 11), 7, 12),
+      (Array(2, 3, 4, 7, 11), 8, 13),
+      (Array(1, 2, 3, 4), 2, 6),
+      (Array(1), 10, 11)
+    )
+
+    for (cond <- conditions) {
+      assert(findKthPositive(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }

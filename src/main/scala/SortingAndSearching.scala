@@ -200,5 +200,14 @@ object SortingAndSearching {
 
   }
 
+  def findKthPositive(arr: Array[Int], k: Int): Int = {
+    var (res, i) = (k, 0)
+    while (i < arr.length && arr(i) <= res) {
+      res += 1
+      i += 1
+    }
+    res
+  }
+
 }
 
