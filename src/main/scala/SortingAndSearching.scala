@@ -209,5 +209,16 @@ object SortingAndSearching {
     res
   }
 
+  def specialArray(nums: Array[Int]): Int = {
+    val sortedNums = nums.sorted(Ordering.Int.reverse)
+    var i = 0
+
+    for (j <- nums.length to 1 by -1) {
+      while (i < nums.length && (sortedNums(i) >= j)) i += 1
+      if (j == i) return j
+    }
+    -1
+  }
+
 }
 
