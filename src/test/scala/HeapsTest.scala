@@ -150,7 +150,6 @@ class HeapsTest extends FunSuite {
   }
 
   test("Find Median from Data Stream") {
-
     val medFinder = new MedianFinder()
     medFinder.addNum(1)
     medFinder.addNum(2)
@@ -167,7 +166,20 @@ class HeapsTest extends FunSuite {
     medFinder.addNum(-102)
     medFinder.addNum(-103)
     assert(medFinder.findMedian() == 2)
+  }
 
+  test("Min Cost to Connect All Points") {
+    val conditions: Array[(Array[Array[Int]], Int)] = Array(
+      (Array(Array(0, 0), Array(2, 2), Array(3, 10), Array(5, 2), Array(7, 0)), 20),
+      (Array(Array(3, 12), Array(-2, 5), Array(-4, 1)), 18),
+      (Array(Array(0, 0)), 0),
+      (Array(Array(2, -3), Array(-17, -8), Array(13, 8), Array(-17, -15)), 53),
+      (Array(Array(0, 0), Array(1, 1), Array(1, 0), Array(-1, 1)), 4)
+    )
+
+    for (cond <- conditions) {
+      assert(minCostConnectPoints(cond._1) == cond._2)
+    }
   }
 
 }

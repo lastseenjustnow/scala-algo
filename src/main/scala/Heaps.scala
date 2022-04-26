@@ -164,4 +164,39 @@ object Heaps {
     i min (heights.length - 1)
   }
 
+  def minCostConnectPoints(points: Array[Array[Int]]): Int = {
+    if (points.length == 1) return 0
+
+    def manhattanDistance(p1: Array[Int], p2: Array[Int]): Int = Math.abs(p1(0) - p2(0)) + Math.abs(p1(1) - p2(1))
+
+    val ordering = Ordering.Tuple2(Ordering.Int.reverse, Ordering.Tuple2(Ordering.Int, Ordering.Int))
+    val minHeap: mutable.PriorityQueue[(Int, (Int, Int))] = mutable.PriorityQueue[(Int, (Int, Int))]()(ordering)
+    for (i <- points.indices) {
+      for (j <- i + 1 until points.length)
+        minHeap.enqueue((manhattanDistance(points(i), points(j)), (i, j)))
+    }
+
+    val addedPoints: mutable.Set[Int] = mutable.Set(0)
+    var res = 0
+    var stack: List[(Int, (Int, Int))] = List()
+
+    for (_ <- 0 until points.length - 1) {
+
+      while (!((addedPoints.contains(minHeap.head._2._1) && !addedPoints.contains(minHeap.head._2._2)) || (!addedPoints.contains(minHeap.head._2._1) && addedPoints.contains(minHeap.head._2._2)))) {
+        stack = stack :+ minHeap.dequeue()
+      }
+
+      val elem = minHeap.dequeue()
+      res += elem._1
+      addedPoints += elem._2._1
+      addedPoints += elem._2._2
+
+      while (stack.nonEmpty) {
+        minHeap.enqueue(stack.head)
+        stack = stack.tail
+      }
+    }
+    res
+  }
+
 }
