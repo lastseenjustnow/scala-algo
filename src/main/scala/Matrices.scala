@@ -94,4 +94,15 @@ object Matrices {
     }
     matrix
   }
+
+  def countNegatives(grid: Array[Array[Int]]): Int = {
+    val n = grid(0).length
+    var negCount = n
+    var res = 0
+    for (row <- grid.reverse) {
+      while (negCount != 0 && row(n - negCount) >= 0) negCount -= 1
+      res += negCount
+    }
+    res
+  }
 }

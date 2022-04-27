@@ -44,4 +44,16 @@ class MatricesTest extends FunSuite {
     }
   }
 
+  test("Count Negative Numbers in a Sorted Matrix") {
+    val conditions: Array[(Array[Array[Int]], Int)] =
+      Array(
+        (Array(Array(4, 3, 2, -1), Array(3, 2, 1, -1), Array(1, 1, -1, -2), Array(-1, -1, -2, -3)), 8),
+        (Array(Array(3, 2), Array(1, 0)), 0),
+      )
+
+    for (cond <- conditions) {
+      assert(countNegatives(cond._1) == cond._2, f"wrong for n: ${cond._1.mkString(",")}")
+    }
+  }
+
 }
