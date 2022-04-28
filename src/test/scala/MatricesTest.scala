@@ -1,5 +1,4 @@
-import org.scalatest.FunSuite
-
+import org.scalatest.{FunSuite, color}
 import Matrices._
 
 class MatricesTest extends FunSuite {
@@ -53,6 +52,21 @@ class MatricesTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(countNegatives(cond._1) == cond._2, f"wrong for n: ${cond._1.mkString(",")}")
+    }
+  }
+
+  test("Search a 2D Matrix") {
+    val conditions: Array[(Array[Array[Int]], Int, Boolean)] =
+      Array(
+        (Array(Array(1, 3, 5, 7), Array(10, 11, 16, 20), Array(23, 30, 34, 60)), 3, true),
+        (Array(Array(1, 3, 5, 7), Array(10, 11, 16, 20), Array(23, 30, 34, 60)), 13, false),
+        (Array(Array(1, 3, 5, 7), Array(10, 11, 16, 20), Array(23, 30, 34, 60)), 20, true),
+        (Array(Array(6)), 6, true),
+        (Array(Array(1, 1)), 2, false),
+      )
+
+    for (cond <- conditions) {
+      assert(searchMatrix(cond._1, cond._2) == cond._3)
     }
   }
 

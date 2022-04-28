@@ -105,4 +105,17 @@ object Matrices {
     }
     res
   }
+
+  def searchMatrix(matrix: Array[Array[Int]], target: Int): Boolean = {
+    val (n, m) = (matrix(0).length, matrix.length)
+    var (left, right) = (0, n * m - 1)
+    while (left <= right) {
+      val mid = (right - left) / 2 + left
+      val (midI, midJ) = (mid % n, mid / n)
+      if (matrix(midJ)(midI) == target) return true
+      else if (matrix(midJ)(midI) > target) right = mid - 1
+      else left = mid + 1
+    }
+    false
+  }
 }
