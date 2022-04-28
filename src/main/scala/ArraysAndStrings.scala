@@ -288,18 +288,12 @@ object ArraysAndStrings {
   }
 
   def checkIfExist(arr: Array[Int]): Boolean = {
-    val st: mutable.Set[Int] = mutable.Set[Int]()
-    var flag = false
-    var i = 0
-
-    while (!flag & i < arr.length) {
-      if (st.contains(arr(i) * 2) || ((arr(i) % 2 == 0) && st.contains(arr(i) / 2))) {
-        flag = true
-      }
-      st += arr(i)
-      i += 1
+    val st = mutable.Set[Int]()
+    for (elem <- arr) {
+      if (st.contains(elem * 2) || (st.contains(elem / 2) && elem % 2 != 1)) return true
+      else st += elem
     }
-    flag
+    false
   }
 
   def validMountainArray(arr: Array[Int]): Boolean = {
