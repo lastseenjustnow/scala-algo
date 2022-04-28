@@ -60,7 +60,11 @@ object Heaps {
 
   }
 
-  def kWeakestRows(mat: Array[Array[Int]], k: Int): Array[Int] = {
+  def kWeakestRows1(mat: Array[Array[Int]], k: Int): Array[Int] = {
+    /**
+     * Linear search + sorting
+     * Time complexity: O(m * (n + log m))
+     * */
     val freqs = mat.zipWithIndex.map(x => (x._1.lastIndexOf(1) + 1, x._2))
     val order: Ordering[(Int, Int)] = Ordering.Tuple2(Ordering.Int.reverse, Ordering.Int.reverse)
     val maxHeap = new mutable.PriorityQueue[(Int, Int)]()(order)
@@ -68,6 +72,45 @@ object Heaps {
     val res = Array.fill(k)(0)
     for (i <- res.indices) res(i) = maxHeap.dequeue()._2
     res
+  }
+
+  def kWeakestRows2(mat: Array[Array[Int]], k: Int): Array[Int] = {
+
+    /**
+     * Binary search + Priority Queue
+     * Time complexity: O(m log n + m log k)
+     * */
+
+    val (m, n) = (mat.length, mat(0).length)
+
+    def bs(arr: Array[Int]): Int = {
+      var (left, right) = (0, n - 1)
+      var res = 0
+      while (left <= right) {
+        val mid = (right - left) / 2 + left
+        if (arr(mid) == 1) {
+          res = mid + 1
+          left = mid + 1
+        } else right = mid - 1
+      }
+      res
+    }
+
+    val maxHeap: mutable.PriorityQueue[(Int, Int)] = new mutable.PriorityQueue[(Int, Int)]()
+    for (i <- 0 until k) maxHeap.enqueue((bs(mat(i)), i))
+    for (i <- k until m) {
+      val cur = bs(mat(i))
+      if (maxHeap.head._1 > cur) {
+        maxHeap.dequeue()
+        maxHeap.enqueue((cur, i))
+      }
+    }
+
+    var res: List[Int] = List()
+    while (maxHeap.nonEmpty) {
+      res = maxHeap.dequeue()._2 +: res
+    }
+    res.toArray
   }
 
   def kthSmallestNaive(matrix: Array[Array[Int]], k: Int): Int = {

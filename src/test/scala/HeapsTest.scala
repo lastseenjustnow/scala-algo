@@ -76,7 +76,8 @@ class HeapsTest extends FunSuite {
 
 
     for (cond <- conditions) {
-      assert(kWeakestRows(cond._1, cond._2) sameElements cond._3)
+      assert(kWeakestRows1(cond._1, cond._2) sameElements cond._3)
+      assert(kWeakestRows2(cond._1, cond._2).toList == cond._3.toList)
     }
   }
 
