@@ -220,5 +220,13 @@ object SortingAndSearching {
     -1
   }
 
+  def judgeSquareSum(c: Int): Boolean = {
+    /** Time complexity: O(sqrt(c) log c)* */
+    for (i <- 0 to Math.sqrt(c.toDouble).toInt) {
+      if (Math.sqrt(c - i * i) % 1 == 0) return true
+    }
+    false
+  }
+
 }
 

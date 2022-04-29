@@ -1,6 +1,4 @@
 import SortingAndSearching._
-import Trees.countUnivalSubtrees
-import datastructure.TreeNode
 import org.scalatest.FunSuite
 
 class SortingAndSearchingTest extends FunSuite {
@@ -221,6 +219,23 @@ class SortingAndSearchingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(specialArray(cond._1) == cond._2)
+    }
+  }
+
+  test("Sum of Square Numbers") {
+
+    val conditions: Array[(Int, Boolean)] = Array(
+      (0, true),
+      (1, true),
+      (2, true),
+      (3, false),
+      (5, true),
+      (9, true),
+      (1000000000, true)
+    )
+
+    for (cond <- conditions) {
+      assert(judgeSquareSum(cond._1) == cond._2, f"wrong for: ${cond._1}")
     }
   }
 
