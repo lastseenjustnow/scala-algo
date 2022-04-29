@@ -635,4 +635,18 @@ object ArraysAndStrings {
     (grid.flatten.takeRight(divK) ++ grid.flatten.take(matrixDim - divK)).grouped(n).map(_.toList).toList
   }
 
+  def intersect(nums1: Array[Int], nums2: Array[Int]): Array[Int] = {
+    var hm1 = nums1.groupBy(identity).map(x => (x._1, x._2.length))
+    var res: Array[Int] = Array()
+
+    for (elem <- nums2) {
+      if (hm1.contains(elem)) {
+        res = res :+ elem
+        hm1 = hm1 + (elem -> hm1(elem).-(1))
+        if (hm1(elem) == 0) hm1 -= elem
+      }
+    }
+    res
+  }
+
 }
