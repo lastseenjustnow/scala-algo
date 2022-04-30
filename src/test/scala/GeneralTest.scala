@@ -168,11 +168,13 @@ class GeneralTest extends FunSuite with Matchers {
 
     for (cond <- conditions) {
       assert(minimumAverageDifference(cond._1) == cond._2)
+      assert(minimumAverageDifferenceFunctional(cond._1) == cond._2)
     }
 
     val source = scala.io.Source.fromResource("minimumAverageDifference.txt")
     val testcase: Array[Int] = source.getLines().map(_.split(",").map(_.trim.toInt)).next()
     assert(minimumAverageDifference(testcase) == 29403)
+    assert(minimumAverageDifferenceFunctional(testcase) == 29403)
 
   }
 

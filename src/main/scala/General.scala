@@ -252,7 +252,27 @@ object General {
     res
   }
 
-  def minimumAverageDifference(nums: Array[Int]): Any = {
+  def minimumAverageDifference(nums: Array[Int]): Int = {
+    var (i, n, leftSum: Long, rightSum: Long) = (0, nums.length, 0L, nums.map(_.toLong).sum)
+    var res: Long = 0L
+    var minDif = Long.MaxValue
+
+    while (i < nums.length) {
+      leftSum += nums(i)
+      rightSum -= nums(i)
+      val leftCount = i + 1
+      val rightCount = n - i - 1
+      val diff: Long = Math.abs((leftSum / leftCount) - (if (rightCount == 0) 0 else rightSum / rightCount))
+      if (diff < minDif) {
+        res = i
+        minDif = diff
+      }
+      i += 1
+    }
+    res.toInt
+  }
+
+  def minimumAverageDifferenceFunctional(nums: Array[Int]): Any = {
     val n = nums.length
     if (n == 0) return 0
     nums
