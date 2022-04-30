@@ -649,4 +649,13 @@ object ArraysAndStrings {
     res
   }
 
+  def countPrefixes(words: Array[String], s: String): Int = {
+    var c = 0
+    for (word <- words) {
+      val n = word.length
+      c += (if (s.take(n) == word) 1 else 0)
+    }
+    c
+  }
+
 }

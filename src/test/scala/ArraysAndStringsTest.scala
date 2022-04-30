@@ -487,4 +487,16 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Count Prefixes of a Given String") {
+    val conditions: Array[(Array[String], String, Int)] =
+      Array(
+        (Array("a", "b", "c", "ab", "bc", "abc"), "abc", 3),
+        (Array("a", "a"), "aa", 2)
+      )
+
+    for (cond <- conditions) {
+      assert(countPrefixes(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }

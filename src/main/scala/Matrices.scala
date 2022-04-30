@@ -118,4 +118,78 @@ object Matrices {
     }
     false
   }
+
+  def minimumAverageDifference(nums: Array[Int]): Int = {
+    val n = nums.length
+    if (n == 0) return 0
+    nums
+      .scanLeft((0, nums.sum))((x, y) => (x._1 + y, x._2 - y))
+      .zipWithIndex
+      .tail
+      .map(x => (Math.abs(x._1._1 / x._2 - (if (n - x._2 == 0) 0 else x._1._2 / (n - x._2))), x._2 - 1))
+      .min
+      ._2
+  }
+
+  def countUnguarded(m: Int, n: Int, guards: Array[Array[Int]], walls: Array[Array[Int]]): Int = {
+    val matrix: Array[Array[Int]] = Array.fill(m)(Array.fill(n)(0))
+    var nonObserved = m * n
+    for (wall <- walls) {
+      matrix(wall(0))(wall(1)) = 2
+      nonObserved -= 1
+    }
+    for (guard <- guards) {
+      matrix(guard(0))(guard(1)) = 3
+      nonObserved -= 1
+    }
+
+    for (guard <- guards) {
+      var (i, j) = (guard(0) + 1, guard(1))
+
+      // Down
+      while (i < m && matrix(i)(j) < 2) {
+        if (matrix(i)(j) == 0) {
+          matrix(i)(j) = 1
+          nonObserved -= 1
+        }
+        i += 1
+      }
+
+      // Up
+      i = guard(0) - 1
+      j = guard(1)
+      while (i >= 0 && matrix(i)(j) < 2) {
+        if (matrix(i)(j) == 0) {
+          matrix(i)(j) = 1
+          nonObserved -= 1
+        }
+        i -= 1
+      }
+
+      // Right
+      i = guard(0)
+      j = guard(1) + 1
+      while (j < n && matrix(i)(j) < 2) {
+        if (matrix(i)(j) == 0) {
+          matrix(i)(j) = 1
+          nonObserved -= 1
+        }
+        j += 1
+      }
+
+      // Left
+      i = guard(0)
+      j = guard(1) - 1
+      while (j >= 0 && matrix(i)(j) < 2) {
+        if (matrix(i)(j) == 0) {
+          matrix(i)(j) = 1
+          nonObserved -= 1
+        }
+        j -= 1
+      }
+
+    }
+    nonObserved
+  }
+
 }

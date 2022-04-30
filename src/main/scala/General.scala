@@ -1,6 +1,6 @@
 import scala.annotation.tailrec
 import scala.collection.mutable
-import scala.math.abs
+import scala.math.{abs, min}
 
 object General {
   def assignBikes(workers: Array[Array[Int]], bikes: Array[Array[Int]]): Array[Int] = {
@@ -251,4 +251,17 @@ object General {
     }
     res
   }
+
+  def minimumAverageDifference(nums: Array[Int]): Any = {
+    val n = nums.length
+    if (n == 0) return 0
+    nums
+      .scanLeft((0L, nums.map(_.toLong).sum))((x, y) => (x._1 + y, x._2 - y))
+      .zipWithIndex
+      .tail
+      .map(x => (Math.abs(x._1._1 / x._2 - (if (n - x._2 == 0) 0 else x._1._2 / (n - x._2))), x._2 - 1))
+      .min
+      ._2
+  }
+
 }

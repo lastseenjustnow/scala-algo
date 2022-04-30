@@ -70,4 +70,16 @@ class MatricesTest extends FunSuite {
     }
   }
 
+  test("Count Unguarded Cells in the Grid") {
+    val conditions: Array[(Int, Int, Array[Array[Int]], Array[Array[Int]], Int)] =
+      Array(
+        (4, 6, Array(Array(0, 0), Array(1, 1), Array(2, 3)), Array(Array(0, 1), Array(2, 2), Array(1, 4)), 7),
+        (3, 3, Array(Array(1, 1)), Array(Array(0, 1), Array(1, 0), Array(2, 1), Array(1, 2)), 4),
+      )
+
+    for (cond <- conditions) {
+      assert(countUnguarded(cond._1, cond._2, cond._3, cond._4) == cond._5)
+    }
+  }
+
 }
