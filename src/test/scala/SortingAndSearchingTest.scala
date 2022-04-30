@@ -239,4 +239,51 @@ class SortingAndSearchingTest extends FunSuite {
     }
   }
 
+  test("Maximum Distance Between a Pair of Values") {
+
+    val conditions: Array[(Array[Int], Array[Int], Int)] = Array(
+      (Array(55, 30, 5, 4, 2), Array(100, 20, 10, 10, 5), 2),
+      (Array(2, 2, 2), Array(10, 10, 1), 1),
+      (Array(30, 29, 19, 5), Array(25, 25, 25, 25, 25), 2)
+    )
+
+    for (cond <- conditions) {
+      assert(maxDistanceIterative(cond._1, cond._2) == cond._3)
+      assert(maxDistanceFunctional(cond._1, cond._2) == cond._3)
+      assert(maxDistanceTwoPointers(cond._1, cond._2) == cond._3)
+    }
+  }
+
+  test("Check if Array Is Sorted and Rotated") {
+
+    val conditions: Array[(Array[Int], Boolean)] = Array(
+      (Array(3, 4, 5, 1, 2), true),
+      (Array(2, 1, 3, 4), false),
+      (Array(1, 2, 3), true),
+      (Array(1, 2, 1, 1), true),
+      (Array(1, 1, 2, 1), true),
+    )
+
+    for (cond <- conditions) {
+      assert(check(cond._1) == cond._2, f"wrong for: ${cond._1.mkString(",")}")
+    }
+  }
+
+  test("Search in Rotated Sorted Array") {
+
+    val conditions: Array[(Array[Int], Int, Int)] = Array(
+      (Array(0, 2, 3, 5, 6, 7, 8, 9, 10, -4, -2, -1), 2, 1),
+      (Array(0, 2, 3, 5, 6, 7, 8, 9, 10, -4, -2, -1), 3, 2),
+      (Array(4, 5, 6, 7, 0, 1, 2), 0, 4),
+      (Array(4, 5, 6, 7, 0, 1, 2), 3, -1),
+      (Array(1), 0, -1),
+      (Array(5, 1, 3), 5, 0),
+      (Array(3, 1), 0, -1)
+    )
+
+    for (cond <- conditions) {
+      assert(searchInRotatedArray(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }

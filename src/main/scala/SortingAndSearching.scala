@@ -1,4 +1,5 @@
 import java.security.KeyStore.TrustedCertificateEntry
+import scala.annotation.tailrec
 
 object SortingAndSearching {
   def findKthLargest(nums: Array[Int], k: Int): Int = {
@@ -226,6 +227,93 @@ object SortingAndSearching {
       if (Math.sqrt(c - i * i) % 1 == 0) return true
     }
     false
+  }
+
+  def maxDistanceIterative(nums1: Array[Int], nums2: Array[Int]): Int = {
+    val n = nums2.length
+
+    def bs(index: Int): Int = {
+      var (l, r) = (index, n - 1)
+      var res = 0
+      while (l <= r) {
+        val mid = (r - l) / 2 + l
+        if (nums1(index) <= nums2(mid)) {
+          res = mid - index
+          l = mid + 1
+        } else {
+          r = mid - 1
+        }
+      }
+      res
+    }
+
+    nums1.zipWithIndex.foldLeft(0)((maxDist, elem) => maxDist max bs(elem._2))
+  }
+
+  def maxDistanceFunctional(nums1: Array[Int], nums2: Array[Int]): Int = {
+    /**
+     * Binary search approach
+     * Time complexity: O (n log n)
+     * */
+    val n = nums2.length
+
+    def bs(index: Int): Int = {
+      @tailrec
+      def rec(l: Int, r: Int, res: Int): Int = {
+        val mid = (r - l) / 2 + l
+        (l, r) match {
+          case (x, y) if x > y => res
+          case (_, y) if nums1(index) <= nums2(mid) => rec(mid + 1, y, mid - index)
+          case (x, _) => rec(x, mid - 1, res)
+        }
+      }
+
+      rec(index, n - 1, 0)
+    }
+
+    nums1.zipWithIndex.foldLeft(0)((maxDist, elem) => maxDist max bs(elem._2))
+  }
+
+  def maxDistanceTwoPointers(nums1: Array[Int], nums2: Array[Int]): Int = {
+    var (i, j, res) = (0, 0, 0)
+
+    while (i < nums1.length) {
+      while (j < nums2.length && nums1(i) <= nums2(j)) j += 1
+      res = res max j - i - 1
+      i += 1
+    }
+    res
+  }
+
+  def check(nums: Array[Int]): Boolean = {
+    var c = 0
+    var i = 0
+    while (c < 2 && i < nums.length) {
+      c += (if (nums(i) < nums(i - 1 + (if (i == 0) nums.length else 0))) 1 else 0)
+      i += 1
+    }
+    !(c > 1)
+  }
+
+  def searchInRotatedArray(nums: Array[Int], target: Int): Int = {
+    val n = nums.length
+    var k = 0
+    var i = 0
+
+    while (k == 0 && i < nums.length) {
+      if (nums(i) < nums(i - 1 + (if (i == 0) nums.length else 0))) k = i
+      i += 1
+    }
+
+    var (l, r) = (0, n - 1)
+    while (l <= r) {
+      val unrotatedMid = (r - l) / 2 + l
+      val mid = if (unrotatedMid - (n - k) >= 0) unrotatedMid - (n - k) else n + unrotatedMid - (n - k)
+      if (nums(mid) == target) return mid
+      if (nums(mid) > target) r = unrotatedMid - 1
+      else l = unrotatedMid + 1
+    }
+    -1
   }
 
 }

@@ -283,21 +283,4 @@ class TreesTest extends FunSuite {
       assert(buildTreePreorderInorder(cond._1, cond._2).toArray.toList == cond._3.toArray.toList)
     }
   }
-
-  test("Maximum Distance Between a Pair of Values") {
-
-    val conditions: Array[(Array[Int], Array[Int], Int)] = Array(
-      (Array(55, 30, 5, 4, 2), Array(100, 20, 10, 10, 5), 2),
-      (Array(2, 2, 2), Array(10, 10, 1), 1),
-      (Array(30, 29, 19, 5), Array(25, 25, 25, 25, 25), 2)
-    )
-
-    for (cond <- conditions) {
-      assert(maxDistanceIterative(cond._1, cond._2) == cond._3)
-      assert(maxDistanceFunctional(cond._1, cond._2) == cond._3)
-      assert(maxDistanceTwoPointers(cond._1, cond._2) == cond._3)
-    }
-  }
-
-
 }
