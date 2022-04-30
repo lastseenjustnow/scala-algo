@@ -334,4 +334,23 @@ object Trees {
         new TreeNode(rootVal, leftNode, rightNode)
     }
   }
+
+  def buildTreePreorderInorder(preorder: Array[Int], inorder: Array[Int]): TreeNode = {
+    val map = inorder.zipWithIndex.map(x => x._1 -> x._2).toMap
+    var i = 0
+
+    def rec(left: Int, right: Int): TreeNode = {
+      if (left > right) null
+      else {
+        val rootVal = preorder(i)
+        i += 1
+        val leftNode = rec(left, map(rootVal) - 1)
+        val rightNode = rec(map(rootVal) + 1, right)
+        new TreeNode(rootVal, leftNode, rightNode)
+      }
+    }
+
+    rec(0, inorder.length - 1)
+  }
+
 }

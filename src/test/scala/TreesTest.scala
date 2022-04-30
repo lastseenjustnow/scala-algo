@@ -272,4 +272,16 @@ class TreesTest extends FunSuite {
     }
   }
 
+  test("Construct Binary Tree from Preorder and Inorder Traversal") {
+
+    val conditions: Array[(Array[Int], Array[Int], TreeNode)] = Array(
+      (Array(3, 9, 20, 15, 7), Array(9, 3, 15, 20, 7), new TreeNode().fromArray(Array(3, 9, 20, null, null, 15, 7))),
+      (Array(-1), Array(-1), new TreeNode().fromArray(Array(-1)))
+    )
+
+    for (cond <- conditions) {
+      assert(buildTreePreorderInorder(cond._1, cond._2).toArray.toList == cond._3.toArray.toList)
+    }
+  }
+
 }
