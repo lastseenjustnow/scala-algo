@@ -658,4 +658,15 @@ object ArraysAndStrings {
     c
   }
 
+  def backspaceCompareNaive(s: String, t: String): Boolean = {
+    var left: List[Char] = List()
+    var right: List[Char] = List()
+
+    for (i <- 0 until (s.length max t.length)) {
+      if (i < s.length && s(i) == '#' && left.nonEmpty) left = left.tail else if (i < s.length && s(i) != '#') left = s(i) +: left
+      if (i < t.length && t(i) == '#' && right.nonEmpty) right = right.tail else if (i < t.length && t(i) != '#') right = t(i) +: right
+    }
+    left.mkString("") == right.mkString("")
+  }
+
 }

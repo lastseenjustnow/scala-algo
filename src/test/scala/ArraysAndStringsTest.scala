@@ -499,4 +499,19 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Backspace String Compare") {
+    val conditions: Array[(String, String, Boolean)] =
+      Array(
+        ("ab#c", "ad#c", true),
+        ("ab##", "c#d#", true),
+        ("a#c", "b", false),
+        ("a##c", "#a#c", true),
+        ("y#fo##f", "y#f#o##f", true)
+      )
+
+    for (cond <- conditions) {
+      assert(backspaceCompareNaive(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }
