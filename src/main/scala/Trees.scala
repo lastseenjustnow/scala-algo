@@ -353,4 +353,22 @@ object Trees {
 
     rec(0, inorder.length - 1)
   }
+
+  def connectNaive(root: TreeNode): TreeNode = {
+    var stack: List[TreeNode] = List(root, null)
+
+    while (stack.nonEmpty) {
+      val node = stack.head
+      stack = stack.tail
+      if (node != null) {
+        node.next = stack.head
+        if (node.left != null) {
+          stack = stack :+ node.left
+          stack = stack :+ node.right
+        }
+      } else if (stack.length > 1) stack = stack :+ node
+    }
+    root
+  }
+
 }

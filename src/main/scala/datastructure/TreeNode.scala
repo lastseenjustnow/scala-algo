@@ -6,6 +6,7 @@ class TreeNode(_value: Int = 0,
   var value: Int = _value
   var left: TreeNode = _left
   var right: TreeNode = _right
+  var next: TreeNode = null
 
   def fromArray(arr: Array[Any]): TreeNode = {
     val arrNodes = arr.map {

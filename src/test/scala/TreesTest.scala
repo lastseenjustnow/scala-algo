@@ -283,4 +283,18 @@ class TreesTest extends FunSuite {
       assert(buildTreePreorderInorder(cond._1, cond._2).toArray.toList == cond._3.toArray.toList)
     }
   }
+
+  test("Populating Next Right Pointers in Each Node") {
+
+    val node1 = new TreeNode().fromArray(Array(1, 2, 3, 4, 5, 6, 7))
+    connectNaive(node1)
+    assert(node1.next == null)
+    assert(node1.left.next.value == 3)
+    assert(node1.right.next == null)
+    assert(node1.left.left.next.value == 5)
+    assert(node1.left.right.next.value == 6)
+    assert(node1.right.left.next.value == 7)
+    assert(node1.right.right.next == null)
+
+  }
 }
