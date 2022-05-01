@@ -286,4 +286,20 @@ class SortingAndSearchingTest extends FunSuite {
     }
   }
 
+  test("Find Minimum in Rotated Sorted Array") {
+
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(3, 4, 5, 1, 2), 1),
+      (Array(6, 7, 8, 1, 2, 3, 4, 5), 1),
+      (Array(0, 1, 2, 3, 4, 5, 6, 7), 0),
+      (Array(4, 5, 6, 7, 0, 1, 2), 0),
+      (Array(11, 13, 15, 17), 11),
+      (Array(1), 1),
+    )
+
+    for (cond <- conditions) {
+      assert(findMin(cond._1) == cond._2)
+    }
+  }
+
 }

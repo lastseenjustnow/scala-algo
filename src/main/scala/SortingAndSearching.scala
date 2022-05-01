@@ -316,5 +316,19 @@ object SortingAndSearching {
     -1
   }
 
+  def findMin(nums: Array[Int]): Int = {
+
+    if (nums.head < nums.last || nums.length == 1) return nums.head
+
+    var (l, r) = (0, nums.length - 1)
+    while (l <= r) {
+      val mid = (r + l) / 2
+      if (nums(mid) > nums(mid + 1)) return nums(mid + 1)
+      if (nums(mid) < nums(l)) r = mid - 1
+      else l = mid + 1
+    }
+    l
+  }
+
 }
 
