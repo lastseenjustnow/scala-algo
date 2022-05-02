@@ -371,4 +371,21 @@ object Trees {
     root
   }
 
+  def connect2(root: TreeNode): TreeNode = {
+    if (root == null) return null
+    var stack: List[TreeNode] = List(root)
+
+    while (stack.nonEmpty) {
+      val size = stack.size
+      for (i <- 0 until size) {
+        val node = stack.head
+        stack = stack.tail
+        if (i != size - 1) node.next = stack.head
+        if (node.left != null) stack = stack :+ node.left
+        if (node.right != null) stack = stack :+ node.right
+      }
+    }
+    root
+  }
+
 }
