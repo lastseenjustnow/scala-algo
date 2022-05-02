@@ -341,4 +341,16 @@ class TreesTest extends FunSuite {
 
   }
 
+  test("Serialize and Deserialize Binary Tree") {
+    val root = new TreeNode().fromArray(Array(1, 2, 3, null, null, 4, 5))
+    val serialized = root.serialize
+    assert(serialized == "1,2,3,_,_,4,5")
+    assert(new TreeNode().deserialize(serialized).toArray.toList == root.toArray.toList)
+
+    val root2 = new TreeNode().fromArray(Array(4, -7, -3, null, null, -9, -3, 9, -7, -4, null, 6, null, -6, -6, null, null, 0, 6, 5, null, 9, null, null, -1, -4, null, null, null, -2))
+    val serialized2 = root2.serialize
+    assert(serialized2 == "4,-7,-3,_,_,-9,-3,9,-7,-4,_,6,_,-6,-6,_,_,0,6,5,_,9,_,_,-1,-4,_,_,_,-2")
+    assert(new TreeNode().deserialize(serialized2).toArray.toList == root2.toArray.toList)
+  }
+
 }
