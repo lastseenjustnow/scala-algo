@@ -318,4 +318,27 @@ class TreesTest extends FunSuite {
 
   }
 
+  test("Lowest Common Ancestor") {
+
+    val root = new TreeNode().fromArray(Array(3, 5, 1, 6, 2, 0, 8, null, null, 7, 4))
+
+    val p = new TreeNode().fromArray(Array(5))
+    val q = new TreeNode().fromArray(Array(1))
+    val expectedResult = new TreeNode().fromArray(Array(3, 5, 1, 6, 2, 0, 8, null, null, 7, 4))
+
+    assert(lowestCommonAncestor(root, p, q).toArray.toList == expectedResult.toArray.toList)
+
+    val p2 = new TreeNode().fromArray(Array(5))
+    val q2 = new TreeNode().fromArray(Array(4))
+    val expectedResult2 = new TreeNode().fromArray(Array(5, 6, 2, null, null, 7, 4))
+    assert(lowestCommonAncestor(root, p2, q2).toArray.toList == expectedResult2.toArray.toList)
+
+    val root3 = new TreeNode().fromArray(Array(1, 2))
+    val p3 = new TreeNode().fromArray(Array(1))
+    val q3 = new TreeNode().fromArray(Array(2))
+    val expectedResult3 = new TreeNode().fromArray(Array(1, 2))
+    assert(lowestCommonAncestor(root3, p3, q3).toArray.toList == expectedResult3.toArray.toList)
+
+  }
+
 }

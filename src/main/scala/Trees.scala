@@ -1,6 +1,5 @@
 import datastructure.TreeNode
 
-import scala.annotation.tailrec
 import scala.collection.mutable
 
 object Trees {
@@ -386,6 +385,24 @@ object Trees {
       }
     }
     root
+  }
+
+  def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode): TreeNode = {
+    def rec(node: TreeNode, found: Int): (TreeNode, Int) = {
+      (node, found) match {
+        case (null, _) => (null, 0)
+        case (n, f) if f == 2 => (n, f)
+        case (n, _) =>
+          val left = rec(n.left, found)
+          val right = rec(n.right, found)
+          val matched = (if (n.value == p.value || n.value == q.value) 1 else 0) + left._2 + right._2
+          if (left._2 == 2) left
+          else if (right._2 == 2) right
+          else (n, matched)
+      }
+    }
+
+    rec(root, 0)._1
   }
 
 }
