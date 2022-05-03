@@ -514,4 +514,28 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Shortest Unsorted Continuous Subarray") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(2, 6, 4, 8, 10, 9, 15), 5),
+        (Array(2, 6, 7, 8, 10, 9, 15), 2),
+        (Array(0, 7, 2, 6, 7, 8, 10, 9, 15), 7),
+        (Array(1, 2, 3, 4), 0),
+        (Array(1), 0),
+        (Array(1, 2, 3, 3, 3), 0),
+        (Array(1, 3, 2, 2, 2), 4),
+        (Array(1, 3, 2, 3, 3), 2),
+        (Array(2, 3, 3, 2, 4), 3),
+        (Array(1, 2, 4, 5, 3), 3),
+        (Array(1, 2, 2, 2, 3, 3, 4, 5, 3), 3),
+        (Array(1, 2, 2, 2, 3, 3, 4, 5, 3), 3),
+        (Array(1, 3, 3, 3, 3, 3, 4, 5, 3), 3),
+        (Array(1, 2, 5, 3, 4), 3),
+      )
+
+    for (cond <- conditions) {
+      assert(findUnsortedSubarray(cond._1) == cond._2)
+    }
+  }
+
 }

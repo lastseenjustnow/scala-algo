@@ -669,4 +669,15 @@ object ArraysAndStrings {
     left.mkString("") == right.mkString("")
   }
 
+  def findUnsortedSubarray(nums: Array[Int]): Int = {
+    /** Sorting approach
+     * Time complexity: O (n log n)
+     * Space complexity: O(n)
+     * */
+    val a = nums.zip(nums.sorted)
+    val f = a.indexWhere(x => x._1 != x._2)
+    val l = a.lastIndexWhere(x => x._1 != x._2)
+    if (f == -1) 0 else l - f + 1
+  }
+
 }
