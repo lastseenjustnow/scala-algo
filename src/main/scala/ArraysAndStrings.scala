@@ -1,4 +1,4 @@
-import SortingAndSearching.tripletBinarySearch
+import SortingAndSearching.{mySqrt, tripletBinarySearch}
 
 import scala.annotation.tailrec
 import scala.collection.mutable
@@ -690,6 +690,29 @@ object ArraysAndStrings {
     val f = a.indexWhere(x => x._1 != x._2)
     val l = a.lastIndexWhere(x => x._1 != x._2)
     if (f == -1) 0 else l - f + 1
+  }
+
+  def findPermutation(s: String): Array[Int] = {
+    val res = Array.fill(s.length + 1)(0)
+    var (m, skipped) = (1, 0)
+    for (c <- s.zipWithIndex) {
+      if (c._1 == 'D') {
+        skipped += 1
+      } else {
+        res(c._2) = m
+        while (skipped != 0) {
+          res(c._2 - skipped) = m + skipped
+          skipped -= 1
+        }
+        m = c._2 + 2
+      }
+    }
+    while (skipped != 0) {
+      res(s.length - skipped) = m + skipped
+      skipped -= 1
+    }
+    res(s.length) = m
+    res
   }
 
 }

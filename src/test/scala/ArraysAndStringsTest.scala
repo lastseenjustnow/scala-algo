@@ -553,4 +553,23 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Find Permutation") {
+    val conditions: Array[(String, Array[Int])] =
+      Array(
+        ("DDI", Array(3, 2, 1, 4)),
+        ("I", Array(1, 2)),
+        ("D", Array(2, 1)),
+        ("DI", Array(2, 1, 3)),
+        ("DID", Array(2, 1, 4, 3)),
+        ("IDIDIDIDIDID", Array(1, 3, 2, 5, 4, 7, 6, 9, 8, 11, 10, 13, 12)),
+        ("DDDDDDDDDD", Array(11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)),
+        ("DIDIDIIDIDIIIDIIDIDIDIIIDDDDIDIDIDIIDIDIIDIDIIDIIDIDIDIDIDIIDIDIDIID", Array(2, 1, 4, 3, 6, 5, 7, 9, 8, 11, 10, 12, 13, 15, 14, 16, 18, 17, 20, 19, 22, 21, 23, 24, 29, 28, 27, 26, 25, 31, 30, 33, 32, 35, 34, 36, 38, 37, 40, 39, 41, 43, 42, 45, 44, 46, 48, 47, 49, 51, 50, 53, 52, 55, 54, 57, 56, 59, 58, 60, 62, 61, 64, 63, 66, 65, 67, 69, 68)),
+        ("DIDIDIIDIIDIIDIDDDDDDDIDDIIDDDDDDDDDDD", Array(2, 1, 4, 3, 6, 5, 7, 9, 8, 10, 12, 11, 13, 15, 14, 23, 22, 21, 20, 19, 18, 17, 16, 26, 25, 24, 27, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28))
+      )
+
+    for (cond <- conditions) {
+      assert(findPermutation(cond._1).toList == cond._2.toList)
+    }
+  }
+
 }
