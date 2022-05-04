@@ -24,6 +24,21 @@ class ArraysAndStringsTest extends FunSuite {
 
   }
 
+  test("Max Number of K-Sum Pairs") {
+    val conditions: Array[(Array[Int], Int, Int)] =
+      Array(
+        (Array(1, 2, 3, 4), 5, 2),
+        (Array(3, 1, 3, 4, 3), 6, 1),
+        (Array(1), 0, 0),
+        (Array(1, 2), 3, 1),
+        (Array(2, 5, 4, 4, 1, 3, 4, 4, 1, 4, 4, 1, 2, 1, 2, 2, 3, 2, 4, 2), 3, 4)
+      )
+
+    for (cond <- conditions) {
+      assert(maxOperations(cond._1, cond._2) == cond._3)
+    }
+  }
+
   test("String to Integer (atoi)") {
     val conditions: Array[(String, Int)] =
       Array(

@@ -51,6 +51,18 @@ object ArraysAndStrings {
     res.toArray
   }
 
+  def maxOperations(nums: Array[Int], k: Int): Int = {
+    val map: mutable.Map[Int, Int] = mutable.Map[Int, Int]()
+    var res = 0
+    for (elem <- nums) {
+      if (map.getOrElse(k - elem, 0) != 0) {
+        res += 1
+        map.update(k - elem, map(k - elem) - 1)
+      } else map.update(elem, map.getOrElse(elem, 0) + 1)
+    }
+    res
+  }
+
   def myAtoi(s: String): Int = {
     val regexp = raw"^\s*([-|+]{0,1}\d+).*".r
     s match {
