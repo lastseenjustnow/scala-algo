@@ -1,5 +1,7 @@
 import datastructure.graph.{QuickFind, QuickUnion}
 
+import scala.collection.mutable
+
 object DisjointSet {
   def findCircleNum(isConnected: Array[Array[Int]]): Int = {
     val n = isConnected.length
@@ -62,4 +64,21 @@ object DisjointSet {
     res
   }
 
+  def smallestStringWithSwaps(s: String, pairs: List[List[Int]]): String = {
+    val res: Array[Char] = s.toArray
+    val qf = new QuickFind(s.length)
+    for (pair <- pairs) qf.union(pair.head, pair.last)
+    val map: mutable.Map[Int, Set[(Int, Char)]] = mutable.Map()
+    for (elem <- qf.root.zipWithIndex) {
+      map.update( elem._1, map.getOrElse(elem._1, Set()) + ((elem._2, s(elem._2))) )
+    }
+
+    for (key <- map.values) {
+      val sortedByIndex = key.toArray.map(_._1).sorted
+      val sortedByChar = key.toArray.map(_._2).sorted
+      for (elem <- sortedByIndex.zip(sortedByChar)) res(elem._1) = elem._2
+    }
+    res.mkString("")
+
+  }
 }

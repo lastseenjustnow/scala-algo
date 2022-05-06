@@ -72,4 +72,17 @@ class UnionFindTest extends FunSuite {
     }
   }
 
+  test("Smallest String With Swaps") {
+    val conditions: Array[(String, List[List[Int]], String)] =
+      Array(
+        ("dcab", List(List(0, 3), List(1, 2)), "bacd"),
+        ("dcab", List(List(0, 3), List(1, 2), List(0, 2)), "abcd"),
+        ("cba", List(List(0, 1), List(1, 2)), "abc")
+      )
+
+    for (cond <- conditions) {
+      assert(smallestStringWithSwaps(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }
