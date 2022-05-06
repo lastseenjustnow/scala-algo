@@ -572,4 +572,17 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Remove All Adjacent Duplicates in String II") {
+    val conditions: Array[(String, Int, String)] =
+      Array(
+        ("deeedbbcccbdaa", 3, "aa"),
+        ("abcd", 2, "abcd"),
+        ("pbbcggttciiippooaais", 2, "ps")
+      )
+
+    for (cond <- conditions) {
+      assert(removeDuplicates(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }

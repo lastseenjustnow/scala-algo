@@ -715,4 +715,29 @@ object ArraysAndStrings {
     res
   }
 
+  def removeDuplicates(s: String, k: Int): String = {
+    var stack: List[(Char, Int)] = List()
+    var i = 0
+    var headElem: (Char, Int) = (' ', 0)
+
+    while (i < s.length) {
+      if (stack.nonEmpty) {
+        headElem = stack.head
+        stack = stack.tail
+      } else headElem = (' ', 0)
+
+      if (headElem._1 == s(i)) {
+        headElem = (headElem._1, headElem._2 + 1)
+        if (headElem._2 < k) stack = headElem +: stack
+      } else {
+        stack = headElem +: stack
+        stack = (s(i), 1) +: stack
+      }
+      i += 1
+    }
+
+    stack.foldRight("")((y, x) => x + y._1.toString * y._2)
+
+  }
+
 }
