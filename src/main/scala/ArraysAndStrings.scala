@@ -1,4 +1,4 @@
-import SortingAndSearching.{mySqrt, tripletBinarySearch}
+import SortingAndSearching.{maxDistanceFunctional, mySqrt, tripletBinarySearch}
 
 import scala.annotation.tailrec
 import scala.collection.mutable
@@ -734,6 +734,29 @@ object ArraysAndStrings {
     }
 
     stack.foldRight("")((y, x) => x + y._1.toString * y._2)
+
+  }
+
+  def find132pattern(nums: Array[Int]): Boolean = {
+    val leftMin = nums.scanLeft(Int.MaxValue)(_ min _).dropRight(1)
+    var stack = List(nums(nums.length - 1))
+    var flag = false
+    var j = nums.length - 2
+    while (!flag && j > 0) {
+      if (nums(j) > leftMin(j)) {
+        if (nums(j) < stack.head) stack = nums(j) +: stack
+        else {
+          while (!flag && stack.nonEmpty && nums(j) > stack.head) {
+            val kElem = stack.head
+            stack = stack.tail
+            if (leftMin(j) < kElem) flag = true
+          }
+          stack = nums(j) +: stack
+        }
+      }
+      j -= 1
+    }
+    flag
 
   }
 

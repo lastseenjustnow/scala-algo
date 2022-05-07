@@ -585,4 +585,22 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("132 Pattern") {
+    val conditions: Array[(Array[Int], Boolean)] =
+      Array(
+        (Array(1, 2, 3, 4), false),
+        (Array(3, 1, 4, 2), true),
+        (Array(-1, 3, 2, 0), true),
+        (Array(1, 0, 1, -4, -3), false),
+        (Array(3, 5, 0, 3, 4), true),
+        (Array(1, 3, 2, 4, 5, 6, 7, 8, 9, 10), true),
+        (Array(-2, 1, -1), true),
+        (Array(-2, 1, 1), false),
+      )
+
+    for (cond <- conditions) {
+      assert(find132pattern(cond._1) == cond._2)
+    }
+  }
+
 }
