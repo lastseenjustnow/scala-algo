@@ -3,7 +3,7 @@ import SortingAndSearching.{maxDistanceFunctional, mySqrt, tripletBinarySearch}
 import scala.annotation.tailrec
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
-import scala.math.abs
+import scala.math.{abs, max}
 
 object ArraysAndStrings {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
@@ -758,6 +758,23 @@ object ArraysAndStrings {
     }
     flag
 
+  }
+
+  def largestGoodInteger(num: String): String = {
+    var res: ArrayBuffer[Char] = ArrayBuffer()
+    var maxVal: Int = -1
+    for (letter <- num.reverse) {
+      if (res.isEmpty || letter == res.head) res += letter
+      else res = ArrayBuffer(letter)
+
+      if (res.length == 3) maxVal = res.mkString("").toInt max maxVal
+    }
+
+    if (res.length == 3) maxVal = res.mkString("").toInt max maxVal
+
+    if (maxVal == -1) ""
+    else if (maxVal == 0) "000"
+    else maxVal.toString
   }
 
 }

@@ -603,4 +603,20 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Largest 3-Same-Digit Number in String") {
+    val conditions: Array[(String, String)] =
+      Array(
+        ("6777133339", "777"),
+        ("2300019", "000"),
+        ("42352338", ""),
+        ("3200014888", "888"),
+        ("222", "222"),
+        ("74444", "444")
+      )
+
+    for (cond <- conditions) {
+      assert(largestGoodInteger(cond._1) == cond._2)
+    }
+  }
+
 }

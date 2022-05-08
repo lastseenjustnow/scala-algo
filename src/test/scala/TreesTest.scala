@@ -353,4 +353,12 @@ class TreesTest extends FunSuite {
     assert(new TreeNode().deserialize(serialized2).toArray.toList == root2.toArray.toList)
   }
 
+  test("Count Nodes Equal to Average of Subtree") {
+    val root = new TreeNode().fromArray(Array(4,8,5,0,1,null,6))
+    assert(averageOfSubtree(root) == 5)
+
+    val root2 = new TreeNode().fromArray(Array(1))
+    assert(averageOfSubtree(root2) == 1)
+  }
+
 }

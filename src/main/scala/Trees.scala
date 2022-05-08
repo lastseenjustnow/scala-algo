@@ -405,4 +405,20 @@ object Trees {
     rec(root, 0)._1
   }
 
+  def averageOfSubtree(root: TreeNode): Int = {
+    def rec(node: TreeNode): (Int, Int, Int) = {
+      node match {
+        case null => (0, 0, 0)
+        case x =>
+          val left = rec(x.left)
+          val right = rec(x.right)
+          val thisSum = left._1 + right._1 + x.value
+          val thisCount = left._2 + right._2 + 1
+          val isNeededNode = if ((thisSum / thisCount) == x.value) 1 else 0
+          (thisSum, thisCount, left._3 + right._3 + isNeededNode)
+      }
+    }
+    rec(root)._3
+  }
+
 }

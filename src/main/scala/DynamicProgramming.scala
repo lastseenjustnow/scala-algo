@@ -1065,4 +1065,17 @@ object DynamicProgramming {
     rec(s.length - 1)
   }
 
+  def countTexts(pressedKeys: String): Int = {
+    var q: List[BigInt] = List(1)
+    var i = 1
+    var curLen = 1
+    while (i < pressedKeys.length) {
+      val upperBound = if (pressedKeys(i) == '7' || pressedKeys(i) == '9') 4 else 3
+      if (pressedKeys(i) == pressedKeys(i - 1)) curLen = (curLen + 1) min upperBound else curLen = 1
+      q = q.sum +: q
+      while (q.length > curLen) q = q.dropRight(1)
+      i += 1
+    }
+    (q.sum % (Math.pow(10, 9) + 7).toInt).toInt
+  }
 }
