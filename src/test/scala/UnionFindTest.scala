@@ -85,4 +85,22 @@ class UnionFindTest extends FunSuite {
     }
   }
 
+  test("Evaluate Division") {
+    val conditions: Array[(List[List[String]], Array[Double], List[List[String]], Array[Double])] =
+      Array(
+        (List(List("a", "b"), List("b", "c")), Array(2.0, 3.0), List(List("a", "c"), List("b", "a"), List("a", "e"), List("a", "a"), List("x", "x")), Array(6.00000, 0.50000, -1.00000, 1.00000, -1.00000)),
+        (List(List("a", "b"), List("b", "c"), List("bc", "cd")), Array(1.5, 2.5, 5.0), List(List("a", "c"), List("c", "b"), List("bc", "cd"), List("cd", "bc")), Array(3.75000, 0.40000, 5.00000, 0.20000)),
+        (List(List("a", "b")), Array(0.5), List(List("a", "b"), List("b", "a"), List("a", "c"), List("x", "y")), Array(0.5, 2.00000, -1.00000, -1.00000)),
+        (List(List("x1", "x2"), List("x2", "x3"), List("x1", "x4"), List("x2", "x5")), Array(3.0, 0.5, 3.4, 5.6), List(List("x2", "x4"), List("x1", "x5"), List("x1", "x3"), List("x5", "x5"), List("x5", "x1"), List("x3", "x4"), List("x4", "x3"), List("x6", "x6"), List("x0", "x0")), Array(1.1333333333333333, 16.8, 1.5, 1.0, 0.05952380952380953, 2.2666666666666666, 0.44117647058823534, -1.0, -1.0)),
+        (List(List("a", "e"), List("b", "e")), Array(4.0, 3.0), List(List("a", "b"), List("e", "e"), List("x", "x")), Array(1.3333333333333333, 1.00000, -1.00000)),
+        (List(List("a", "b"), List("e", "f"), List("b", "e")), Array(3.4, 1.4, 2.3), List(List("b", "a"), List("a", "f"), List("f", "f"), List("e", "e"), List("c", "c"), List("a", "c"), List("f", "e")), Array(0.29411764705882354, 10.947999999999999, 1.0, 1.0, -1.0, -1.0, 0.7142857142857143)),
+        (List(List("a", "b"), List("c", "d")), Array(1.0, 1.0), List(List("a", "c"), List("b", "d"), List("b", "a"), List("d", "c")), Array(-1.00000, -1.00000, 1.00000, 1.00000)),
+        (List(List("a", "b"), List("c", "b"), List("d", "b"), List("w", "x"), List("y", "x"), List("z", "x"), List("w", "d")), Array(2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0), List(List("a", "c"), List("b", "c"), List("a", "e"), List("a", "a"), List("x", "x"), List("a", "z")), Array(0.6666666666666666, 0.3333333333333333, -1.00000, 1.00000, 1.00000, 0.04464285714285714))
+      )
+
+    for (cond <- conditions) {
+      assert(calcEquation(cond._1, cond._2, cond._3).toList == cond._4.toList)
+    }
+  }
+
 }
