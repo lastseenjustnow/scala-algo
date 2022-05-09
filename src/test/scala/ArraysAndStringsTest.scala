@@ -619,4 +619,19 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Letter Combinations of a Phone Number") {
+    val conditions: Array[(String, List[String])] =
+      Array(
+        ("23", List("ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf")),
+        ("2", List("a", "b", "c")),
+        ("", List()),
+        ("4444", List("gggg", "gggh", "gggi", "gghg", "gghh", "gghi", "ggig", "ggih", "ggii", "ghgg", "ghgh", "ghgi", "ghhg", "ghhh", "ghhi", "ghig", "ghih", "ghii", "gigg", "gigh", "gigi", "gihg", "gihh", "gihi", "giig", "giih", "giii", "hggg", "hggh", "hggi", "hghg", "hghh", "hghi", "hgig", "hgih", "hgii", "hhgg", "hhgh", "hhgi", "hhhg", "hhhh", "hhhi", "hhig", "hhih", "hhii", "higg", "high", "higi", "hihg", "hihh", "hihi", "hiig", "hiih", "hiii", "iggg", "iggh", "iggi", "ighg", "ighh", "ighi", "igig", "igih", "igii", "ihgg", "ihgh", "ihgi", "ihhg", "ihhh", "ihhi", "ihig", "ihih", "ihii", "iigg", "iigh", "iigi", "iihg", "iihh", "iihi", "iiig", "iiih", "iiii")),
+        ("999", List("www", "wwx", "wwy", "wwz", "wxw", "wxx", "wxy", "wxz", "wyw", "wyx", "wyy", "wyz", "wzw", "wzx", "wzy", "wzz", "xww", "xwx", "xwy", "xwz", "xxw", "xxx", "xxy", "xxz", "xyw", "xyx", "xyy", "xyz", "xzw", "xzx", "xzy", "xzz", "yww", "ywx", "ywy", "ywz", "yxw", "yxx", "yxy", "yxz", "yyw", "yyx", "yyy", "yyz", "yzw", "yzx", "yzy", "yzz", "zww", "zwx", "zwy", "zwz", "zxw", "zxx", "zxy", "zxz", "zyw", "zyx", "zyy", "zyz", "zzw", "zzx", "zzy", "zzz")),
+      )
+
+    for (cond <- conditions) {
+      assert(letterCombinations(cond._1) == cond._2)
+    }
+  }
+
 }

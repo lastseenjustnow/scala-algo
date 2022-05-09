@@ -777,4 +777,32 @@ object ArraysAndStrings {
     else maxVal.toString
   }
 
+  def letterCombinations(digits: String): List[String] = {
+    def charToButton(c: Char): Int = {
+      val factor = if (c >= 's' && c != 'z') 1 else if (c == 'z') 2 else 0
+      (c.toInt - 97 - factor) / 3 + 2
+    }
+
+    val mp = ('a' to 'z').foldLeft(Map[Int, String]())(
+      (map, c) => {
+        val button = charToButton(c)
+        map.updated(button, map.getOrElse(button, "") + c)
+      }
+    )
+
+    var res: List[String] = List()
+    var stack: List[Int] = digits.map(x => mp(x.asDigit).length - 1).toList
+
+    while (stack.nonEmpty) {
+      if (stack.length == digits.length) res = stack.zipWithIndex.map(x => mp(digits(x._2).asDigit)(x._1)).mkString("") +: res
+      val h = stack.last
+      stack = stack.dropRight(1)
+      if (h != 0) {
+        stack = stack :+ (h - 1)
+        while (stack.length < digits.length) stack = stack :+ mp(digits(stack.length).asDigit).length - 1
+      }
+    }
+    res
+  }
+
 }
