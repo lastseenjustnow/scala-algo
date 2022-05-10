@@ -805,4 +805,20 @@ object ArraysAndStrings {
     res
   }
 
+  def combinationSum3(k: Int, n: Int): List[List[Int]] = {
+    var res: List[List[Int]] = List()
+    var stack: List[Int] = (1 to k).toList
+
+    while (stack.nonEmpty && stack.head < n / k) {
+      if (stack.length == k && stack.sum == n) res = res :+ stack
+      val h = stack.last
+      stack = stack.dropRight(1)
+      if (h != 9) {
+        stack = stack :+ h + 1
+        while (stack.length < k && stack.last < 9) stack = stack :+ (stack.last + 1)
+      }
+    }
+    res
+  }
+
 }

@@ -634,4 +634,24 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Combination Sum III") {
+    val conditions: Array[(Int, Int, List[List[Int]])] =
+      Array(
+        (3, 7, List(List(1, 2, 4))),
+        (3, 9, List(List(1, 2, 6), List(1, 3, 5), List(2, 3, 4))),
+        (4, 1, List()),
+        (7, 28, List(List(1, 2, 3, 4, 5, 6, 7))),
+        (9, 60, List()),
+        (4, 40, List()),
+        (4, 15, List(List(1, 2, 3, 9), List(1, 2, 4, 8), List(1, 2, 5, 7), List(1, 3, 4, 7), List(1, 3, 5, 6), List(2, 3, 4, 6))),
+        (5, 30, List(List(1, 5, 7, 8, 9), List(2, 4, 7, 8, 9), List(2, 5, 6, 8, 9), List(3, 4, 6, 8, 9), List(3, 5, 6, 7, 9), List(4, 5, 6, 7, 8))),
+        (5, 40, List()),
+        (7, 40, List(List(1, 4, 5, 6, 7, 8, 9), List(2, 3, 5, 6, 7, 8, 9))),
+      )
+
+    for (cond <- conditions) {
+      assert(combinationSum3(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }
