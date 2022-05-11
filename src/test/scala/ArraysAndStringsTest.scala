@@ -654,4 +654,19 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Count Sorted Vowel Strings") {
+    val conditions: Array[(Int, Int)] =
+      Array(
+        (1, 5),
+        (2, 15),
+        (25, 23751),
+        (33, 66045),
+        (50, 316251),
+      )
+
+    for (cond <- conditions) {
+      assert(countVowelStrings(cond._1) == cond._2)
+    }
+  }
+
 }

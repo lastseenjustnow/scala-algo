@@ -791,15 +791,21 @@ object ArraysAndStrings {
     )
 
     var res: List[String] = List()
-    var stack: List[Int] = digits.map(x => mp(x.asDigit).length - 1).toList
+    var stack: List[Int] = digits.reverse.map(x => mp(x.asDigit).length - 1).toList
 
     while (stack.nonEmpty) {
-      if (stack.length == digits.length) res = stack.zipWithIndex.map(x => mp(digits(x._2).asDigit)(x._1)).mkString("") +: res
-      val h = stack.last
-      stack = stack.dropRight(1)
+      if (stack.length == digits.length)
+        res =
+          stack
+            .reverse
+            .zipWithIndex
+            .map(x => mp(digits(x._2).asDigit)(x._1))
+            .mkString("") +: res
+      val h = stack.head
+      stack = stack.tail
       if (h != 0) {
-        stack = stack :+ (h - 1)
-        while (stack.length < digits.length) stack = stack :+ mp(digits(stack.length).asDigit).length - 1
+        stack = (h - 1) +: stack
+        while (stack.length < digits.length) stack = (mp(digits(stack.length).asDigit).length - 1) +: stack
       }
     }
     res
@@ -819,6 +825,12 @@ object ArraysAndStrings {
       }
     }
     res
+  }
+
+  def countVowelStrings(n: Int): Int = {
+    val counts = Array.fill(5)(1)
+    for (_ <- 1 until n; j <- 3 to 0 by -1) counts(j) = counts(j) + counts(j + 1)
+    counts.sum
   }
 
 }

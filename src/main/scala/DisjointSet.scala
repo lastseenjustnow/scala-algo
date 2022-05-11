@@ -149,4 +149,15 @@ object DisjointSet {
     res
   }
 
+  def minCostToSupplyWater(n: Int, wells: Array[Int], pipes: Array[Array[Int]]): Int = {
+    //TODO: fix
+    val costs = wells
+    for (pipe <- pipes) {
+      val thisCosts = (costs(pipe(0) - 1), costs(pipe(1) - 1))
+      costs(pipe(0) - 1) = thisCosts._1 min pipe(2)
+      costs(pipe(1) - 1) = thisCosts._2 min pipe(2)
+    }
+    costs.sum
+  }
+
 }

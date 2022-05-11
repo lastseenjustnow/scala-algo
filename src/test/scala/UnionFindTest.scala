@@ -103,4 +103,22 @@ class UnionFindTest extends FunSuite {
     }
   }
 
+  test("Optimize Water Distribution in a Village") {
+    val conditions: Array[(Int, Array[Int], Array[Array[Int]], Int)] =
+      Array(
+        (3, Array(1, 2, 2), Array(Array(1, 2, 1), Array(2, 3, 1)), 3),
+        (2, Array(1, 1), Array(Array(1, 2, 1), Array(1, 2, 2)), 2),
+        (5, Array(7, 9, 14, 2, 3), Array(Array(1, 2, 4), Array(2, 3, 2), Array(3, 5, 6), Array(2, 4, 2)), 13),
+        (5, Array(7, 9, 1, 2, 3), Array(Array(1, 2, 4), Array(2, 3, 2), Array(3, 5, 6), Array(2, 4, 2)), 12),
+        (6, Array(7, 9, 1, 2, 3, 8), Array(Array(1, 2, 4), Array(2, 3, 2), Array(3, 5, 6), Array(2, 4, 2)), 20),
+        (6, Array(7, 1, 1, 2, 3, 8), Array(Array(1, 2, 4), Array(2, 3, 2), Array(3, 5, 6), Array(2, 4, 2)), 19),
+        (7, Array(7, 1, 1, 2, 3, 8, 3), Array(Array(7, 4, 4), Array(2, 3, 2), Array(3, 5, 6), Array(2, 4, 2)), 25),
+        (5, Array(46012, 72474, 64965, 751, 33304), Array(Array(2, 1, 6719), Array(3, 2, 75312), Array(5, 3, 44918)), 131704),
+      )
+
+    for (cond <- conditions) {
+      assert(minCostToSupplyWater(cond._1, cond._2, cond._3) == cond._4)
+    }
+  }
+
 }
