@@ -40,4 +40,18 @@ class MathProblemsTest extends FunSuite {
     }
   }
 
+  test("Permutations II") {
+    val conditions: Array[(Array[Int], List[List[Int]])] =
+      Array(
+        (Array(1, 1, 2), List(List(1, 1, 2), List(1, 2, 1), List(2, 1, 1))),
+        (Array(1, 2, 3), List(List(1, 2, 3), List(1, 3, 2), List(3, 2, 1), List(3, 1, 2), List(2, 3, 1), List(2, 1, 3))),
+        (Array(1, 4, 6, 7), List(List(1, 4, 6, 7), List(1, 4, 7, 6), List(1, 6, 4, 7), List(1, 6, 7, 4), List(1, 7, 4, 6), List(1, 7, 6, 4), List(4, 1, 6, 7), List(4, 1, 7, 6), List(4, 6, 1, 7), List(4, 6, 7, 1), List(4, 7, 1, 6), List(4, 7, 6, 1), List(6, 1, 4, 7), List(6, 1, 7, 4), List(6, 4, 1, 7), List(6, 4, 7, 1), List(6, 7, 1, 4), List(6, 7, 4, 1), List(7, 1, 4, 6), List(7, 1, 6, 4), List(7, 4, 1, 6), List(7, 4, 6, 1), List(7, 6, 1, 4), List(7, 6, 4, 1))),
+        (Array(0, 0, 0, 0, 0, 0, 0, 0), List(List(0, 0, 0, 0, 0, 0, 0, 0)))
+      )
+
+    for (cond <- conditions) {
+      permuteUnique(cond._1) should contain theSameElementsAs cond._2
+    }
+  }
+
 }

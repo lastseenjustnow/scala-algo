@@ -64,7 +64,20 @@ object MathProblems {
       if (leftCoins < step) step - 1
       else rec(leftCoins - step, step + 1)
     }
+
     rec(n, 0)
+  }
+
+  def permuteUnique(nums: Array[Int]): List[List[Int]] = {
+    var res: Set[List[Int]] = Set()
+
+    def rec(currentSeq: List[Int], residual: Set[Int]): Unit = {
+      if (residual.isEmpty) res = res + currentSeq
+      else for (i <- residual) rec(currentSeq :+ nums(i), residual - i)
+    }
+
+    rec(List(), nums.indices.toSet)
+    res.toList
   }
 
 }
