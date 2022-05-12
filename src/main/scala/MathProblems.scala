@@ -68,6 +68,18 @@ object MathProblems {
     rec(n, 0)
   }
 
+  def permute(nums: Array[Int]): List[List[Int]] = {
+    var res: List[List[Int]] = List()
+
+    def rec(currentSeq: List[Int], residual: Set[Int]): Unit = {
+      if (residual.isEmpty) res = res :+ currentSeq
+      else for (i <- residual) rec(currentSeq :+ nums(i), residual - i)
+    }
+
+    rec(List(), nums.indices.toSet)
+    res
+  }
+
   def permuteUnique(nums: Array[Int]): List[List[Int]] = {
     var res: Set[List[Int]] = Set()
 
