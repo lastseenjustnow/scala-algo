@@ -1,3 +1,5 @@
+import design.Robot
+
 object Recursion {
   def totalNQueens(n: Int): Int = {
     var cols: Set[Int] = Set()
@@ -31,5 +33,55 @@ object Recursion {
     }
 
     rec(0, 0)
+  }
+
+  def cleanRoom(robot: Robot): Unit = {
+    var cleanedCells: Set[(Int, Int)] = Set()
+    var di = (0, 1)
+
+    def turnRightDirection(t: Int): Unit = {
+      val a = Array((0, 1), (1, 0), (0, -1), (-1, 0))
+      val i = a.indexWhere(x => x == di)
+      (0 until t).foreach(_ => robot.turnRight())
+      di = a((i + t) % 4)
+    }
+
+    def turnLeftDirection(t: Int): Unit = {
+      val a = Array((0, 1), (1, 0), (0, -1), (-1, 0))
+      val i = a.indexWhere(x => x == di)
+      (0 until t).foreach(_ => robot.turnLeft())
+      di = a((4 + (i - t)) % 4)
+    }
+
+    def place(cell: (Int, Int)): Unit = {
+      robot.clean()
+      cleanedCells = cleanedCells + cell
+    }
+
+    def isValid(cell: (Int, Int)): Boolean = !cleanedCells.contains(cell)
+
+    def remove(): Unit = {
+      robot.turnRight()
+      robot.turnRight()
+      robot.move()
+      robot.turnRight()
+      robot.turnRight()
+    }
+
+    def backtrack(cell: (Int, Int)): Unit = {
+      for (t <- 0 to 3) {
+        turnRightDirection(t)
+        if (isValid((cell._1 + di._1, cell._2 + di._2)) && robot.move()) {
+          place(cell._1 + di._1, cell._2 + di._2)
+          backtrack(cell._1 + di._1, cell._2 + di._2)
+          remove()
+          backtrack(cell)
+        }
+        turnLeftDirection(t)
+      }
+    }
+
+    robot.clean()
+    backtrack((0, 0))
   }
 }
