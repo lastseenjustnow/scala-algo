@@ -353,6 +353,24 @@ object Trees {
     rec(0, inorder.length - 1)
   }
 
+  def rightSideView(root: TreeNode): List[Int] = {
+    if (root == null) return List()
+    var res: List[Int] = List()
+    var q: List[TreeNode] = List(root)
+
+    while (q.nonEmpty) {
+      val s = q.length
+      res = res :+ q.head.value
+      for (_ <- 0 until s) {
+        val h = q.head
+        q = q.tail
+        if (h.right != null) q = q :+ h.right
+        if (h.left != null) q = q :+ h.left
+      }
+    }
+    res
+  }
+
   def connectNaive(root: TreeNode): TreeNode = {
     var stack: List[TreeNode] = List(root, null)
 
@@ -387,6 +405,42 @@ object Trees {
     root
   }
 
+  def connect2Optimized(root: TreeNode): TreeNode = {
+    var leftmost = root
+
+    while (leftmost != null) {
+      var head = leftmost
+      leftmost = null
+      var prev: TreeNode = null
+      while (head != null) {
+
+        if (head.left != null) {
+          if (leftmost == null) {
+            leftmost = head.left
+            prev = head.left
+          } else {
+            prev.next = head.left
+            prev = prev.next
+          }
+        }
+
+
+        if (head.right != null) {
+          if (leftmost == null) {
+            leftmost = head.right
+            prev = head.right
+          } else {
+            prev.next = head.right
+            prev = prev.next
+          }
+        }
+        head = head.next
+      }
+    }
+
+    root
+  }
+
   def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode): TreeNode = {
     def rec(node: TreeNode, found: Int): (TreeNode, Int) = {
       (node, found) match {
@@ -418,6 +472,7 @@ object Trees {
           (thisSum, thisCount, left._3 + right._3 + isNeededNode)
       }
     }
+
     rec(root)._3
   }
 

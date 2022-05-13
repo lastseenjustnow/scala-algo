@@ -284,6 +284,19 @@ class TreesTest extends FunSuite {
     }
   }
 
+  test("Binary Tree Right Side View") {
+
+    val conditions = Array(
+      (new TreeNode().fromArray(Array(1, 2, 3, null, 5, null, 4)), List(1, 3, 4)),
+      (new TreeNode().fromArray(Array(1, null, 3)), List(1, 3)),
+      (new TreeNode().fromArray(Array()), List()),
+      (new TreeNode().fromArray(Array(1, null, 3, null, 5, 4, 7, null, 7, null, 19, 26, 37, null, 2, null, 2)), List(1, 3, 5, 7, 19, 2, 2))
+    )
+
+    conditions.foreach(cond => assert(rightSideView(cond._1) == cond._2))
+  }
+
+
   test("Populating Next Right Pointers in Each Node") {
 
     val node1 = new TreeNode().fromArray(Array(1, 2, 3, 4, 5, 6, 7))
@@ -315,6 +328,22 @@ class TreesTest extends FunSuite {
 
     val node3 = new TreeNode().fromArray(Array())
     connect2(node3)
+
+    val node4 = new TreeNode().fromArray(Array(1, 2, 3, 4, 5, null, 7))
+    connect2Optimized(node4)
+    assert(node4.next == null)
+    assert(node4.left.next.value == 3)
+    assert(node4.right.next == null)
+    assert(node4.left.left.next.value == 5)
+    assert(node4.left.right.next.value == 7)
+    assert(node4.right.left == null)
+    assert(node4.right.right.next == null)
+
+    val node5 = new TreeNode().fromArray(Array(1, 2))
+    connect2Optimized(node5)
+
+    val node6 = new TreeNode().fromArray(Array())
+    connect2Optimized(node6)
 
   }
 
@@ -354,7 +383,7 @@ class TreesTest extends FunSuite {
   }
 
   test("Count Nodes Equal to Average of Subtree") {
-    val root = new TreeNode().fromArray(Array(4,8,5,0,1,null,6))
+    val root = new TreeNode().fromArray(Array(4, 8, 5, 0, 1, null, 6))
     assert(averageOfSubtree(root) == 5)
 
     val root2 = new TreeNode().fromArray(Array(1))
