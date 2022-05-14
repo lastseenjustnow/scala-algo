@@ -1,6 +1,6 @@
 import scala.annotation.tailrec
 import scala.collection.mutable
-import scala.math.{abs, min}
+import scala.math.{abs, max, min}
 
 object General {
   def assignBikes(workers: Array[Array[Int]], bikes: Array[Array[Int]]): Array[Int] = {
@@ -282,6 +282,23 @@ object General {
       .map(x => (Math.abs(x._1._1 / x._2 - (if (n - x._2 == 0) 0 else x._1._2 / (n - x._2))), x._2 - 1))
       .min
       ._2
+  }
+
+  def divisorSubstrings(num: Int, k: Int): Int = {
+
+    val ns = num.toString
+    (0 to ns.length - k).map(
+      x => num % (if (ns.substring(x, x + k).toInt != 0) ns.substring(x, x + k).toInt else num + 1)
+    ).count(x => x == 0)
+
+  }
+
+  def waysToSplitArray(nums: Array[Int]): Int = {
+    nums
+      .scanLeft((0L, nums.map(_.toLong).sum))((x, y) => (x._1 + y, x._2 - y))
+      .drop(1)
+      .dropRight(1)
+      .count(x => x._1 >= x._2)
   }
 
 }

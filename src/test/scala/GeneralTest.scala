@@ -178,6 +178,16 @@ class GeneralTest extends FunSuite with Matchers {
 
   }
 
+  test("Find the K-Beauty of a Number") {
+    val conditions: Array[(Int, Int, Int)] =
+      Array(
+        (430043, 2, 2)
+      )
+
+    for (cond <- conditions) {
+      assert(divisorSubstrings(cond._1, cond._2) == cond._3)
+    }
+  }
 
 
 }
