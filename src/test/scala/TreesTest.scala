@@ -390,4 +390,13 @@ class TreesTest extends FunSuite {
     assert(averageOfSubtree(root2) == 1)
   }
 
+  test("Deepest Leaves Sum") {
+    val root = new TreeNode().fromArray(Array(1, 2, 3, 4, 5, null, 6, 7, null, null, null, null, 8))
+    assert(deepestLeavesSum(root) == 15)
+    val root2 = new TreeNode().fromArray(Array(6, 7, 8, 2, 7, 1, 3, 9, null, 1, 4, null, null, null, 5))
+    assert(deepestLeavesSum(root2) == 19)
+    val root3 = new TreeNode().fromArray(Array(6))
+    assert(deepestLeavesSum(root3) == 6)
+  }
+
 }

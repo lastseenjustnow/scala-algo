@@ -476,4 +476,21 @@ object Trees {
     rec(root)._3
   }
 
+  def deepestLeavesSum(root: TreeNode): Int = {
+    var q: List[TreeNode] = List(root)
+    var res = 0
+    while (q.nonEmpty) {
+      res = 0
+      val s = q.length
+      for (_ <- 0 until s) {
+        val h = q.head
+        q = q.tail
+        res += h.value
+        if (h.left != null) q = q :+ h.left
+        if (h.right != null) q = q :+ h.right
+      }
+    }
+    res
+  }
+
 }
