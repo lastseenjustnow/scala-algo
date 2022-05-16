@@ -3,7 +3,8 @@ import datastructure.graph.Node
 import scala.collection.mutable
 
 object Graph {
-  def validPath(n: Int, edges: Array[Array[Int]], source: Int, destination: Int): Boolean = {
+  def validPathDFS(n: Int, edges: Array[Array[Int]], source: Int, destination: Int): Boolean = {
+    /** Depth-first search */
     val traversed: Array[Boolean] = Array.fill(n)(false)
     var stack: List[Int] = List(source)
     var res = if (!(source == destination)) false else true
@@ -23,7 +24,32 @@ object Graph {
 
   }
 
-  def allPathsSourceTarget(graph: Array[Array[Int]]): List[List[Int]] = {
+  def validPathBFS(n: Int, edges: Array[Array[Int]], source: Int, destination: Int): Boolean = {
+    /** Breadth-first search */
+    val adj: mutable.Map[Int, List[Int]] = mutable.Map()
+    edges.foreach(e => {
+      adj(e(0)) = adj.getOrElseUpdate(e(0), List()) :+ e(1)
+      adj(e(1)) = adj.getOrElseUpdate(e(1), List()) :+ e(0)
+    })
+
+    var q: List[Int] = List(source)
+    var found: Boolean = if (!(source == destination)) false else true
+    val traversed: Array[Boolean] = Array.fill(n)(false)
+
+    while (!found && q.nonEmpty) {
+      val h = q.head
+      q = q.tail
+      for (e <- adj(h) if !traversed(h)) {
+        if (e == destination) found = true
+        q = q :+ e
+      }
+      traversed(h) = true
+    }
+    found
+  }
+
+  def allPathsSourceTargetDFS(graph: Array[Array[Int]]): List[List[Int]] = {
+    /** Depth-first search */
     var res: List[List[Int]] = List()
 
     def rec(node: Int, path: List[Int]): Unit = {
@@ -33,6 +59,20 @@ object Graph {
     }
 
     rec(0, List())
+    res
+  }
+
+  def allPathsSourceTargetBFS(graph: Array[Array[Int]]): List[List[Int]] = {
+    /** Breadth-first search */
+    var res: List[List[Int]] = List()
+    var q: List[List[Int]] = List(List(0))
+
+    while (q.nonEmpty) {
+      val h = q.head
+      q = q.tail
+      if (h.last == graph.length - 1) res = res :+ h
+      else for (v <- graph(h.last)) q = q :+ (h :+ v)
+    }
     res
   }
 
@@ -60,6 +100,34 @@ object Graph {
       })
     }
     deepHead
+  }
+
+  def shortestPathBinaryMatrix(grid: Array[Array[Int]]): Int = {
+    if (grid(0)(0) == 1) return -1
+    var q: List[(Int, Int)] = List((0, 0))
+    val cc = Array((1, 1), (1, 0), (0, 1), (1, -1), (-1, 1), (-1, 0), (0, -1), (-1, -1))
+    var l = 0
+    val n = grid.length
+    val g = grid
+    var found = false
+
+    while (!found && q.nonEmpty) {
+      l += 1
+      var s = q.length - 1
+      while (!found && s >= 0) {
+        val h = q.head
+        q = q.tail
+        if (h == (n - 1, n - 1)) found = true
+        for (c <- cc) {
+          if (h._1 + c._1 >= 0 && h._1 + c._1 < n && h._2 + c._2 >= 0 && h._2 + c._2 < n && !(g(h._2 + c._2)(h._1 + c._1) == 1)) {
+            q = q :+ (h._1 + c._1, h._2 + c._2)
+            g(h._2 + c._2)(h._1 + c._1) = 1
+          }
+        }
+        s -= 1
+      }
+    }
+    if (!found) -1 else l
   }
 
   def findItinerary(tickets: List[List[String]]): List[String] = {
