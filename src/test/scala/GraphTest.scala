@@ -80,6 +80,27 @@ class GraphTest extends FunSuite with Matchers {
     }
   }
 
+  test("All Paths from Source Lead to Destination") {
+    val conditions: Array[(Int, Array[Array[Int]], Int, Int, Boolean)] =
+      Array(
+        (3, Array(Array(0, 1), Array(0, 2)), 0, 2, false),
+        (4, Array(Array(0, 1), Array(0, 3), Array(1, 2), Array(2, 1)), 0, 3, false),
+        (4, Array(Array(0, 1), Array(0, 2), Array(1, 3), Array(2, 3)), 0, 3, true),
+        (2, Array(Array(0, 1), Array(1, 1)), 0, 1, false),
+        (5, Array(Array(0, 1), Array(0, 2), Array(0, 3), Array(0, 3), Array(1, 2), Array(1, 3), Array(1, 4), Array(2, 3), Array(2, 4), Array(3, 4)), 0, 4, true),
+        (2, Array(), 0, 1, false),
+        (5, Array(Array(0, 1), Array(1, 2), Array(2, 3), Array(3, 4)), 1, 3, false),
+        (1, Array(), 0, 0, true),
+        (1, Array(Array(0, 0)), 0, 0, false),
+        (3, Array(Array(0, 1), Array(1, 1), Array(1, 2)), 0, 2, false),
+        (50, Array(Array(5, 15), Array(38, 34), Array(29, 5), Array(6, 32), Array(46, 2), Array(34, 22), Array(2, 25), Array(1, 18), Array(10, 10), Array(26, 46), Array(40, 46), Array(36, 19), Array(16, 13), Array(46, 6), Array(19, 32), Array(7, 41), Array(14, 32), Array(20, 13), Array(0, 43), Array(17, 14), Array(42, 41), Array(40, 12), Array(28, 7), Array(36, 35), Array(18, 2), Array(28, 11), Array(14, 32), Array(4, 9), Array(26, 6), Array(7, 17), Array(49, 41), Array(17, 2), Array(36, 34), Array(18, 0), Array(26, 15), Array(27, 10), Array(26, 46), Array(41, 14), Array(47, 19), Array(19, 14), Array(6, 3), Array(16, 14), Array(21, 43), Array(4, 15), Array(5, 2), Array(31, 2), Array(5, 30), Array(7, 33), Array(18, 2), Array(9, 33), Array(21, 44), Array(1, 43), Array(37, 17), Array(8, 24), Array(21, 33), Array(46, 45), Array(29, 14), Array(22, 32), Array(14, 14), Array(22, 32), Array(42, 6), Array(7, 14), Array(35, 13), Array(36, 35), Array(5, 25), Array(2, 3), Array(23, 22), Array(44, 33), Array(24, 13), Array(35, 19), Array(20, 14), Array(14, 32), Array(35, 5), Array(44, 13), Array(32, 32), Array(32, 32), Array(28, 46), Array(32, 32), Array(37, 10), Array(38, 46), Array(30, 30), Array(0, 3), Array(15, 9), Array(39, 15), Array(42, 44), Array(2, 20), Array(47, 0), Array(49, 44), Array(45, 4), Array(36, 22), Array(13, 13), Array(14, 30), Array(13, 14), Array(31, 31), Array(45, 3), Array(45, 5), Array(34, 14), Array(44, 9), Array(30, 30), Array(40, 12), Array(13, 30), Array(25, 20), Array(34, 14), Array(41, 22), Array(12, 34), Array(5, 33), Array(20, 22), Array(48, 5), Array(48, 7), Array(46, 0), Array(14, 32), Array(32, 30), Array(38, 46), Array(30, 30), Array(35, 15), Array(37, 20), Array(42, 2), Array(26, 13), Array(8, 48), Array(20, 30), Array(37, 33), Array(28, 18), Array(32, 30), Array(10, 10), Array(48, 44), Array(24, 14), Array(8, 9), Array(0, 14), Array(1, 43), Array(14, 14), Array(20, 22), Array(31, 10), Array(1, 0), Array(4, 7), Array(27, 41), Array(41, 22), Array(0, 22), Array(17, 19), Array(8, 16), Array(18, 38), Array(37, 23), Array(5, 22), Array(35, 23), Array(14, 30), Array(30, 30), Array(13, 32), Array(28, 23), Array(24, 25), Array(45, 2), Array(25, 22)), 15, 33, true)
+      )
+
+    for (cond <- conditions) {
+      assert(leadsToDestination(cond._1, cond._2, cond._3, cond._4) == cond._5, f"wrong for array: ${cond._2.map(_.mkString("")).mkString(",")}")
+    }
+  }
+
   test("Network Delay Time") {
     val conditions: Array[(Array[Array[Int]], Int, Int, Int)] =
       Array(

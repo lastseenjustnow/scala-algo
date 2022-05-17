@@ -159,4 +159,25 @@ object Graph {
     backtrack("JFK", "JFK", 3)
     (0 until resString.length by 3).map(i => resString.slice(i, i + 3)).toList
   }
+
+  def leadsToDestination(n: Int, edges: Array[Array[Int]], source: Int, destination: Int): Boolean = {
+    if (n==1) return edges.isEmpty
+    var res: Boolean = true
+    val adj: mutable.Map[Int, Set[Int]] = mutable.Map()
+    for (n <- 0 until n) adj(n) = Set()
+    edges.foreach(e => adj(e(0)) = adj(e(0)) + e(1))
+
+    if (adj(destination).nonEmpty) res = false
+    var stack: List[List[Int]] = List(List(source))
+    while (res && stack.nonEmpty) {
+      val h = stack.head
+      stack = stack.tail
+      if (adj(h.head).isEmpty) res = false
+      for (v <- adj(h.head) if !(v == destination)) {
+        if (h.contains(v)) res = false
+        stack = (v +: h) +: stack
+      }
+    }
+    res
+  }
 }
