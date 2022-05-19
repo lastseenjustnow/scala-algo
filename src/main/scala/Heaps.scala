@@ -265,4 +265,28 @@ object Heaps {
     res
   }
 
+  def minCostConnectPointsPrim(points: Array[Array[Int]]): Int = {
+    /** Prim's algorithm */
+    def manhattanDistance(p1: Array[Int], p2: Array[Int]): Int = Math.abs(p1(0) - p2(0)) + Math.abs(p1(1) - p2(1))
+
+    val n = points.length
+    val heap: mutable.PriorityQueue[(Int, Int, Int)] = mutable.PriorityQueue()(Ordering.Tuple3(Ordering.Int.reverse, Ordering.Int, Ordering.Int))
+    for (j <- 1 until n) heap.enqueue((manhattanDistance(points(0), points(j)), 0, j))
+    var visited = Set[Int](0)
+    var vc = 1
+    var res = 0
+
+    while (vc != n) {
+      val e = heap.dequeue()
+      if (!(visited.contains(e._2) && visited.contains(e._3))) {
+        val rightV = if (visited.contains(e._2)) e._3 else e._2
+        for (i <- 0 until n if !visited(i)) heap.enqueue((manhattanDistance(points(i), points(rightV)), i, rightV))
+        res += e._1
+        visited = visited + rightV
+        vc += 1
+      }
+    }
+    res
+  }
+
 }

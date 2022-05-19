@@ -181,6 +181,7 @@ class HeapsTest extends FunSuite {
     for (cond <- conditions) {
       assert(minCostConnectPoints(cond._1) == cond._2)
       assert(minCostConnectPointsKruskal(cond._1) == cond._2)
+      assert(minCostConnectPointsPrim(cond._1) == cond._2)
     }
   }
 
