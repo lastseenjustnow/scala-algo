@@ -101,6 +101,20 @@ class GraphTest extends FunSuite with Matchers {
     }
   }
 
+  test("Rotting Oranges") {
+    val conditions: Array[(Array[Array[Int]], Int)] =
+      Array(
+        (Array(Array(2, 1, 1), Array(1, 1, 0), Array(0, 1, 1)), 4),
+        (Array(Array(2, 1, 1), Array(0, 1, 1), Array(1, 0, 1)), -1),
+        (Array(Array(0, 2)), 0),
+        (Array(Array(0, 1)), -1),
+      )
+
+    for (cond <- conditions) {
+      assert(orangesRotting(cond._1) == cond._2, f"wrong for array: ${cond._1.map(_.mkString("")).mkString(",")}")
+    }
+  }
+
   test("Network Delay Time") {
     val conditions: Array[(Array[Array[Int]], Int, Int, Int)] =
       Array(

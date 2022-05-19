@@ -199,4 +199,41 @@ object Graph {
     }
     res
   }
+
+  def orangesRotting(grid: Array[Array[Int]]): Int = {
+    val m = grid.length
+    val n = grid(0).length
+    val dirs = Array((-1, 0), (0, -1), (0, 1), (1, 0))
+
+    var stack: List[(Int, Int)] = List()
+    var freshOranges = 0
+    for (i <- 0 until n; j <- 0 until m) {
+      if (grid(j)(i) == 1) freshOranges += 1
+      else if (grid(j)(i) == 2) stack = (i, j) +: stack
+    }
+
+    def fresh(x: (Int, Int)): Array[(Int, Int)] = {
+      dirs
+        .map(d => (d._1 + x._1, d._2 + x._2))
+        .filter { case (i, j) => i < n && i > -1 && j < m && j > -1 && grid(j)(i) == 1 }
+    }
+
+    var minutes = 0
+
+    while (freshOranges != 0 && stack.nonEmpty) {
+      val s = stack.size
+      for (_ <- 0 until s) {
+        val h = stack.head
+        stack = stack.tail
+        for (o <- fresh(h)) {
+          grid(o._2)(o._1) = 2
+          freshOranges -= 1
+          stack = stack :+ o
+        }
+      }
+      minutes += 1
+    }
+
+    if (freshOranges != 0) -1 else minutes
+  }
 }
