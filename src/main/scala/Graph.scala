@@ -161,7 +161,7 @@ object Graph {
   }
 
   def leadsToDestination(n: Int, edges: Array[Array[Int]], source: Int, destination: Int): Boolean = {
-    if (n==1) return edges.isEmpty
+    if (n == 1) return edges.isEmpty
     var res: Boolean = true
     val adj: mutable.Map[Int, Set[Int]] = mutable.Map()
     for (n <- 0 until n) adj(n) = Set()
@@ -177,6 +177,25 @@ object Graph {
         if (h.contains(v)) res = false
         stack = (v +: h) +: stack
       }
+    }
+    res
+  }
+
+  def levelOrder(root: Node): List[List[Int]] = {
+    if (root == null) return List()
+    var stack: List[Node] = List(root)
+    var res: List[List[Int]] = List()
+
+    while (stack.nonEmpty) {
+      val s = stack.size
+      var level: List[Int] = List()
+      for (_ <- 0 until s) {
+        val h = stack.head
+        stack = stack.tail
+        level = level :+ h.value
+        stack = stack ++ h.neighbors
+      }
+      res = res :+ level
     }
     res
   }
