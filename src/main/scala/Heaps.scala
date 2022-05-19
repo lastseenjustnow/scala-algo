@@ -1,3 +1,5 @@
+import datastructure.graph.QuickUnion
+
 import scala.collection.mutable
 
 object Heaps {
@@ -237,6 +239,27 @@ object Heaps {
       while (stack.nonEmpty) {
         minHeap.enqueue(stack.head)
         stack = stack.tail
+      }
+    }
+    res
+  }
+
+  def minCostConnectPointsKruskal(points: Array[Array[Int]]): Int = {
+    /** Kruskal's algorithm */
+    def manhattanDistance(p1: Array[Int], p2: Array[Int]): Int = Math.abs(p1(0) - p2(0)) + Math.abs(p1(1) - p2(1))
+
+    val cut = new QuickUnion(points.length)
+    val heap: mutable.PriorityQueue[(Int, Int, Int)] = mutable.PriorityQueue()(Ordering.Tuple3(Ordering.Int.reverse, Ordering.Int, Ordering.Int))
+    for (i <- points.indices; j <- i + 1 until points.length) heap.enqueue((manhattanDistance(points(i), points(j)), i, j))
+
+    var ec = 0
+    var res = 0
+    while (ec != points.length - 1) {
+      val e = heap.dequeue()
+      if (!(cut.find(e._2) == cut.find(e._3))) {
+        res += e._1
+        cut.union(e._2, e._3)
+        ec += 1
       }
     }
     res
