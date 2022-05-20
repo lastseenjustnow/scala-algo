@@ -236,4 +236,28 @@ object Graph {
 
     if (freshOranges != 0) -1 else minutes
   }
+
+  def networkDelayTime(times: Array[Array[Int]], n: Int, k: Int): Int = {
+    /** Dijkstra's algorithm */
+    var adjacencyMap: Map[Int, List[(Int, Int)]] = (for (x <- 1 to n) yield (x, List())).toMap
+    times.foreach(time => adjacencyMap = adjacencyMap.updated(time(0), adjacencyMap(time(0)) :+ ((time(1), time(2)))))
+
+    val traversed: Array[Boolean] = true +: Array.fill(n)(false)
+    val traversedWeight: Array[Int] = Int.MinValue +: Array.fill(n)(Int.MaxValue)
+    traversedWeight(k) = 0
+    var stack: List[Int] = List(k)
+
+    while (stack.nonEmpty) {
+      val h = stack.head
+      stack = stack.tail
+      for (e <- adjacencyMap(h)) {
+        if (!traversed(e._1) || (traversedWeight(h) + e._2) < traversedWeight(e._1)) stack = stack :+ e._1
+        traversedWeight(e._1) = traversedWeight(e._1) min (traversedWeight(h) + e._2)
+      }
+      traversed(h) = true
+    }
+
+    val res = traversedWeight.max
+    if (res == Int.MaxValue) -1 else res
+  }
 }

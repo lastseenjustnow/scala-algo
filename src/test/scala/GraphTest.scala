@@ -125,12 +125,12 @@ class GraphTest extends FunSuite with Matchers {
       )
 
     for (cond <- conditions) {
-      //assert(networkDelayTime(cond._1, cond._2, cond._3) == cond._4)
+      assert(networkDelayTime(cond._1, cond._2, cond._3) == cond._4)
     }
 
     val source = scala.io.Source.fromResource("networkDelayTime.txt")
     val testcase: Array[Array[Int]] = source.getLines().map(_.split(s"],\\[")).next().map(_.split(",").map(_.toInt))
-    //assert(networkDelayTime(testcase, 50, 22) == 1)
+    assert(networkDelayTime(testcase, 50, 22) == 18)
 
   }
 }
