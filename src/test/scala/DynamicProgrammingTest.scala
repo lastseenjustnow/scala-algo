@@ -385,6 +385,7 @@ class DynamicProgrammingTest extends FunSuite {
   test("Best Time to Buy and Sell Stock") {
     val conditions: Array[(Array[Int], Int)] = Array(
       (Array(7, 1, 5, 3, 6, 4), 5),
+      (Array(7, 1, 5, 3, 6, 0), 5),
       (Array(7, 6, 4, 3, 1), 0),
       (Array(7, 6, -2, 4, 1, 8, 3, 6, 4), 10),
       (Array(7), 0),
@@ -392,7 +393,7 @@ class DynamicProgrammingTest extends FunSuite {
     )
 
     for (cond <- conditions) {
-      assert(maxProfitNaive(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
+      assert(maxProfitKadane(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
     }
   }
 
