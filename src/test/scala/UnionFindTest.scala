@@ -124,7 +124,8 @@ class UnionFindTest extends FunSuite {
       )
 
     for (cond <- conditions) {
-      assert(minCostToSupplyWater(cond._1, cond._2, cond._3) == cond._4)
+      assert(minCostToSupplyWaterKruskal(cond._1, cond._2, cond._3) == cond._4)
+      assert(minCostToSupplyWaterPrim(cond._1, cond._2, cond._3) == cond._4)
     }
   }
 

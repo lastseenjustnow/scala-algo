@@ -149,15 +149,57 @@ object DisjointSet {
     res
   }
 
-  def minCostToSupplyWater(n: Int, wells: Array[Int], pipes: Array[Array[Int]]): Int = {
-    //TODO: fix
-    val costs = wells
-    for (pipe <- pipes) {
-      val thisCosts = (costs(pipe(0) - 1), costs(pipe(1) - 1))
-      costs(pipe(0) - 1) = thisCosts._1 min pipe(2)
-      costs(pipe(1) - 1) = thisCosts._2 min pipe(2)
+  def minCostToSupplyWaterKruskal(n: Int, wells: Array[Int], pipes: Array[Array[Int]]): Int = {
+    /** Kruskal's algorithm */
+    val cut = new QuickUnion(n + 1)
+    val heap = mutable.PriorityQueue[(Int, Int, Int)]()(Ordering.Tuple3(Ordering.Int.reverse, Ordering.Int, Ordering.Int))
+    wells.zipWithIndex.foreach(well => heap.enqueue((well._1, 0, well._2 + 1)))
+    pipes.foreach(pipe => heap.enqueue((pipe(2), pipe(0), pipe(1))))
+
+    var cw = 0
+    var res = 0
+    while (cw != n) {
+      val h = heap.dequeue()
+      if (!cut.connected(h._2, h._3)) {
+        res += h._1
+        cut.union(h._2, h._3)
+        cw += 1
+      }
     }
-    costs.sum
+    res
+  }
+
+  def minCostToSupplyWaterPrim(n: Int, wells: Array[Int], pipes: Array[Array[Int]]): Int = {
+    /** Prim's algorithm */
+
+    var adj: Map[Int, Set[(Int, Int)]] = (for (i <- 0 to n) yield (i, Set[(Int, Int)]())).toMap
+    wells.zipWithIndex.foreach(well => {
+      adj = adj.updated(0, adj(0) + ((well._2 + 1, well._1)))
+      adj = adj.updated(well._2 + 1, adj(well._2 + 1) + ((0, well._1)))
+    })
+
+    pipes.foreach(pipe => {
+      adj = adj.updated(pipe(0), adj(pipe(0)) + ((pipe(1), pipe(2))))
+      adj = adj.updated(pipe(1), adj(pipe(1)) + ((pipe(0), pipe(2))))
+    })
+
+    val heap = mutable.PriorityQueue[(Int, Int, Int)]()(Ordering.Tuple3(Ordering.Int.reverse, Ordering.Int, Ordering.Int))
+    for (e <- adj(0)) heap.enqueue((e._2, 0, e._1))
+    var visited: Set[Int] = Set(0)
+    var vw = 0
+    var res = 0
+
+    while (vw != n) {
+      val h = heap.dequeue()
+      if (!(visited.contains(h._2) && visited.contains(h._3))) {
+        val eadd = if (visited.contains(h._2)) h._3 else h._2
+        for (e <- adj(eadd) if !visited.contains(e._1)) heap.enqueue((e._2, eadd, e._1))
+        res += h._1
+        visited = visited + eadd
+        vw += 1
+      }
+    }
+    res
   }
 
 }

@@ -256,7 +256,7 @@ object Heaps {
     var res = 0
     while (ec != points.length - 1) {
       val e = heap.dequeue()
-      if (!(cut.find(e._2) == cut.find(e._3))) {
+      if (!cut.connected(e._2, e._3)) {
         res += e._1
         cut.union(e._2, e._3)
         ec += 1
