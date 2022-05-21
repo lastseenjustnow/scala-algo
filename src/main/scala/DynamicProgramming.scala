@@ -1069,4 +1069,28 @@ object DynamicProgramming {
     }
     (q.sum % (Math.pow(10, 9) + 7).toInt).toInt
   }
+
+  def findCheapestPrice(n: Int, flights: Array[Array[Int]], src: Int, dst: Int, k: Int): Int = {
+    /**
+     * Leetcode #787. Cheapest Flights Within K Stops
+     * Bellman-Ford algorithm (dynamic programming) */
+    val adj: mutable.Map[Int, List[(Int, Int)]] = mutable.Map()
+    flights.foreach(e => {
+      val inEdges = adj.getOrElseUpdate(e(1), List())
+      adj(e(1)) = inEdges :+ ((e(0), e(2)))
+    })
+
+    var arr = Array.fill(n)(Double.PositiveInfinity)
+    arr(src) = 0
+
+    for (_ <- 0 to k) {
+      val c = arr.clone()
+      for (i <- 0 until n if adj.contains(i)) {
+        c(i) = c(i) min adj(i).map(v => arr(v._1) + v._2).min
+      }
+      arr = c.clone()
+    }
+    if (arr(dst) == Double.PositiveInfinity) -1 else arr(dst).toInt
+  }
+
 }

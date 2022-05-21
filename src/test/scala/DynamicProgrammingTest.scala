@@ -591,5 +591,18 @@ class DynamicProgrammingTest extends FunSuite {
 
   }
 
+  test("Cheapest Flights Within K Stops") {
+    val conditions: Array[(Int, Array[Array[Int]], Int, Int, Int, Int)] = Array(
+      (4, Array(Array(0, 1, 100), Array(1, 2, 100), Array(2, 0, 100), Array(1, 3, 600), Array(2, 3, 200)), 0, 3, 1, 700),
+      (3, Array(Array(0, 1, 100), Array(1, 2, 100), Array(0, 2, 500)), 0, 2, 1, 200),
+      (3, Array(Array(0, 1, 100), Array(1, 2, 100), Array(0, 2, 500)), 0, 2, 0, 500),
+      (5, Array(Array(4, 1, 1), Array(1, 2, 3), Array(0, 3, 2), Array(0, 4, 10), Array(3, 1, 1), Array(1, 4, 3)), 2, 1, 1, -1)
+    )
+
+    for (cond <- conditions) {
+      assert(findCheapestPrice(cond._1, cond._2, cond._3, cond._4, cond._5) == cond._6)
+    }
+  }
+
 
 }
