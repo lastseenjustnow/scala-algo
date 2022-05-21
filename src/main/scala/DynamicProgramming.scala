@@ -920,19 +920,10 @@ object DynamicProgramming {
   }
 
   def coinChange(coins: Array[Int], amount: Int): Int = {
-    var memo: Array[Double] = 0.toDouble +: Array.fill(amount)(Double.PositiveInfinity)
-
-    for (i <- coins.indices) {
-      val newMemo = 0.toDouble +: Array.fill(amount)(Double.PositiveInfinity)
-      for (am <- 1 to amount) {
-        val x = if (am - coins(i) < 0) Double.PositiveInfinity else newMemo(am - coins(i)) + 1
-        newMemo(am) = memo(am) min x
-      }
-      memo = newMemo
-    }
-
-    val res = memo(amount)
-    if (res == Double.PositiveInfinity) -1 else res.toInt
+    /** LeetCode #322. Coin Change */
+    val arr = 0.0 +: Array.fill(amount)(Double.PositiveInfinity)
+    for (coin <- coins; i <- coin to amount) arr(i) = arr(i) min (arr(i - coin) + 1)
+    if (arr(amount) == Double.PositiveInfinity) -1 else arr.last.toInt
   }
 
   def change(amount: Int, coins: Array[Int]): Int = {
