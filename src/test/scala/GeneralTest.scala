@@ -189,18 +189,20 @@ class GeneralTest extends FunSuite with Matchers {
     }
   }
 
-//  test("Maximum White Tiles Covered by a Carpet") {
-//    val conditions: Array[(Array[Array[Int]], Int, Int)] =
-//      Array(
-//        (Array(Array(1, 5), Array(10, 11), Array(12, 18), Array(20, 25), Array(30, 32)), 10, 9),
-//        (Array(Array(1, 1), Array(2, 2), Array(5, 5)), 2, 2),
-//        (Array(Array(1, 1000000000)), 1000000000, 1000000000),
-//        (Array(Array(3745, 3757), Array(3663, 3681), Array(3593, 3605), Array(3890, 3903), Array(3529, 3539), Array(3684, 3686), Array(3023, 3026), Array(2551, 2569), Array(3776, 3789), Array(3243, 3256), Array(3477, 3497), Array(2650, 2654), Array(2264, 2266), Array(2582, 2599), Array(2846, 2863), Array(2346, 2364), Array(3839, 3842), Array(3926, 3935), Array(2995, 3012), Array(3152, 3167), Array(4133, 4134), Array(4048, 4058), Array(3719, 3730), Array(2498, 2510), Array(2277, 2295), Array(4117, 4128), Array(3043, 3054), Array(3394, 3402), Array(3921, 3924), Array(3500, 3514), Array(2789, 2808), Array(3291, 3294), Array(2873, 2881), Array(2760, 2760), Array(3349, 3362), Array(2888, 2899), Array(3802, 3822), Array(3540, 3542), Array(3128, 3142), Array(2617, 2632), Array(3979, 3994), Array(2780, 2781), Array(3213, 3233), Array(3099, 3113), Array(3646, 3651), Array(3956, 3963), Array(2674, 2691), Array(3860, 3873), Array(3363, 3370), Array(2727, 2737), Array(2453, 2471), Array(4011, 4031), Array(3566, 3577), Array(2705, 2707), Array(3560, 3565), Array(3454, 3456), Array(3655, 3660), Array(4100, 4103), Array(2382, 2382), Array(4032, 4033), Array(2518, 2531), Array(2739, 2749), Array(3067, 3079), Array(4068, 4074), Array(2297, 2312), Array(2489, 2490), Array(2954, 2974), Array(2400, 2418), Array(3271, 3272), Array(3628, 3632), Array(3372, 3377), Array(2920, 2940), Array(3315, 3330), Array(3417, 3435), Array(4146, 4156), Array(2324, 2340), Array(2426, 2435), Array(2373, 2376), Array(3621, 3626), Array(2826, 2832), Array(3937, 3949), Array(3178, 3195), Array(4081, 4082), Array(4092, 4098), Array(3688, 3698)), 1638, 822)
-//    )
-//
-//    for (cond <- conditions) {
-//      assert(maximumWhiteTiles(cond._1, cond._2) == cond._3)
-//    }
-//  }
+  test("Maximum White Tiles Covered by a Carpet") {
+    val conditions: Array[(Array[Array[Int]], Int, Int)] =
+      Array(
+        (Array(Array(1, 5), Array(10, 11), Array(12, 18), Array(20, 25), Array(30, 32)), 10, 9),
+        (Array(Array(1, 5), Array(10, 11), Array(13, 18), Array(20, 25), Array(30, 32)), 10, 9),
+        (Array(Array(1, 1), Array(2, 2), Array(5, 5)), 2, 2),
+        (Array(Array(1, 1000000000)), 1000000000, 1000000000),
+        (Array(Array(3477, 3497), Array(2650, 2654), Array(2264, 2266), Array(2582, 2599), Array(2846, 2863), Array(2346, 2364), Array(3839, 3842), Array(3926, 3935), Array(2995, 3012), Array(3152, 3167), Array(4133, 4134), Array(4048, 4058), Array(3719, 3730), Array(2498, 2510), Array(2277, 2295), Array(4117, 4128)), 1638, 166),
+        (Array(Array(3745, 3757), Array(3663, 3681), Array(3593, 3605), Array(3890, 3903), Array(3529, 3539), Array(3684, 3686), Array(3023, 3026), Array(2551, 2569), Array(3776, 3789), Array(3243, 3256), Array(3477, 3497), Array(2650, 2654), Array(2264, 2266), Array(2582, 2599), Array(2846, 2863), Array(2346, 2364), Array(3839, 3842), Array(3926, 3935), Array(2995, 3012), Array(3152, 3167), Array(4133, 4134), Array(4048, 4058), Array(3719, 3730), Array(2498, 2510), Array(2277, 2295), Array(4117, 4128), Array(3043, 3054), Array(3394, 3402), Array(3921, 3924), Array(3500, 3514), Array(2789, 2808), Array(3291, 3294), Array(2873, 2881), Array(2760, 2760), Array(3349, 3362), Array(2888, 2899), Array(3802, 3822), Array(3540, 3542), Array(3128, 3142), Array(2617, 2632), Array(3979, 3994), Array(2780, 2781), Array(3213, 3233), Array(3099, 3113), Array(3646, 3651), Array(3956, 3963), Array(2674, 2691), Array(3860, 3873), Array(3363, 3370), Array(2727, 2737), Array(2453, 2471), Array(4011, 4031), Array(3566, 3577), Array(2705, 2707), Array(3560, 3565), Array(3454, 3456), Array(3655, 3660), Array(4100, 4103), Array(2382, 2382), Array(4032, 4033), Array(2518, 2531), Array(2739, 2749), Array(3067, 3079), Array(4068, 4074), Array(2297, 2312), Array(2489, 2490), Array(2954, 2974), Array(2400, 2418), Array(3271, 3272), Array(3628, 3632), Array(3372, 3377), Array(2920, 2940), Array(3315, 3330), Array(3417, 3435), Array(4146, 4156), Array(2324, 2340), Array(2426, 2435), Array(2373, 2376), Array(3621, 3626), Array(2826, 2832), Array(3937, 3949), Array(3178, 3195), Array(4081, 4082), Array(4092, 4098), Array(3688, 3698)), 1638, 822)
+      )
+
+    for (cond <- conditions) {
+      assert(maximumWhiteTiles(cond._1, cond._2) == cond._3)
+    }
+  }
 
 }

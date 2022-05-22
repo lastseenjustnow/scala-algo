@@ -46,6 +46,7 @@ class SortingAndSearchingTest extends FunSuite {
         (Array(1, 2, 3, 5, 6), 0, 0),
         (Array(1, 2, 3, 5, 6), 2, 1),
         (Array(1, 2, 3, 5, 6), 6, 4),
+        (Array(1, 2, 3, 5, 6), 4, 3),
         (Array(1, 2, 3, 5, 6), 3, 2),
         (Array(1, 2, 2, 2, 3, 5, 6), 2, 3),
         (Array(1, 2, 2, 2, 3, 5, 6), 5, 5)
@@ -75,6 +76,27 @@ class SortingAndSearchingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(searchInsertFirst(cond._1, cond._2) == cond._3)
+    }
+  }
+
+  test("First Bigger Than") {
+    val conditions: Array[(Array[Int], Int, Int)] =
+      Array(
+        (Array(3, 5), 2, 0),
+        (Array(1, 3, 5, 6), 5, 3),
+        (Array(1, 3, 5, 6), 7, 4),
+        (Array(1, 3, 5, 6), 2, 1),
+        (Array(1, 2, 3, 5, 6), 0, 0),
+        (Array(1, 2, 3, 5, 6), 2, 2),
+        (Array(1, 2, 3, 5, 6), 6, 5),
+        (Array(1, 2, 3, 5, 6), 3, 3),
+        (Array(1, 2, 2, 2, 3, 5, 6), 2, 4),
+        (Array(1, 2, 2, 2, 3, 5, 6), 5, 6),
+        (Array(1, 2, 4, 6, 8, 11, 14, 19, 21), 12, 6)
+      )
+
+    for (cond <- conditions) {
+      assert(firstBiggerThan(cond._1, cond._2) == cond._3)
     }
   }
 

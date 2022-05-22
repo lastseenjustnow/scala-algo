@@ -604,5 +604,18 @@ class DynamicProgrammingTest extends FunSuite {
     }
   }
 
+  test("Palindromic Substrings") {
+    val conditions: Array[(String, Int)] = Array(
+      ("abc", 3),
+      ("aaa", 6),
+      ("xabax", 7),
+      ("axbobax", 8)
+    )
+
+    for (cond <- conditions) {
+      assert(countSubstrings(cond._1) == cond._2)
+    }
+  }
+
 
 }

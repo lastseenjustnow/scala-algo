@@ -1093,4 +1093,36 @@ object DynamicProgramming {
     if (arr(dst) == Double.PositiveInfinity) -1 else arr(dst).toInt
   }
 
+  def countSubstrings(s: String): Int = {
+    /** #Leetcode 647. Palindromic Substrings
+     * Expand Around Possible Centers
+     *
+     * Time complexity: O(n ** 2)
+     * Space complexity: O(1)
+     * */
+    val n = s.length
+    var res = 0
+
+    def isPalindrome(st: Int, e: Int): Int = if (st < 0 || e == n || s(st) != s(e)) 0 else 1
+
+    for (i <- s.indices) {
+      var st = i
+      var end = i
+      while (isPalindrome(st, end) == 1) {
+        res += 1
+        st -= 1
+        end += 1
+      }
+      st = i
+      end = i + 1
+      while (isPalindrome(st, end) == 1) {
+        res += 1
+        st -= 1
+        end += 1
+      }
+    }
+    res
+
+  }
+
 }

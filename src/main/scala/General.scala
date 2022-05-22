@@ -1,8 +1,8 @@
-import SortingAndSearching.{searchInsert, searchInsertFirst}
+import SortingAndSearching.{firstBiggerThan, searchInsert}
 
 import scala.annotation.tailrec
 import scala.collection.mutable
-import scala.math.{abs, max, min}
+import scala.math.{abs, max}
 
 object General {
   def assignBikes(workers: Array[Array[Int]], bikes: Array[Array[Int]]): Array[Int] = {
@@ -303,24 +303,25 @@ object General {
       .count(x => x._1 >= x._2)
   }
 
-//  def maximumWhiteTiles(tiles: Array[Array[Int]], carpetLen: Int): Int = {
-//    val n = tiles.length
-//    val ts = tiles.map(x => (x(0), x(1))).sorted
-//    val startPos = ts.map(_._1)
-//    val preSum = Array.fill(n + 1)(0)
-//    for (i <- 1 until n + 1) preSum(i) = preSum(i - 1) + (ts(i - 1)._2 - ts(i - 1)._1 + 1)
-//
-//    var res = 0
-//
-//    for (i <- 0 until n) {
-//      val tile = ts(i)
-//      if (tile._2 >= tile._1 + carpetLen - 1) return carpetLen
-//      val endIdx = searchInsertFirst(startPos, tile._1 + carpetLen - 1) min (n - 1)
-//      var compensate = 0
-//      if (ts(endIdx)._2 > tile._1 + carpetLen - 1) compensate = ts(endIdx)._2 - tile._1 - carpetLen + 1
-//      res = max(res, preSum(endIdx + 1) - preSum(i) - compensate)
-//    }
-//    res
-//  }
+  def maximumWhiteTiles(tiles: Array[Array[Int]], carpetLen: Int): Int = {
+
+    val n = tiles.length
+    val ts = tiles.map(x => (x(0), x(1))).sorted
+    val startPos = ts.map(_._1)
+    val preSum = Array.fill(n + 1)(0)
+    for (i <- 1 until n + 1) preSum(i) = preSum(i - 1) + (ts(i - 1)._2 - ts(i - 1)._1 + 1)
+
+    var res = 0
+
+    for (i <- 0 until n) {
+      val tile = ts(i)
+      if (tile._2 >= tile._1 + carpetLen - 1) return carpetLen
+      val endIdx = firstBiggerThan(startPos, tile._1 + carpetLen - 1) - 1
+      var compensate = 0
+      if (ts(endIdx)._2 > tile._1 + carpetLen - 1) compensate = ts(endIdx)._2 - tile._1 - carpetLen + 1
+      res = max(res, preSum(endIdx + 1) - preSum(i) - compensate)
+    }
+    res
+  }
 
 }

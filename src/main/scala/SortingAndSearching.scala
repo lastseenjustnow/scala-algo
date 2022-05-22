@@ -69,6 +69,18 @@ object SortingAndSearching {
     if (nums(right) < target) right + 1 else right
   }
 
+  def firstBiggerThan(nums: Array[Int], target: Int): Int = {
+
+    var (left, right) = (0, nums.length - 1)
+
+    while (left <= right) {
+      val middle = (right - left) / 2 + left
+      if (nums(middle) <= target) left = middle + 1
+      else right = middle - 1
+    }
+    left
+  }
+
   def peakIndexInMountainArray(arr: Array[Int]): Int = {
     var (left, right) = (0, arr.length - 1)
     while (true) {
