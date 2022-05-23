@@ -1125,4 +1125,34 @@ object DynamicProgramming {
 
   }
 
+  def findMaxForm(strs: Array[String], m: Int, n: Int): Int = {
+    /**
+     * m - zeros
+     * n - ones
+     *
+     * Time complexity: O(m * n * l)
+     * Space complexitu: O(m * n)
+     * */
+
+    var arr: Array[Array[Int]] = Array.fill(m + 1)(Array.fill(n + 1)(0))
+
+    for (str <- strs) {
+      val mp = str.groupBy(identity).mapValues(_.length)
+      val xy = (mp.getOrElse('0', 0), mp.getOrElse('1', 0))
+
+      val newArr = arr.map(_.clone())
+      if (xy._1 <= m && xy._1 >= 0 && xy._2 <= n && xy._1 >= 0) {
+        newArr(xy._1)(xy._2) = newArr(xy._1)(xy._2) max 1
+
+        for (j <- xy._1 to m; i <- xy._2 to n) {
+          val prev = arr(((j - xy._1) max 0) min m)(((i - xy._2) max 0) min n)
+          if (!(prev == 0)) newArr(j)(i) = newArr(j)(i) max (prev + 1)
+        }
+        arr = newArr.map(_.clone())
+      }
+    }
+    arr.map(_.max).max
+
+  }
+
 }
