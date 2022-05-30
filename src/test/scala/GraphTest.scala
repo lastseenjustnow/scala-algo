@@ -133,4 +133,22 @@ class GraphTest extends FunSuite with Matchers {
     assert(networkDelayTime(testcase, 50, 22) == 18)
 
   }
+
+  test("Path With Minimum Effort") {
+    val conditions: Array[(Array[Array[Int]], Int)] =
+      Array(
+        (Array(Array(1, 2, 2), Array(3, 8, 2), Array(5, 3, 5)), 2),
+        (Array(Array(1, 2, 3), Array(3, 8, 4), Array(5, 3, 5)), 1),
+        (Array(Array(1, 2, 1, 1, 1), Array(1, 2, 1, 2, 1), Array(1, 2, 1, 2, 1), Array(1, 2, 1, 2, 1), Array(1, 1, 1, 2, 1)), 0),
+        (Array(Array(1, 10, 6, 7, 9, 10, 4, 9)), 9),
+        (Array(Array(2, 1), Array(2, 1)), 1),
+        (Array(Array(10, 8), Array(10, 8)), 2),
+        (Array(Array(10, 8), Array(10, 8), Array(1, 2), Array(10, 3), Array(1, 3), Array(6, 3), Array(5, 2)), 6)
+      )
+
+    for (cond <- conditions) {
+      assert(minimumEffortPath(cond._1) == cond._2)
+    }
+
+  }
 }

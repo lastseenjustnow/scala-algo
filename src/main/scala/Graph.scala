@@ -260,4 +260,33 @@ object Graph {
     val res = traversedWeight.max
     if (res == Int.MaxValue) -1 else res
   }
+
+  def minimumEffortPath(heights: Array[Array[Int]]): Int = {
+    /** Breadth-first search */
+    val rows = heights(0).length
+    val columns = heights.length
+
+    def neighbours(x: Int, y: Int): Array[(Int, Int)] = {
+      val cc = Array((1, 0), (0, 1), (-1, 0), (0, -1))
+      cc.map(c => (x + c._1, y + c._2)).filter(c => c._1 >= 0 && c._1 < rows && c._2 >= 0 && c._2 < columns)
+    }
+
+    val mx = Array.fill(columns)(Array.fill(rows)(Int.MaxValue))
+    mx(0)(0) = 0
+    var stack: List[(Int, Int)] = List((0, 0))
+
+    while (stack.nonEmpty) {
+      val h = stack.head
+      stack = stack.tail
+      neighbours(h._1, h._2).foreach(nei => {
+        val diff = Math.abs(heights(nei._2)(nei._1) - heights(h._2)(h._1)) max mx(h._2)(h._1)
+        if (diff < mx(nei._2)(nei._1)) {
+          mx(nei._2)(nei._1) = diff
+          stack = stack :+ nei
+        }
+      })
+    }
+    mx(columns - 1)(rows - 1)
+  }
+
 }
