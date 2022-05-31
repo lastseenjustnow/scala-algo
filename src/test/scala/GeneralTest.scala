@@ -205,4 +205,22 @@ class GeneralTest extends FunSuite with Matchers {
     }
   }
 
+  test("Check If a String Contains All Binary Codes of Size K") {
+    val conditions: Array[(String, Int, Boolean)] =
+      Array(
+        ("00110110", 2, true),
+        ("0110", 1, true),
+        ("0110", 2, false),
+        ("00110", 2, true),
+        ("0", 10, false),
+        ("0", 20, false),
+        ("011000000101010100111101010101101010101010101001010101001101011110110101010101010101010100101111111010100100001010101010010010101001010000", 4, true),
+        ("011000000101010100111101010101101010101010101001010101001101011110110101010101010101010100101111111010100100001010101010010010101001010000", 5, false)
+      )
+
+    for (cond <- conditions) {
+      assert(hasAllCodes(cond._1, cond._2) == cond._3, f"wrong for string: ${cond._1}")
+    }
+  }
+
 }

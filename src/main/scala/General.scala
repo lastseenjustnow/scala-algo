@@ -324,4 +324,21 @@ object General {
     res
   }
 
+  def hasAllCodes(s: String, k: Int): Boolean = {
+    val n = s.length
+    val st = (0 to n - k).map(i => s.substring(i, i + k)).toSet
+
+    var perm = "0" * k
+    var res = true
+
+    while (res && perm != "1" * k) {
+      if (!st.contains(perm)) res = false
+      else {
+        while (perm.head == '1') perm = perm.tail
+        perm = "0" * (k - perm.length) + ('1' +: perm.tail)
+      }
+    }
+    res && st.contains(perm)
+  }
+
 }
