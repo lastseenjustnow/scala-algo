@@ -220,6 +220,7 @@ class GeneralTest extends FunSuite with Matchers {
 
     for (cond <- conditions) {
       assert(hasAllCodes(cond._1, cond._2) == cond._3, f"wrong for string: ${cond._1}")
+      assert(hasAllCodesSimple(cond._1, cond._2) == cond._3, f"wrong for string: ${cond._1}")
     }
   }
 

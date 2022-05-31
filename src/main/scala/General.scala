@@ -341,4 +341,10 @@ object General {
     res && st.contains(perm)
   }
 
+  def hasAllCodesSimple(s: String, k: Int): Boolean = {
+    val n = s.length
+    val st = (0 to n - k).map(i => s.substring(i, i + k)).toSet
+    st.size == Math.pow(2, k)
+  }
+
 }
