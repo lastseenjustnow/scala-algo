@@ -669,4 +669,17 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Running Sum of 1d Array") {
+    val conditions: Array[(Array[Int], Array[Int])] =
+      Array(
+        (Array(1, 2, 3, 4), Array(1, 3, 6, 10)),
+        (Array(1, 1, 1, 1, 1), Array(1, 2, 3, 4, 5)),
+        (Array(3, 1, 2, 10, 1), Array(3, 4, 6, 16, 17)),
+      )
+
+    for (cond <- conditions) {
+      assert(runningSum(cond._1).toList == cond._2.toList)
+    }
+  }
+
 }
