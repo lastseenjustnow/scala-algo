@@ -682,4 +682,16 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Transpose Matrix") {
+    val conditions: Array[(Array[Array[Int]], Array[Array[Int]])] =
+      Array(
+        (Array(Array(1, 2, 3), Array(4, 5, 6), Array(7, 8, 9)), Array(Array(1, 4, 7), Array(2, 5, 8), Array(3, 6, 9))),
+        (Array(Array(1, 2, 3), Array(4, 5, 6)), Array(Array(1, 4), Array(2, 5), Array(3, 6)))
+      )
+
+    for (cond <- conditions) {
+      assert(transpose(cond._1).map(_.toList).toList == cond._2.map(_.toList).toList)
+    }
+  }
+
 }

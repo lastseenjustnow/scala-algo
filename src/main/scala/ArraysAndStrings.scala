@@ -837,4 +837,21 @@ object ArraysAndStrings {
     nums.scanLeft(0)(_ + _).drop(1)
   }
 
+  def transpose(matrix: Array[Array[Int]]): Array[Array[Int]] = {
+    val m = matrix.length // rows number
+    val n = matrix(0).length // columns number
+    val newMatrix = Array.fill(n)(Array.fill(m)(0))
+
+    for (i <- 0 until (m min n)) {
+      newMatrix(i)(i) = matrix(i)(i)
+      for (j <- i + 1 until n) {
+        newMatrix(j)(i) = matrix(i)(j)
+      }
+      for (j <- i + 1 until m) {
+        newMatrix(i)(j) = matrix(j)(i)
+      }
+    }
+    newMatrix
+  }
+
 }
