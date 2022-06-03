@@ -1,3 +1,5 @@
+package matrices
+
 object Matrices {
   def gameOfLifeNaive(board: Array[Array[Int]]): Unit = {
     /** Naive solution.

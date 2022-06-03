@@ -1,5 +1,6 @@
-import org.scalatest.{FunSuite, color}
-import Matrices._
+import org.scalatest.FunSuite
+import matrices.Matrices._
+import matrices.NumMatrix
 
 class MatricesTest extends FunSuite {
   test("Game of Life Naive") {
@@ -79,6 +80,21 @@ class MatricesTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(countUnguarded(cond._1, cond._2, cond._3, cond._4) == cond._5)
+    }
+  }
+
+  test("Range Sum Query 2D - Immutable") {
+    val conditions: Array[(Array[Array[Int]], Array[Int], Int)] =
+      Array(
+        (Array(Array(3, 0, 1, 4, 2), Array(5, 6, 3, 2, 1), Array(1, 2, 0, 1, 5), Array(4, 1, 0, 1, 7), Array(1, 0, 3, 0, 5)), Array(2, 1, 4, 3), 8),
+        (Array(Array(3, 0, 1, 4, 2), Array(5, 6, 3, 2, 1), Array(1, 2, 0, 1, 5), Array(4, 1, 0, 1, 7), Array(1, 0, 3, 0, 5)), Array(1, 1, 2, 2), 11),
+        (Array(Array(3, 0, 1, 4, 2), Array(5, 6, 3, 2, 1), Array(1, 2, 0, 1, 5), Array(4, 1, 0, 1, 7), Array(1, 0, 3, 0, 5)), Array(1, 2, 2, 4), 12),
+        (Array(Array(5)), Array(0, 0, 0, 0), 5),
+      )
+
+    for (cond <- conditions) {
+      val mx = new NumMatrix(cond._1).sumRegion(cond._2(0), cond._2(1), cond._2(2), cond._2(3))
+      assert(mx == cond._3)
     }
   }
 
