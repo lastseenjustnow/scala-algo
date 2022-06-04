@@ -35,6 +35,42 @@ object Recursion {
     rec(0, 0)
   }
 
+  def solveNQueens(n: Int): List[List[String]] = {
+    var cols: Set[Int] = Set()
+    var leftDiags: Set[Int] = Set()
+    var rightDiags: Set[Int] = Set()
+
+    def isUnderAttack(x: Int, y: Int): Boolean = cols.contains(y) || leftDiags.contains(y + x) || rightDiags.contains(y - x)
+
+    def placeQueen(x: Int, y: Int): Unit = {
+      cols = cols + y
+      leftDiags = leftDiags + (y + x)
+      rightDiags = rightDiags + (y - x)
+    }
+
+    def removeQueen(x: Int, y: Int): Unit = {
+      cols = cols - y
+      leftDiags = leftDiags - (y + x)
+      rightDiags = rightDiags - (y - x)
+    }
+
+    var res: List[List[String]] = List()
+
+    def rec(row: Int, acc: List[String]): Unit = {
+      for (col <- 0 until n) {
+        if (!isUnderAttack(row, col)) {
+          val newAcc = acc :+ Array.fill(n)('.').updated(col, 'Q').mkString
+          placeQueen(row, col)
+          if (row + 1 == n) res = res :+ newAcc else rec(row + 1, newAcc)
+          removeQueen(row, col)
+        }
+      }
+    }
+
+    rec(0, List())
+    res
+  }
+
   def cleanRoom(robot: Robot): Unit = {
     var cleanedCells: Set[(Int, Int)] = Set()
     var di = (0, 1)
