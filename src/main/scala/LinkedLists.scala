@@ -39,4 +39,17 @@ object LinkedLists {
     head
 
   }
+
+  def reverseList(head: ListNode): ListNode = {
+    var prev: ListNode = null
+    var curr = head
+    while (curr != null) {
+      val tempCurr = curr.next
+      curr.next = prev
+      prev = curr
+      curr = tempCurr
+    }
+    prev
+  }
+
 }
