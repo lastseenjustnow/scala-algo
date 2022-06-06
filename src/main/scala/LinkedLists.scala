@@ -52,4 +52,34 @@ object LinkedLists {
     prev
   }
 
+  def getIntersectionNode(headA: ListNode, headB: ListNode): ListNode = {
+    def findLLlength(ll: ListNode): Int = {
+      var h = ll
+      var i = 0
+      while (h != null) {
+        h = h.next
+        i += 1
+      }
+      i
+    }
+
+    val n = findLLlength(headA)
+    val m = findLLlength(headB)
+    var ah = headA
+    var bh = headB
+
+    if (n > m) {
+      for (_ <- 0 until n - m) ah = ah.next
+    } else {
+      for (_ <- 0 until m - n) bh = bh.next
+    }
+
+    for (_ <- 0 until (m min n)) {
+      if (ah == bh) return ah
+      ah = ah.next
+      bh = bh.next
+    }
+    null
+  }
+
 }
