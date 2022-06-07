@@ -1,4 +1,4 @@
-import SortingAndSearching.{firstBiggerThan, searchInsert}
+import SortingAndSearching.firstBiggerThan
 
 import scala.annotation.tailrec
 import scala.collection.mutable
@@ -347,4 +347,36 @@ object General {
     st.size == Math.pow(2, k)
   }
 
+  def minKnightMoves(x: Int, y: Int): Int = {
+    def convert(coords: (Int, Int)): Array[(Int, Int)] = {
+      Array(
+        (coords._1 + 1, coords._2 + 2),
+        (coords._1 + 1, coords._2 - 2),
+        (coords._1 + 2, coords._2 + 1),
+        (coords._1 + 2, coords._2 - 1),
+        (coords._1 - 1, coords._2 + 2),
+        (coords._1 - 1, coords._2 - 2),
+        (coords._1 - 2, coords._2 + 1),
+        (coords._1 - 2, coords._2 - 1))
+    }
+
+    val visited: Array[Array[Boolean]] = Array.fill(601)(Array.fill(601)(false))
+    visited(300)(300) = true
+    var stack: List[(Int, Int)] = List((300, 300))
+
+    var i = -1
+    while (true) {
+      i += 1
+      for (_ <- stack.indices) {
+        val h = stack.head
+        stack = stack.tail
+        if (h._1 - 300 == x && h._2 - 300 == y) return i
+        convert(h).foreach(x => if (!visited(x._2)(x._1)) {
+          visited(x._2)(x._1) = true
+          stack = stack :+ x
+        })
+      }
+    }
+    0
+  }
 }

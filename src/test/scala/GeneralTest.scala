@@ -224,4 +224,22 @@ class GeneralTest extends FunSuite with Matchers {
     }
   }
 
+  test("Minimum Knight Moves") {
+    val conditions: Array[(Int, Int, Int)] =
+      Array(
+        (1, 2, 1),
+        (0, 3, 3),
+        (5, 5, 4),
+        (7, 7, 6),
+        (15, 15, 10),
+        (50, -50, 34),
+        (150, -150, 100),
+        (130, -86, 72)
+      )
+
+    for (cond <- conditions) {
+      assert(minKnightMoves(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }
