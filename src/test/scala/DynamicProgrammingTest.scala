@@ -631,5 +631,20 @@ class DynamicProgrammingTest extends FunSuite {
     }
   }
 
+  test("Remove Palindromic Subsequences") {
+    val conditions: Array[(String, Int)] = Array(
+      ("ababa", 1),
+      ("ab", 2),
+      ("abb", 2),
+      ("baabb", 2),
+      ("abbbabb", 2),
+      ("abbbabbbababab", 2)
+    )
+
+    for (cond <- conditions) {
+      assert(removePalindromeSub(cond._1) == cond._2)
+    }
+  }
+
 
 }

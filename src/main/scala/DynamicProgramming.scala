@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.collection.mutable
 
 object DynamicProgramming {
@@ -1154,5 +1155,12 @@ object DynamicProgramming {
     arr.map(_.max).max
 
   }
+
+  def removePalindromeSub(s: String): Int = {
+    if (s == "") 0
+    else if (s.head != s.last) 2
+    else 1 max removePalindromeSub(s.substring(1, (s.length - 1) max 1))
+  }
+
 
 }
