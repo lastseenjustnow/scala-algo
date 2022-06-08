@@ -289,4 +289,32 @@ object Graph {
     mx(columns - 1)(rows - 1)
   }
 
+  def findOrder(numCourses: Int, prerequisites: Array[Array[Int]]): Array[Int] = {
+    /** Kahn's algorithm */
+    if (prerequisites.isEmpty) return (0 until numCourses).toArray
+
+    var outDegree: Map[Int, List[Int]] = (0 until numCourses).map(x => (x, List[Int]())).toMap
+    var inDegree: Map[Int, Int] = (0 until numCourses).map(x => (x, 0)).toMap
+    prerequisites.foreach(e => {
+      outDegree = outDegree.updated(e(1), outDegree(e(1)) :+ e(0))
+      inDegree = inDegree.updated(e(0), inDegree(e(0)) + 1)
+    })
+
+    var q: List[Int] = inDegree.filter { case (_, value) => value == 0 }.keys.toList
+    var res: List[Int] = List()
+
+    while (q.nonEmpty) {
+      val h = q.head
+      q = q.tail
+      res = res :+ h
+      inDegree = inDegree - h
+      for (v <- outDegree(h)) {
+        inDegree = inDegree.updated(v, inDegree(v) - 1)
+        if (inDegree(v) == 0) q = q :+ v
+      }
+    }
+
+    if (res.length != numCourses) Array() else res.toArray
+  }
+
 }
