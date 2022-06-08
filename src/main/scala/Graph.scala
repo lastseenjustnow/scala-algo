@@ -317,4 +317,36 @@ object Graph {
     if (res.length != numCourses) Array() else res.toArray
   }
 
+  def alienOrder(words: Array[String]): String = {
+
+    var outDegree: Map[Char, List[Char]] = words.flatten.distinct.map(x => (x, List[Char]())).toMap
+    var inDegree: Map[Char, Int] = words.flatten.distinct.map(x => (x, 0)).toMap
+
+    for (i <- 1 until words.length) {
+      val lo: Option[(Char, Char)] = words(i - 1).zipAll(words(i), ' ', ' ').dropWhile(p => p._1 == p._2).headOption
+      if (lo.nonEmpty && lo.get._2 == ' ') return ""
+      if (lo.nonEmpty && lo.get._1 != ' ') {
+        outDegree = outDegree.updated(lo.get._1, outDegree.getOrElse(lo.get._1, List()) :+ lo.get._2)
+        inDegree = inDegree.updated(lo.get._2, inDegree.getOrElse(lo.get._2, 0) + 1)
+      }
+    }
+
+    val len = inDegree.size
+    var q: List[Char] = inDegree.filter { case (_, value) => value == 0 }.keys.toList
+    var res: String = ""
+
+    while (q.nonEmpty) {
+      val h = q.head
+      q = q.tail
+      res = res + h
+      inDegree = inDegree - h
+      for (v <- outDegree(h)) {
+        inDegree = inDegree.updated(v, inDegree(v) - 1)
+        if (inDegree(v) == 0) q = q :+ v
+      }
+    }
+
+    if (res.length != len) "" else res.mkString
+  }
+
 }

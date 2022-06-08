@@ -168,4 +168,24 @@ class GraphTest extends FunSuite with Matchers {
     }
   }
 
+  test("Alien Dictionary") {
+    val conditions: Array[(Array[String], String)] =
+      Array(
+        (Array("wrt", "wrf", "er", "ett", "rftt"), "wertf"),
+        (Array("z", "x"), "zx"),
+        (Array("z", "x", "z"), ""),
+        (Array("ba", "bc", "ac", "cab"), "bac"),
+        (Array("cab", "aaa", "aab"), "cab"),
+        (Array("ywx", "wz", "xww", "xz", "zyy", "zwz"), "ywxz"),
+        (Array("z", "z"), "z"),
+        (Array("zy", "zx"), "zyx"),
+        (Array("ab", "adc"), "abcd"),
+        (Array("abc", "ab"), ""),
+      )
+
+    for (cond <- conditions) {
+      assert(alienOrder(cond._1) == cond._2)
+    }
+  }
+
 }
