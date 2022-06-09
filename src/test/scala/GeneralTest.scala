@@ -105,6 +105,7 @@ class GeneralTest extends FunSuite with Matchers {
         (Array(2, 7, 11, 15), 18, Array(2, 3)),
         (Array(2, 3, 4), 6, Array(1, 3)),
         (Array(-1, 0), -1, Array(1, 2)),
+        (Array(1, 2, 3, 4, 4, 9, 56, 90), 8, Array(4, 5))
       )
 
     for (cond <- conditions) {
