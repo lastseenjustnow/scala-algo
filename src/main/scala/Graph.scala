@@ -349,4 +349,28 @@ object Graph {
     if (res.length != len) "" else res.mkString
   }
 
+  def findMinHeightTrees(n: Int, edges: Array[Array[Int]]): List[Int] = {
+    /** Idea: tree has maximum two centroids */
+    if (n == 1) return List(0)
+
+    var adj: Map[Int, Set[Int]] = (0 until n).map(x => (x, Set[Int]())).toMap
+    edges.foreach(e => {
+      adj = adj.updated(e(0), adj(e(0)) + e(1))
+      adj = adj.updated(e(1), adj(e(1)) + e(0))
+    })
+
+    while (adj.size > 2) {
+      adj.foreach(e =>
+        if (e._2.size == 1) {
+          adj(e._1).foreach(v =>
+            adj = adj.updated(v, adj(v) - e._1)
+          )
+          adj = adj - e._1
+
+        }
+      )
+    }
+    adj.keys.toList
+  }
+
 }
