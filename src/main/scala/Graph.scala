@@ -373,4 +373,32 @@ object Graph {
     adj.keys.toList
   }
 
+  def minimumSemesters(n: Int, relations: Array[Array[Int]]): Int = {
+    /** Kahn's algorithm */
+    var outDegree: Map[Int, List[Int]] = (1 to n).map(x => (x, List[Int]())).toMap
+    var inDegree: Map[Int, Int] = (1 to n).map(x => (x, 0)).toMap
+    relations.foreach(e => {
+      outDegree = outDegree.updated(e(0), outDegree(e(0)) :+ e(1))
+      inDegree = inDegree.updated(e(1), inDegree(e(1)) + 1)
+    })
+
+    var q: List[Int] = inDegree.filter { case (_, value) => value == 0 }.keys.toList
+    var sems: Int = 0
+
+    while (q.nonEmpty) {
+      sems += 1
+      for (_ <- q.indices) {
+        val h = q.head
+        q = q.tail
+        inDegree = inDegree - h
+        for (v <- outDegree(h)) {
+          inDegree = inDegree.updated(v, inDegree(v) - 1)
+          if (inDegree(v) == 0) q = q :+ v
+        }
+      }
+    }
+
+    if (inDegree.nonEmpty) -1 else sems
+  }
+
 }

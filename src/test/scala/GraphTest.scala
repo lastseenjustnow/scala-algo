@@ -202,4 +202,17 @@ class GraphTest extends FunSuite with Matchers {
     }
   }
 
+  test("Parallel Courses") {
+    val conditions: Array[(Int, Array[Array[Int]], Int)] =
+      Array(
+        (3, Array(Array(1, 3), Array(2, 3)), 2),
+        (3, Array(Array(1, 2), Array(2, 3), Array(3, 1)), -1),
+        (6, Array(Array(3, 6), Array(1, 6), Array(1, 5), Array(2, 5), Array(4, 3), Array(2, 4)), 4)
+      )
+
+    for (cond <- conditions) {
+      assert(minimumSemesters(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }
