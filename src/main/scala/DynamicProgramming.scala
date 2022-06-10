@@ -1162,5 +1162,34 @@ object DynamicProgramming {
     else 1 max removePalindromeSub(s.substring(1, (s.length - 1) max 1))
   }
 
+  def maxSlidingWindow(nums: Array[Int], k: Int): Array[Int] = {
+    val n = nums.length
+    if (n * k == 0) return new Array[Int](0)
+    if (k == 1) return nums
+
+    val left = new Array[Int](n)
+    left(0) = nums(0)
+    val right = new Array[Int](n)
+    right(n - 1) = nums(n - 1)
+
+    for (i <- 1 until n) {
+      // from left to right
+      if (i % k == 0) left(i) = nums(i) // block_start
+      else left(i) = Math.max(left(i - 1), nums(i))
+      // from right to left
+      val j = n - i - 1
+      if ((j + 1) % k == 0) right(j) = nums(j) // block_end
+      else right(j) = Math.max(right(j + 1), nums(j))
+    }
+
+    val output = new Array[Int](n - k + 1)
+    var i = 0
+    while (i < n - k + 1) {
+      output(i) = Math.max(left(i + k - 1), right(i))
+      i += 1
+    }
+    output
+  }
+
 
 }
