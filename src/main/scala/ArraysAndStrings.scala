@@ -218,6 +218,19 @@ object ArraysAndStrings {
     globalMax
   }
 
+  def lengthOfLongestSubstring2(s: String): Int = {
+    var (left, right) = (0, 0)
+    var res = 0
+    var mp: Map[Char, Int] = Map()
+    while (right < s.length) {
+      if (mp.contains(s(right))) left = left max (mp(s(right)) + 1)
+      mp = mp.updated(s(right), right)
+      res = res max (right - left + 1)
+      right += 1
+    }
+    res
+  }
+
   def maxAreaBruteForce(height: Array[Int]): Int = {
     /**
      * Trivial.

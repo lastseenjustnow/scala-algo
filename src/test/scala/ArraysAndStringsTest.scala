@@ -136,6 +136,7 @@ class ArraysAndStringsTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(lengthOfLongestSubstring(cond._1) == cond._2)
+      assert(lengthOfLongestSubstring2(cond._1) == cond._2)
     }
   }
 
