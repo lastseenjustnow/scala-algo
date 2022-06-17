@@ -863,4 +863,19 @@ object ArraysAndStrings {
     newMatrix
   }
 
+  def sumOddLengthSubarrays(arr: Array[Int]): Int = {
+    /** Naive solution */
+    val n = arr.length
+    val prefixSum = arr.scanLeft(0)(_ + _).drop(1)
+    var i = 1
+    var res = 0
+    while (i <= n) {
+      for (j <- i - 1 until n) {
+        res += prefixSum(j) - (if (j - i < 0) 0 else prefixSum(j - i))
+      }
+      i += 2
+    }
+    res
+  }
+
 }

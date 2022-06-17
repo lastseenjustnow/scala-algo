@@ -695,4 +695,17 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Sum of All Odd Length Subarrays") {
+    val conditions: Array[(Array[Int], Int)] =
+      Array(
+        (Array(1, 4, 2, 5, 3), 58),
+        (Array(10, 11, 12), 66),
+        (Array(1, 2), 3)
+      )
+
+    for (cond <- conditions) {
+      assert(sumOddLengthSubarrays(cond._1) == cond._2)
+    }
+  }
+
 }
