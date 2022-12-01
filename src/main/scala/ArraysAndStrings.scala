@@ -878,4 +878,21 @@ object ArraysAndStrings {
     res
   }
 
+  def halvesAreAlike(s: String): Boolean = {
+    val st: Set[Char] = Set('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U')
+    val l = s.length
+
+    @tailrec
+    def rec(i: Int, res: Int): Int = {
+      if (i == l / 2) res
+      else {
+        val r1: Int = if (st.contains(s(i))) 1 else 0
+        val r2: Int = if (st.contains(s(l - i - 1))) -1 else 0
+        rec(i + 1, res + r1 + r2)
+      }
+    }
+
+    if (rec(0, 0) == 0) true else false
+  }
+
 }
