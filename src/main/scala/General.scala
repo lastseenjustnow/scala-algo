@@ -379,4 +379,35 @@ object General {
     }
     0
   }
+
+  def closeStrings(word1: String, word2: String): Boolean = {
+    if (word1.length != word2.length) return false
+    val l = word1.length
+    val m1: mutable.Map[Char, Int] = mutable.Map()
+    val m2: mutable.Map[Char, Int] = mutable.Map()
+    for (i <- 0 until l) {
+      val prevVal1 = m1.getOrElseUpdate(word1(i), 0)
+      m1.update(word1(i), prevVal1 + 1)
+      val prevVal2 = m2.getOrElseUpdate(word2(i), 0)
+      m2.update(word2(i), prevVal2 + 1)
+    }
+
+    val reverseMap: mutable.Map[Int, Int] = mutable.Map()
+    for ((_, v) <- m2) {
+      val prevVal1 = reverseMap.getOrElseUpdate(v, 0)
+      reverseMap.update(v, prevVal1 + 1)
+    }
+
+    for (key <- m1.keys) {
+      if (!m2.contains(key) || !reverseMap.contains(m1(key))) return false
+      else {
+        reverseMap.update(m1(key), reverseMap(m1(key)) - 1)
+        if (reverseMap(m1(key)) == 0) {
+          reverseMap -= m1(key)
+        }
+      }
+    }
+    if (reverseMap.isEmpty) true else false
+  }
+
 }
