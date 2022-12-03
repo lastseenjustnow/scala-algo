@@ -185,4 +185,18 @@ class HeapsTest extends FunSuite {
     }
   }
 
+  test("Sort Characters By Frequency") {
+    val conditions: Array[(String, String)] = Array(
+      ("tree", "eetr"),
+      ("cccaaa", "cccaaa"),
+      ("Aabb", "bbaA"),
+      ("a", "a"),
+      ("AaAaAaAa", "aaaaAAAA"),
+    )
+
+    for (cond <- conditions) {
+      assert(frequencySort(cond._1) == cond._2)
+    }
+  }
+
 }

@@ -289,4 +289,29 @@ object Heaps {
     res
   }
 
+  def frequencySort(s: String): String = {
+    val maxHeap: mutable.PriorityQueue[(Int, Char)] = mutable.PriorityQueue()
+    val minHeap: mutable.PriorityQueue[(Int, Char)] = mutable.PriorityQueue()(Ordering.Tuple2(Ordering.Int.reverse, Ordering.Char))
+    val st: mutable.Set[Char] = mutable.Set()
+
+    for (ch <- s) {
+      if (st.contains(ch)) {
+        while (maxHeap.head._2 != ch) minHeap.enqueue(maxHeap.dequeue())
+        val head = maxHeap.dequeue()
+        maxHeap.enqueue((head._1 + 1, head._2))
+        while (minHeap.nonEmpty) maxHeap.enqueue(minHeap.dequeue())
+      } else {
+        maxHeap.enqueue((1, ch))
+        st.add(ch)
+      }
+    }
+
+    var res: String = ""
+    while (maxHeap.nonEmpty) {
+      val head = maxHeap.dequeue()
+      res += head._2.toString * head._1
+    }
+    res
+  }
+
 }
