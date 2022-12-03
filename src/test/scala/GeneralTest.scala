@@ -243,4 +243,18 @@ class GeneralTest extends FunSuite with Matchers {
     }
   }
 
+  test("Determine if Two Strings Are Close") {
+    val conditions: Array[(String, String, Boolean)] =
+      Array(
+        ("abc", "bca", true),
+        ("a", "aa", false),
+        ("cabbba", "abbccc", true),
+        ("cdabba", "abbccc", false),
+        ("ddaaccbdd", "abcdbdcbb", true),
+      )
+
+    for (cond <- conditions) {
+      assert(closeStrings(cond._1, cond._2) == cond._3, f"wrong for strings: ${cond._1}, ${cond._2}")
+    }
+  }
 }
