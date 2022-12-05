@@ -82,4 +82,15 @@ object LinkedLists {
     null
   }
 
+  def middleNode(head: ListNode): ListNode = {
+    var first = head
+    var second = head
+    while (second.next != null) {
+      first = first.next
+      second = second.next
+      if (second.next != null) second = second.next
+    }
+    first
+  }
+
 }
