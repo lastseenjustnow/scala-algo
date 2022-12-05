@@ -342,5 +342,20 @@ object SortingAndSearching {
     l
   }
 
+  def minSubArrayLen(target: Int, nums: Array[Int]): Int = {
+    var (leftI, rightI, summa) = (0, 0, 0)
+    var minSizeSub = Int.MaxValue
+    while (rightI < nums.length) {
+      summa += nums(rightI)
+      rightI += 1
+      while (summa - nums(leftI) >= target) {
+        summa -= nums(leftI)
+        leftI += 1
+      }
+      minSizeSub = minSizeSub min (if (summa < target) Int.MaxValue else rightI - leftI)
+    }
+    if (minSizeSub == Int.MaxValue) 0 else minSizeSub
+  }
+
 }
 

@@ -324,4 +324,17 @@ class SortingAndSearchingTest extends FunSuite {
     }
   }
 
+  test("Minimum Size Subarray Sum") {
+
+    val conditions: Array[(Int, Array[Int], Int)] = Array(
+      (7, Array(2, 3, 1, 2, 4, 3), 2),
+      (4, Array(1, 4, 4), 1),
+      (11, Array(1, 1, 1, 1, 1, 1, 1, 1), 0),
+    )
+
+    for (cond <- conditions) {
+      assert(minSubArrayLen(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._2.mkString(",")}")
+    }
+  }
+
 }
