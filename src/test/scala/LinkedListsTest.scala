@@ -32,6 +32,31 @@ class LinkedListsTest extends FunSuite {
 
   }
 
+  test("Odd Even Linked List") {
+    val linkedList1 = new ListNode(2, null)
+    linkedList1.next = new ListNode(1, null)
+    linkedList1.next.next = new ListNode(3, null)
+    linkedList1.next.next.next = new ListNode(5, null)
+    linkedList1.next.next.next.next = new ListNode(6, null)
+    linkedList1.next.next.next.next.next = new ListNode(4, null)
+    linkedList1.next.next.next.next.next.next = new ListNode(7, null)
+
+    oddEvenList(linkedList1)
+
+
+    val linkedList2 = new ListNode(1, null)
+    linkedList2.next = new ListNode(2, null)
+    linkedList2.next.next = new ListNode(3, null)
+    linkedList2.next.next.next = new ListNode(4, null)
+    linkedList2.next.next.next.next = new ListNode(5, null)
+    linkedList2.next.next.next.next.next = new ListNode(6, null)
+    linkedList2.next.next.next.next.next.next = new ListNode(7, null)
+    linkedList2.next.next.next.next.next.next.next = new ListNode(8, null)
+
+    oddEvenList(linkedList2)
+  }
+
+
   test("Design Linked List") {
     val myLinkedList = new MyLinkedList()
     myLinkedList.addAtHead(1)

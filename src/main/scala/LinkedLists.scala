@@ -93,4 +93,32 @@ object LinkedLists {
     first
   }
 
+  def hasCycle(head: ListNode): Boolean = {
+    if (head == null || head.next == null) return false
+    var first = head
+    var second = head.next
+    while (second != null) {
+      if (first == second) return true
+      first = first.next
+      second = second.next
+      if (second != null) second = second.next
+    }
+    false
+  }
+
+  def oddEvenList(head: ListNode): ListNode = {
+    if (head == null) return null
+    var odd = head
+    var even = head.next
+    val evenHead = even
+    while (even != null && even.next != null) {
+      odd.next = even.next
+      odd = odd.next
+      even.next = odd.next
+      even = even.next
+    }
+    odd.next = evenHead
+    head
+  }
+
 }
