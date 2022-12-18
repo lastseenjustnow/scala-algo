@@ -708,4 +708,17 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Daily Temperatures") {
+    val conditions: Array[(Array[Int], Array[Int])] =
+      Array(
+        (Array(73, 74, 75, 71, 69, 72, 76, 73), Array(1, 1, 4, 2, 1, 1, 0, 0)),
+        (Array(30, 40, 50, 60), Array(1, 1, 1, 0)),
+        (Array(30, 60, 90), Array(1, 1, 0)),
+      )
+
+    for (cond <- conditions) {
+      assert(dailyTemperatures(cond._1) sameElements cond._2)
+    }
+  }
+
 }

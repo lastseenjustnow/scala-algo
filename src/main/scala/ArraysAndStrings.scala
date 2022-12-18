@@ -895,4 +895,15 @@ object ArraysAndStrings {
     if (rec(0, 0) == 0) true else false
   }
 
+  def dailyTemperatures(temperatures: Array[Int]): Array[Int] = {
+    val l = temperatures.length
+    val res = Array.fill(l)(0)
+    for (i <- 0 until l) {
+      var j = i
+      while (j != l && temperatures(j) <= temperatures(i)) j += 1
+      if (j != l) res(i) = j - i
+    }
+    res
+  }
+
 }
