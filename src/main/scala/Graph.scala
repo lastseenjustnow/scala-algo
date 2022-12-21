@@ -401,4 +401,16 @@ object Graph {
     if (inDegree.nonEmpty) -1 else sems
   }
 
+  def canVisitAllRooms(rooms: List[List[Int]]): Boolean = {
+    var stack: List[Int] = List(0)
+    val visited: Array[Boolean] = true +: Array.fill(rooms.length - 1)(false)
+    while (stack.nonEmpty) {
+      val head = stack.head
+      stack = stack.tail
+      for (key <- rooms(head) if !visited(key)) stack = stack :+ key
+      visited(head) = true
+    }
+    if (visited.contains(false)) false else true
+  }
+
 }

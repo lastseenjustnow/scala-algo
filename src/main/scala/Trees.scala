@@ -492,5 +492,17 @@ object Trees {
     }
     res
   }
+  def rangeSumBST(root: TreeNode, low: Int, high: Int): Int = {
+    /***
+     * Given the root node of a binary search tree and two integers low and high,
+     * return the sum of values of all nodes with a value in the inclusive range [low, high].
+     *
+     * Recursive algorithm
+     */
+    if (root == null) 0
+    else if (root.value < low) rangeSumBST(root.right, low, high)
+    else if (root.value > high) rangeSumBST(root.left, low, high)
+    else root.value + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high)
+  }
 
 }

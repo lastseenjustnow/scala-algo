@@ -357,5 +357,25 @@ object SortingAndSearching {
     if (minSizeSub == Int.MaxValue) 0 else minSizeSub
   }
 
-}
+  def triangleNumber(nums: Array[Int]): Int = {
 
+    val sortedNums = nums.sorted
+    val l = nums.length
+    var c = 0
+
+    var (left, right) = (0, 1)
+    while (right < l) {
+      while (left < right) {
+        val middle = firstBiggerThan(sortedNums, sortedNums(right) - sortedNums(left))
+        if (middle < right) {
+          c += right - middle.max(left + 1)
+        }
+        left += 1
+      }
+      left = 0
+      right += 1
+    }
+    c
+  }
+
+}

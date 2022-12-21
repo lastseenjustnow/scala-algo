@@ -84,6 +84,9 @@ class SortingAndSearchingTest extends FunSuite {
       Array(
         (Array(3, 5), 2, 0),
         (Array(1, 3, 5, 6), 5, 3),
+        (Array(2, 3), 2, 1),
+        (Array(1, 3), 3, 2),
+        (Array(3), 3, 1),
         (Array(1, 3, 5, 6), 7, 4),
         (Array(1, 3, 5, 6), 2, 1),
         (Array(1, 2, 3, 5, 6), 0, 0),
@@ -334,6 +337,20 @@ class SortingAndSearchingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(minSubArrayLen(cond._1, cond._2) == cond._3, f"wrong for array: ${cond._2.mkString(",")}")
+    }
+  }
+
+  test("Valid Triangle Number") {
+
+    val conditions: Array[(Array[Int], Int)] = Array(
+      (Array(2, 2, 3, 4), 3),
+      (Array(4, 2, 3, 4), 4),
+      (Array(1, 1, 3, 4), 0),
+      (Array(1, 2, 3, 4, 5, 6), 7),
+    )
+
+    for (cond <- conditions) {
+      assert(triangleNumber(cond._1) == cond._2, f"wrong for array: ${cond._1.mkString(",")}")
     }
   }
 
