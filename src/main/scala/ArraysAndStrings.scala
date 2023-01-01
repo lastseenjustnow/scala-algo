@@ -906,4 +906,18 @@ object ArraysAndStrings {
     res
   }
 
+  def wordPattern(pattern: String, s: String): Boolean = {
+    val m: mutable.Map[Char, String] = mutable.Map[Char, String]()
+    val m2: mutable.Map[String, Char] = mutable.Map[String, Char]()
+    if (s.split(' ').length != pattern.length) return false
+    for ((c, w) <- pattern.zip(s.split(' '))) {
+      if (m.get(c).isEmpty || m2.get(w).isEmpty) {
+        m(c) = w
+        m2(w) = c
+      }
+      else if (m(c) != w || m2(w) != c) return false
+    }
+    m.size == m2.size
+  }
+
 }
