@@ -920,4 +920,17 @@ object ArraysAndStrings {
     m.size == m2.size
   }
 
+  def detectCapitalUse(word: String): Boolean = {
+    val n = word.length
+    if (n <= 1) return true
+    val isCap = (if (word(1).toInt >= 65 && word(1).toInt <= 90) true else false) && (if (word(0).toInt >= 65 && word(0).toInt <= 90) true else false)
+    var i = 1
+    while (i != n) {
+      val cap = if (word(i).toInt >= 65 && word(i).toInt <= 90) true else false
+      if (cap != isCap) return false
+      i += 1
+    }
+    true
+  }
+
 }
