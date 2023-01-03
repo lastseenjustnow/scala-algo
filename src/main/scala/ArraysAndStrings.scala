@@ -911,7 +911,7 @@ object ArraysAndStrings {
     val m2: mutable.Map[String, Char] = mutable.Map[String, Char]()
     if (s.split(' ').length != pattern.length) return false
     for ((c, w) <- pattern.zip(s.split(' '))) {
-      if (m.get(c).isEmpty || m2.get(w).isEmpty) {
+      if (!m.contains(c) || !m2.contains(w)) {
         m(c) = w
         m2(w) = c
       }
@@ -931,6 +931,17 @@ object ArraysAndStrings {
       i += 1
     }
     true
+  }
+
+  def minDeletionSize(strs: Array[String]): Int = {
+    val n = strs.length
+    var res = 0
+    for (y <- 0 until strs(0).length) {
+      var i = 1
+      while (i < n && strs(i)(y) >= strs(i - 1)(y)) i += 1
+      if (i != n) res += 1
+    }
+    res
   }
 
 }
