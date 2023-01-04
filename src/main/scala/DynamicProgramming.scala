@@ -1191,5 +1191,21 @@ object DynamicProgramming {
     output
   }
 
+  def minimumRounds(tasks: Array[Int]): Int = {
+
+    val memo: mutable.HashMap[Int, Int] = mutable.HashMap()
+
+    def rec(countRounds: Int): Int = {
+      if (countRounds <= 1) -1
+      else if (countRounds == 2 || countRounds == 3) 1
+      else if (countRounds == 4) 2
+      else memo.getOrElseUpdate(countRounds - 3, rec(countRounds - 3) + 1)
+    }
+
+    val tasksAgg = tasks.groupBy(identity).mapValues(_.length).values.map(rec).toList
+    if (tasksAgg.contains(-1)) -1 else tasksAgg.sum
+
+  }
+
 
 }
