@@ -944,4 +944,28 @@ object ArraysAndStrings {
     res
   }
 
+  def compress(chars: Array[Char]): Int = {
+
+    var pointer = 0
+    var charsCounter = 0
+
+    for (i <- 0 to chars.length) {
+      if (i < chars.length && chars(i) == chars(pointer)) charsCounter += 1
+      else if (charsCounter == 1) {
+        pointer += 1
+        charsCounter = 1
+        if (i < chars.length) chars(pointer) = chars(i)
+      } else {
+        pointer += 1
+        for (c <- charsCounter.toString) {
+          chars(pointer) = c
+          pointer += 1
+        }
+        if (i < chars.length) chars(pointer) = chars(i)
+        charsCounter = 1
+      }
+    }
+    pointer
+  }
+
 }

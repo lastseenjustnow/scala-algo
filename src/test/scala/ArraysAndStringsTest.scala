@@ -721,4 +721,20 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("String Compression") {
+    val conditions: Array[(Array[Char], Int)] =
+      Array(
+        (Array('a', 'a', 'b', 'b', 'c', 'c', 'c'), 6),
+        (Array('a', 'b', 'b', 'b', 'b', 'b', 'b'), 3),
+        (Array('a', 'a', 'b', 'b', 'c', 'c', 'c'), 6),
+        (Array.fill(100)('a'), 4),
+        (Array.fill(100)('a') ++ Array.fill(50)('b'), 7),
+        (Array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'a', 'b', 'c'), 12)
+      )
+
+    for (cond <- conditions) {
+      assert(compress(cond._1) == cond._2)
+    }
+  }
+
 }
