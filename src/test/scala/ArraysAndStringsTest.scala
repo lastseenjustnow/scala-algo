@@ -737,4 +737,17 @@ class ArraysAndStringsTest extends FunSuite {
     }
   }
 
+  test("Find the Index of the First Occurrence in a String") {
+    val conditions: Array[(String, String, Int)] =
+      Array(
+        ("sadbutsad", "sad", 0),
+        ("leetcode", "leeto", -1),
+        ("aarna", "ar", 1),
+      )
+
+    for (cond <- conditions) {
+      assert(strStr(cond._1, cond._2) == cond._3)
+    }
+  }
+
 }

@@ -968,4 +968,19 @@ object ArraysAndStrings {
     pointer
   }
 
+  def strStr(haystack: String, needle: String): Int = {
+    var c = 0
+    val l = needle.length
+    var i = 0
+    while (i < haystack.length) {
+      if (haystack(i) == needle(c)) c += 1 else {
+        i -= c
+        c = 0
+      }
+      if (c == l) return i + 1 - l
+      i += 1
+    }
+    -1
+  }
+
 }
