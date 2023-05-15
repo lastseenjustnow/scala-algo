@@ -217,6 +217,20 @@ class SortingAndSearchingTest extends FunSuite {
     }
   }
 
+  test("Find Right Interval") {
+
+    val conditions: Array[(Array[Array[Int]], Array[Int])] = Array(
+      (Array(Array(3, 4), Array(2, 3), Array(1, 2)), Array(-1, 0, 1)),
+      (Array(Array(1, 2)), Array(-1)),
+      (Array(Array(1, 4), Array(2, 3), Array(3, 4)), Array(-1, 2, -1)),
+      (Array(Array(1, 4), Array(2, 3), Array(3, 3), Array(0, 4), Array(5, 5), Array(6, 7)), Array(4, 2, 2, 4, 4, -1)),
+    )
+
+    for (cond <- conditions) {
+      assert(findRightInterval(cond._1).toList == cond._2.toList)
+    }
+  }
+
   test("Kth Missing Positive Number") {
 
     val conditions: Array[(Array[Int], Int, Int)] = Array(

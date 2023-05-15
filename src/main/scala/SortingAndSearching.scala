@@ -213,6 +213,27 @@ object SortingAndSearching {
 
   }
 
+  def findRightInterval(intervals: Array[Array[Int]]): Array[Int] = {
+    val n = intervals.length
+    val sortedIntervals: Array[(Int, Int)] = intervals.zipWithIndex.map( tup => (tup._1(0), tup._2)).sortBy(_._1)
+    val res = Array.fill(n)(-1)
+    for (i <- 0 until n) {
+      var start_j = 0
+      var end_j = n - 1
+      val end_i = intervals(i)(1)
+      while (start_j <= end_j) {
+        val middle = (end_j - start_j) / 2 + start_j
+        if (sortedIntervals(middle)._1 >= end_i && (middle == 0 || sortedIntervals(middle - 1)._1 < end_i)) {
+          res(i) = sortedIntervals(middle)._2
+          start_j = end_j + 1
+        }
+        else if (sortedIntervals(middle)._1 > end_i) end_j = middle - 1
+        else start_j = middle + 1
+      }
+    }
+    res
+  }
+
   def findKthPositive(arr: Array[Int], k: Int): Int = {
     var (res, i) = (k, 0)
     while (i < arr.length && arr(i) <= res) {
