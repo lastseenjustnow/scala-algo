@@ -121,4 +121,28 @@ object LinkedLists {
     head
   }
 
+  def swapPairs(head: ListNode): ListNode = {
+    if (head == null || head.next == null) return head
+
+    var previous: ListNode = null
+    var current = head
+    var next = head.next
+    val res = next
+
+    while (current != null && next != null) {
+
+      // swap this pair links
+      current.next = next.next
+      next.next = current
+      if (previous != null) previous.next = next
+
+      // iterate
+      previous = current
+      current = current.next
+      if (current != null) next = current.next
+
+    }
+    res
+  }
+
 }
