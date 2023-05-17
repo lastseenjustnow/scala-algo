@@ -145,4 +145,30 @@ object LinkedLists {
     res
   }
 
+  def pairSum(head: ListNode): Int = {
+    var twinSum = -1
+    var stack: List[Int] = List()
+
+    var firstPointer = head
+    var secondPointer = head.next
+
+    // Add first half of the list into stack
+    while (secondPointer != null) {
+      stack = firstPointer.x +: stack
+      firstPointer = firstPointer.next
+      secondPointer = secondPointer.next
+      if (secondPointer != null) secondPointer = secondPointer.next
+    }
+
+    // Update max
+    while (firstPointer != null) {
+      twinSum = twinSum max (firstPointer.x + stack.head)
+      firstPointer = firstPointer.next
+      stack = stack.tail
+    }
+
+    twinSum
+
+  }
+
 }
