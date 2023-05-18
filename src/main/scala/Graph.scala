@@ -1,6 +1,7 @@
 import datastructure.graph.Node
 
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 object Graph {
   def validPathDFS(n: Int, edges: Array[Array[Int]], source: Int, destination: Int): Boolean = {
@@ -411,6 +412,33 @@ object Graph {
       visited(head) = true
     }
     if (visited.contains(false)) false else true
+  }
+
+  def findSmallestSetOfVertices(n: Int, edges: List[List[Int]]): List[Int] = {
+    val visited = Array.fill(n)(false)
+
+    val map: mutable.Map[Int, ArrayBuffer[Int]] = mutable.Map()
+    for (edge <- edges) {
+      map.getOrElseUpdate(edge.head, ArrayBuffer.empty) += edge(1)
+    }
+
+    val res = mutable.Set[Int]()
+
+    for (i <- 0 until n if !visited(i)) {
+      visited(i) = true
+      res += i
+      var stack = List(i)
+      while (stack.nonEmpty) {
+        val head = stack.head
+        visited(head) = true
+        stack = stack.tail
+        for (v <- map.getOrElse(head, ArrayBuffer.empty)) {
+          if (!visited(v)) stack = v +: stack
+          else if (res.contains(v)) res -= v
+        }
+      }
+    }
+    res.toList
   }
 
 }
