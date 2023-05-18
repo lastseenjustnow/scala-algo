@@ -349,6 +349,35 @@ object SortingAndSearching {
     -1
   }
 
+  def searchInRotatedArrayRecurisve(nums: Array[Int], target: Int): Int = {
+    @tailrec
+    def bs(left: Int, right: Int): Int = {
+      val middle = (right - left) / 2 + left
+      if (right < left) -1
+      else if (nums(middle) == target) middle
+      else if (nums(middle) > target) bs(left, middle - 1)
+      else bs(middle + 1, right)
+    }
+
+
+    @tailrec
+    def searchMin(left: Int, right: Int): Int = {
+      val middle = (right - left) / 2 + left
+      if (left > right) left
+      else if (nums(middle) <= nums(right) && (middle == 0 || nums(middle - 1) > nums(middle))) middle
+      else if (nums(middle) < nums(right)) searchMin(left, middle - 1)
+      else searchMin(middle + 1, right)
+    }
+
+    val n = nums.length
+    val arrMinIndex = searchMin(0, n - 1)
+
+    if (target == nums(n - 1)) n - 1
+    else if (target > nums(n - 1)) bs(0, arrMinIndex - 1)
+    else bs(arrMinIndex, n - 1)
+
+  }
+
   def findMin(nums: Array[Int]): Int = {
 
     if (nums.head < nums.last || nums.length == 1) return nums.head

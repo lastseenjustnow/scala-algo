@@ -322,6 +322,7 @@ class SortingAndSearchingTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(searchInRotatedArray(cond._1, cond._2) == cond._3)
+      assert(searchInRotatedArrayRecurisve(cond._1, cond._2) == cond._3)
     }
   }
 
