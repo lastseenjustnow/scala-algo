@@ -215,7 +215,7 @@ object SortingAndSearching {
 
   def findRightInterval(intervals: Array[Array[Int]]): Array[Int] = {
     val n = intervals.length
-    val sortedIntervals: Array[(Int, Int)] = intervals.zipWithIndex.map( tup => (tup._1(0), tup._2)).sortBy(_._1)
+    val sortedIntervals: Array[(Int, Int)] = intervals.zipWithIndex.map(tup => (tup._1(0), tup._2)).sortBy(_._1)
     val res = Array.fill(n)(-1)
     for (i <- 0 until n) {
       var start_j = 0
@@ -376,6 +376,23 @@ object SortingAndSearching {
     else if (target > nums(n - 1)) bs(0, arrMinIndex - 1)
     else bs(arrMinIndex, n - 1)
 
+  }
+
+  def findMinWithRepeats(nums: Array[Int]): Int = {
+    def bs(left: Int, right: Int): Int = {
+      println("left and right:" + left + ", " + right)
+      if (left > right || nums(left) < nums(right)) nums(left min right)
+      else {
+        val middle = (right - left) / 2 + left
+        if (middle == 0) nums(left) min nums(right)
+        else if (nums(middle - 1) > nums(middle)) nums(middle)
+        else if (nums(middle) < nums(right)) bs(left, middle - 1)
+        else if (nums(middle) > nums(right)) bs(middle + 1, right)
+        else bs(left, middle - 1) min bs(middle + 1, right)
+      }
+    }
+
+    bs(0, nums.length - 1)
   }
 
   def findMin(nums: Array[Int]): Int = {
