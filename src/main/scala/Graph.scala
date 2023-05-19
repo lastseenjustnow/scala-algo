@@ -441,4 +441,30 @@ object Graph {
     res.toList
   }
 
+  def isBipartite(graph: Array[Array[Int]]): Boolean = {
+    val n = graph.length
+    val visited = Array.fill(n)(false)
+    val numberArray = Array.fill(n)(-1)
+
+    while (visited.indexOf(false) != -1) {
+      val falseIndex = visited.indexOf(false)
+      var stack = List(falseIndex)
+      numberArray(falseIndex) = 0
+
+      while (stack.nonEmpty) {
+        val u = stack.head
+        stack = stack.tail
+        visited(u) = true
+        for (v <- graph(u)) {
+          if (numberArray(v) == numberArray(u)) return false
+          if (!visited(v)) {
+            stack = v +: stack
+            numberArray(v) = 1 - numberArray(u)
+          }
+        }
+      }
+    }
+    true
+  }
+
 }
