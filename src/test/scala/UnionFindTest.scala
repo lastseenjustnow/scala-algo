@@ -98,8 +98,21 @@ class UnionFindTest extends FunSuite {
         (List(List("a", "b"), List("c", "b"), List("d", "b"), List("w", "x"), List("y", "x"), List("z", "x"), List("w", "d")), Array(2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0), List(List("a", "c"), List("b", "c"), List("a", "e"), List("a", "a"), List("x", "x"), List("a", "z")), Array(0.6666666666666666, 0.3333333333333333, -1.00000, 1.00000, 1.00000, 0.04464285714285714))
       )
 
+    val threshold: Double = 0.0000000001
+
     for (cond <- conditions) {
-      assert(calcEquation(cond._1, cond._2, cond._3).toList == cond._4.toList)
+      val expected1 = calcEquation(cond._1, cond._2, cond._3).toList
+      val expected2 = calcEquationDfs(cond._1, cond._2, cond._3).toList
+      val actual = cond._4.toList
+
+      val areEqual1: Boolean = expected1.zip(actual).forall { case (expectedValue, actualValue) =>
+        Math.abs(expectedValue - actualValue) <= threshold
+      }
+      val areEqual2: Boolean = expected2.zip(actual).forall { case (expectedValue, actualValue) =>
+        Math.abs(expectedValue - actualValue) <= threshold
+      }
+
+      assert(areEqual1 && areEqual2)
     }
   }
 

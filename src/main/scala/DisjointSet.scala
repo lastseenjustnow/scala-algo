@@ -1,6 +1,7 @@
 import datastructure.graph.{QuickFind, QuickUnion}
 
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 object DisjointSet {
   def findCircleNum(isConnected: Array[Array[Int]]): Int = {
@@ -147,6 +148,39 @@ object DisjointSet {
       } else res = res :+ -1.0
     }
     res
+  }
+
+  def calcEquationDfs(equations: List[List[String]], values: Array[Double], queries: List[List[String]]): Array[Double] = {
+    val map: mutable.Map[String, ArrayBuffer[(String, Double)]] = mutable.Map()
+    for (e <- equations.zip(values)) {
+      map.getOrElseUpdate(e._1.head, ArrayBuffer.empty) += ((e._1(1), e._2))
+      map.getOrElseUpdate(e._1(1), ArrayBuffer.empty) += ((e._1.head, 1 / e._2))
+    }
+
+    val res: ArrayBuffer[Double] = ArrayBuffer.empty
+    for (q <- queries) {
+      var found = false
+      val one = if (map.contains(q.head)) 1 else -1
+      var stack: List[(String, Double)] = List((q.head, one))
+      val visited: mutable.Set[String] = mutable.Set()
+      while (stack.nonEmpty) {
+        val head = stack.head
+        stack = stack.tail
+        visited += head._1
+        if (head._1 == q(1)) {
+          found = true
+          res += head._2
+          stack = List()
+        } else {
+          for (node <- map.getOrElse(head._1, ArrayBuffer.empty) if !visited.contains(node._1)) {
+            stack = (node._1, head._2 * node._2) +: stack
+          }
+        }
+      }
+      if (!found) res += -1
+      found = false
+    }
+    res.toArray
   }
 
   def minCostToSupplyWaterKruskal(n: Int, wells: Array[Int], pipes: Array[Array[Int]]): Int = {
