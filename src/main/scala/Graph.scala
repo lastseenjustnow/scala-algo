@@ -467,4 +467,42 @@ object Graph {
     true
   }
 
+  def shortestBridge(grid: Array[Array[Int]]): Int = {
+    val n = grid.length
+    val visited: Array[Array[Int]] = Array.fill(n)(Array.fill(n)(0))
+
+    def neighbors(x: Int, y: Int): List[(Int, Int)] = {
+      val res = List((x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1))
+      res.filter(t => t._1 >= 0 && t._1 < n && t._2 >= 0 && t._2 < n)
+    }
+
+    // find first island
+    val yFirst: Int = grid.indexWhere(arr => arr.contains(1))
+    val xFirst: Int = grid(yFirst).indexWhere(elem => elem == 1)
+
+    var queue: List[(Int, Int, Int)] = List((xFirst, yFirst, 0))
+    visited(yFirst)(xFirst) = 1
+    var i = 0
+
+    // Breadth first search
+    while (queue.nonEmpty) {
+      val head = queue.head
+      queue = queue.tail
+
+      val nbVals: List[(Int, Int, Int, Int)] =
+        neighbors(head._1, head._2)
+          .map(c => (c._1, c._2, grid(c._2)(c._1), visited(c._2)(c._1)))
+          .filter(_._4 != 1)
+
+      for (el <- nbVals) {
+        visited(el._2)(el._1) = 1
+        if (el._3 == 1 && head._3 != 0) return head._3
+        else if (el._3 == 1) queue = (el._1, el._2, 0) +: queue
+        else queue = queue :+ (el._1, el._2, head._3 + 1)
+      }
+      i += 1
+    }
+    -1
+  }
+
 }
