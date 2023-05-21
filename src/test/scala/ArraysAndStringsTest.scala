@@ -256,6 +256,7 @@ class ArraysAndStringsTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(isValid(cond._1) == cond._2)
+      assert(isValidRec(cond._1) == cond._2)
     }
   }
 

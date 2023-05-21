@@ -1,5 +1,7 @@
 package matrices
 
+import scala.annotation.tailrec
+
 object Matrices {
   def gameOfLifeNaive(board: Array[Array[Int]]): Unit = {
     /** Naive solution.
@@ -119,6 +121,25 @@ object Matrices {
       else left = mid + 1
     }
     false
+  }
+
+  def searchMatrix2DRec(matrix: Array[Array[Int]], target: Int): Boolean = {
+
+    val m = matrix.head.length
+    val n = matrix.length
+
+    @tailrec
+    def bs(left: Int, right: Int): Boolean = {
+      if (left > right) false
+      else {
+        val middle = (right - left) / 2 + left
+        val midElem = matrix(middle / m)(middle % m)
+        if (midElem == target) true
+        else if (midElem > target) bs(left, middle - 1)
+        else bs(middle + 1, right)
+      }
+    }
+    bs(0, m * n - 1)
   }
 
   def minimumAverageDifference(nums: Array[Int]): Int = {

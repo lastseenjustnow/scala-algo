@@ -68,6 +68,7 @@ class MatricesTest extends FunSuite {
 
     for (cond <- conditions) {
       assert(searchMatrix(cond._1, cond._2) == cond._3)
+      assert(searchMatrix2DRec(cond._1, cond._2) == cond._3)
     }
   }
 

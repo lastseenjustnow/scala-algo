@@ -410,6 +410,20 @@ object ArraysAndStrings {
     if (stack.nonEmpty) false else flag
   }
 
+  def isValidRec(s: String): Boolean = {
+    val map: Map[Char, Char] = Map(']' -> '[', ')' -> '(', '}' -> '{')
+
+    @tailrec
+    def rec(st: List[Char], str: String): Boolean = {
+      if (str.isEmpty) st.isEmpty
+      else if (map.contains(str.head) && (st.isEmpty || st.head != map(str.head))) false
+      else if (!map.contains(str.head)) rec(str.head +: st, str.tail)
+      else rec(st.tail, str.tail)
+    }
+
+    rec(List(), s)
+  }
+
   def replaceElements(arr: Array[Int]): Array[Int] = {
     var globalMax = -1
     for (i <- arr.length - 1 to 0 by -1) {
