@@ -35,9 +35,9 @@ class BiweeklyContest106Test extends FunSuite {
 
   test("Problem 3") {
     val conditions: Array[(Array[Int], String, Int, Int)] = Array(
-//      (Array(-2, 0, 2), "RLL", 3, 8),
-//      (Array(1, 0), "RL", 2, 5),
-//      (Array(1, 0, 2), "RLR", 2, 12),
+      (Array(-2, 0, 2), "RLL", 3, 8),
+      (Array(1, 0), "RL", 2, 5),
+      (Array(1, 0, 2), "RLR", 2, 12),
       (Array(1, 4, 10, 16), "RLRR", 0, 51),
     )
 

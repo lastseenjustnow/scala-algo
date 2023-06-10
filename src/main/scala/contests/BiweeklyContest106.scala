@@ -1,6 +1,6 @@
 package contests
 
-import scala.collection.mutable
+import scala.math.BigDecimal
 
 object BiweeklyContest106 {
   def problem1(n: Int): Boolean = {
@@ -30,16 +30,18 @@ object BiweeklyContest106 {
 
   def sumDistance(nums: Array[Int], s: String, d: Int): Int = {
 
-    def performCommand(pos: Int, c: Char): Int = if (c == 'R') pos + 1 else pos - 1
+    def performCommand(pos: BigDecimal, c: Char): BigDecimal = if (c == 'R') pos + d else pos - d
 
-    for (_ <- 1 to d; robotNumber <- nums.indices) {
-      nums(robotNumber) = performCommand(nums(robotNumber), s(robotNumber))
+    val numsBig = nums.map(x => BigDecimal(x))
+
+    for (robotNumber <- nums.indices) {
+      numsBig(robotNumber) = performCommand(numsBig(robotNumber), s(robotNumber))
     }
 
-    val numsSortedWithIndex = nums.sorted.zipWithIndex
+    val numsSortedWithIndex = numsBig.sorted.zipWithIndex
 
-    var cumSum = 0
-    var diffSum = 0
+    var cumSum = BigDecimal(0)
+    var diffSum = BigDecimal(0)
 
     for (t <- numsSortedWithIndex) {
       diffSum += t._1 * t._2 - cumSum
