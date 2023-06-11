@@ -1207,5 +1207,24 @@ object DynamicProgramming {
 
   }
 
+  def mincostTickets(days: Array[Int], costs: Array[Int]): Int = {
+    var arr: Array[Double] = Array.fill(30)(Double.PositiveInfinity)
+    arr(0) = 0
+    val n = days.length
+    val map = Map(0 -> 0, 6 -> 1, 29 -> 2)
+
+    for (travelDayNumber <- 0 until n) {
+      val newArr = arr.clone()
+      for (validity <- 0 to 29) {
+        val daysDiff = if (travelDayNumber == 0) Int.MaxValue else days(travelDayNumber) - days(travelDayNumber - 1)
+        val previousBuyValidity: Double = if (daysDiff == Int.MaxValue || validity + daysDiff > 29) Double.PositiveInfinity else arr(validity + daysDiff)
+        val thisDayBuyTicket = if (map.contains(validity)) arr.min + costs(map(validity)) else Double.PositiveInfinity
+        newArr(validity) = previousBuyValidity min thisDayBuyTicket
+      }
+      arr = newArr.clone()
+    }
+    arr.min.toInt
+  }
+
 
 }

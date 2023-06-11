@@ -32,4 +32,39 @@ class DesignTest extends FunSuite {
     metro.checkOut(10,"Waterloo",38)
     assert(metro.getAverageTime("Leyton","Waterloo") == 12)
   }
+
+  test("Snapshot Array") {
+    val instance = new SnapshotArray(4)
+    instance.set(0, 5)
+    instance.snap()
+    instance.set(0, 6)
+    assert(instance.get(0, 0) == 5)
+    instance.set(0, 12)
+    assert(instance.get(0, 1) == 12)
+    assert(instance.get(0, 15) == 12)
+
+    val instance2 = new SnapshotArray(4)
+    instance2.snap()
+    instance2.snap()
+    assert(instance2.get(3, 1) == 0)
+    instance2.set(2, 4)
+    instance2.snap()
+    instance2.set(1, 4)
+    assert(instance2.get(3, 2) == 0)
+    assert(instance2.get(1, 2) == 0)
+    assert(instance2.get(1, 3) == 4)
+
+    val instance3 = new SnapshotArray(2)
+    instance3.snap()
+    assert(instance3.get(1, 0) == 0)
+    assert(instance3.get(0, 0) == 0)
+    instance3.set(1, 8)
+    assert(instance3.get(1, 0) == 0)
+    instance3.set(0, 20)
+    assert(instance3.get(0, 0) == 0)
+    instance3.set(0, 7)
+    assert(instance3.get(0, 0) == 0)
+    assert(instance3.get(0, 1) == 7)
+  }
+
 }

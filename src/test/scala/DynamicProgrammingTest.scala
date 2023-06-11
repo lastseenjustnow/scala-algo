@@ -646,5 +646,18 @@ class DynamicProgrammingTest extends FunSuite {
     }
   }
 
+  test("Minimum Cost For Tickets") {
+    val conditions: Array[(Array[Int], Array[Int], Int)] = Array(
+      (Array(1, 4, 6, 7, 8, 20), Array(2, 7, 15), 11),
+      (Array(1, 4, 6, 7, 8, 20), Array(7, 2, 15), 6),
+      (Array(1, 5, 8, 9, 10, 12, 13, 16, 17, 18, 19, 20, 23, 24, 29), Array(3, 12, 54), 39),
+      (Array(1, 5, 8, 9, 10, 12, 13, 16, 17, 18, 19, 20), Array(3, 12, 54), 30)
+    )
+
+    for (cond <- conditions) {
+      assert(mincostTickets(cond._1, cond._2) == cond._3)
+    }
+  }
+
 
 }
