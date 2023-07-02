@@ -1,7 +1,7 @@
 package contests
 
 import contests.BiweeklyContest106._
-import org.scalatest.{FunSuite, color}
+import org.scalatest.FunSuite
 
 class BiweeklyContest106Test extends FunSuite {
   test("Problem 1") {
