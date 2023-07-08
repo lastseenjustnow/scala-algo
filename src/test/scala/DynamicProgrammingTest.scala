@@ -659,5 +659,16 @@ class DynamicProgrammingTest extends FunSuite {
     }
   }
 
+  test("Put Marbles in Bags") {
+    val conditions: Array[(Array[Int], Int, Long)] = Array(
+      (Array(1, 3, 5, 1), 2, 4),
+      (Array(1, 3), 2, 0)
+    )
+
+    for (cond <- conditions) {
+      assert(putMarbles(cond._1, cond._2) == cond._3)
+    }
+  }
+
 
 }

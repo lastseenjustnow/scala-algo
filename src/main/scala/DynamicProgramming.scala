@@ -1227,4 +1227,28 @@ object DynamicProgramming {
   }
 
 
+  def putMarbles(weights: Array[Int], k: Int): Long = {
+    def findMin(i: Int, thisK: Int, thisDist: Int): Int = {
+      if (thisK == 1) {
+        val last = weights(i) + weights(weights.length - 1)
+        thisDist + last
+      } else (i + 1 until weights.length - thisK + 2).map(
+        index => findMin(index, thisK - 1, thisDist + (weights(i) + weights(index - 1)))
+      ).min
+    }
+
+    def findMax(i: Int, thisK: Int, thisDist: Int): Int = {
+      if (thisK == 1) {
+        val last = weights(i) + weights(weights.length - 1)
+        thisDist + last
+      } else (i + 1 until weights.length - thisK + 2).map(
+        index => findMax(index, thisK - 1, thisDist + (weights(i) + weights(index - 1)))
+      ).max
+    }
+
+    val resMin = findMin(0, k, 0)
+    val resMax = findMax(0, k, 0)
+    resMax - resMin
+  }
+
 }
